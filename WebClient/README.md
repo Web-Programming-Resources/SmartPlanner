@@ -1,8 +1,13 @@
-# webclient
 
-> A Vue.js webclient for SmartPlanner project
+> A Vue.js web client for the Smart Planner project
 
-## Build Setup
+## Running in developers mode
+To see live preview of the webpage follow below steps:
+1. Open command prompt in this directory
+2. Execute `npm run dev`
+3. open http://localhost:8080/ in your browser
+
+## Build options
 
 ``` bash
 # install dependencies
@@ -14,5 +19,3 @@ npm run dev
 # build for production with minification
 npm run build
 ```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
