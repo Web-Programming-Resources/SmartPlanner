@@ -1,3 +1,4 @@
+# Web Client
 
 > A Vue.js web client for the Smart Planner project
 
