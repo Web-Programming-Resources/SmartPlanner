@@ -2,7 +2,7 @@
 
 > A Vue.js web client for the Smart Planner project
 
-## Instalation
+## Installation
 1. Install node.js 8.12.0 (https://nodejs.org/en/)
 
 ## Running in developers mode
