@@ -8,7 +8,8 @@
 ## Running in developers mode
 To see live preview of the webpage follow below steps:
 1. Open command prompt in this directory
-2. Execute `npm run dev`
+2. To start the dev server execute `npm run dev`
+3. If any packages are missing execute  `npm install` and againt `npm run dev`
 3. open http://localhost:8080/ in your browser
 
 ## Build options
