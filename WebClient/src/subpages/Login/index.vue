@@ -38,7 +38,7 @@ export default {
     }
   },
   created() {
-      this.switchLanguage(this.language);
+      this.chooseLanguage(this.language);
   },
   computed: {
     language() {
@@ -47,11 +47,11 @@ export default {
   },
   watch: {
     language (newVal, oldVal) {
-      this.switchLanguage(newVal);
+      this.chooseLanguage(newVal);
     }
   },
   methods: {
-    switchLanguage(lang) {
+    chooseLanguage(lang) {
       switch(lang) {
         case "pl":
               this.form.headers.username = "Nazwa Użytkownika";
