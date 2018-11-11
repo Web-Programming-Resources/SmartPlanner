@@ -11,7 +11,7 @@ export default new Vuex.Store({
           token: "",
       },
       appData: {
-          language: "pl"
+          language: ""
       }
   },
   getters: {
@@ -27,7 +27,7 @@ export default new Vuex.Store({
           state.user.token = "";
           state.user.username = "";
       },
-      changeLanguage(state, language) {
+      setLanguage(state, language) {
           state.appData.language = language;
       }
   }

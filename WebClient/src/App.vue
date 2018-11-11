@@ -6,8 +6,8 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item v-if="isAuthenticated" active-class="active font-weight-bold" @click="logout()">Logout</b-nav-item>
         <b-nav-item-dropdown v-bind:text="$store.getters.language" right>
-          <b-dropdown-item v-on:click="$store.commit('changeLanguage', 'pl')">pl</b-dropdown-item>
-          <b-dropdown-item v-on:click="$store.commit('changeLanguage', 'en')">en</b-dropdown-item>
+          <b-dropdown-item v-on:click="$store.commit('setLanguage', 'pl')">pl</b-dropdown-item>
+          <b-dropdown-item v-on:click="$store.commit('setLanguage', 'en')">en</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-navbar>
@@ -30,6 +30,9 @@ export default {
     isAuthenticated() {
       return this.$store.getters.isAuthenticated;
     }
+  },
+  created() {
+    this.$store.commit('setLanguage', 'pl');
   },
   methods: {
     logout() {
