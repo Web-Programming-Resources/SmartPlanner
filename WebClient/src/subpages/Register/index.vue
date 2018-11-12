@@ -36,7 +36,7 @@
                     </tr>
                     <tr>
                         <th>
-                            <b-alert :show="showAlert" variant="danger">{{this.form.headers.wrongEmail}}</b-alert>
+                            <b-alert :show="alert.show" variant="danger">{{alert.msg}}</b-alert>
                         </th>
                         <td class="text-right">
                             <b-button type="submit" variant="primary">{{form.headers.registerButton}}</b-button>
@@ -57,28 +57,32 @@ export default {
   data() {
     return {
         passwordType:'password',
-        showAlert: false,
-        errorMsg: '',
-      form: {
-        inputs: {
-          username: '',
-          password: '',
-          confirmPassword:'',
-          email:''
+
+        form: {
+            inputs: {
+            username: '',
+            password: '',
+            confirmPassword:'',
+            email:''
+            },
+            headers: {
+            username: '',
+            enterUsername: '',
+            password: '',
+            email: '',
+            enterEmail:'',
+            enterPassword: '',
+            loginButton: '',
+            registerButton:'',
+            emptyInput: '',
+            wrongEmail: '',
+            wrongPassword: ''
+            }
         },
-        headers: {
-          username: '',
-          enterUsername: '',
-          password: '',
-          email: '',
-          enterEmail:'',
-          enterPassword: '',
-          loginButton: '',
-          registerButton:'',
-          emptyInput: '',
-          wrongEmail: ''
+        alert: {
+            show: false,
+            msg: '',
         }
-      },
     }
   },
   mounted() {
@@ -91,7 +95,7 @@ export default {
         if (event) evt.preventDefault();
         if(this.validateInputs())
         {
-            this.showAlert = false;
+            this.alert.show = false;
             //TODO sk: change when databese will be ready
             this.$root.$data.username = this.form.inputs.username;
             this.$root.$data.password = this.form.inputs.password;
@@ -99,12 +103,19 @@ export default {
         }
         else
         {
-            this.showAlert = true;
+            this.alert.show = true;
         }
 
     },
     validateInputs() {
-        return this.validateEmail(this.form.inputs.email);
+        if(this.form.inputs.password != this.form.inputs.confirmPassword) {
+            this.alert.msg = this.form.headers.wrongPassword;
+            return false;
+        } else if(!this.validateEmail(this.form.inputs.email)) {
+            this.alert.msg = this.form.headers.wrongEmail;
+            return false;
+        }
+        return true;
     },
     validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -123,6 +134,7 @@ export default {
             this.form.headers.registerButton = "Zarejestruj";
             this.form.headers.emptyInput = "Uzupełnij to pole.";
             this.form.headers.wrongEmail = "Nieprawidłowy adres email.";
+            this.form.headers.wrongPassword = "Hasła nie są takie same."
         break;
         case "en":
             this.form.headers.username = "Username";
@@ -135,6 +147,7 @@ export default {
             this.form.headers.registerButton = "Register";
             this.form.headers.emptyInput = "Fill this field.";
             this.form.headers.wrongEmail = "Incorrect email address.";
+            this.form.headers.wrongPassword = "Passwords are different.";
         default:
         break;
       }

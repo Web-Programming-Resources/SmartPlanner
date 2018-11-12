@@ -20,7 +20,7 @@
                 <b-button variant="link" class="float-right" @click="drawModal" v-b-modal.register>{{form.headers.registerButton}}</b-button>
             </b-form>
           </b-card>
-          <b-alert class="mt-2" dismissible fade :show="alert.dismissCountDown" :variant="alert.type" @dismissed="alert.dismissCountDown=0" @dismiss-count-down="countDownChanged">{{this.alert.type == "success" ? this.alert.createdUser : this.alert.badLogin}}</b-alert>
+          <b-alert class="mt-2" dismissible fade :show="alert.dismissCountDown" :variant="alert.type" @dismissed="alert.dismissCountDown=0" @dismiss-count-down="countDownChanged">{{this.alert.msg}}</b-alert>
         </b-col>
       </b-row>
     </b-container>
@@ -49,15 +49,16 @@ export default {
           enterPassword: '',
           loginButton: '',
           registerButton:'',
-          errorMsg: ''
+          errorMsg: '',
+          createdUser: '',
+          badLogin: ''
         }
       },
       alert: {
         dismissCountDown: 0,
         dismissSecs: 3,
         type: '',
-        createdUser: '',
-        badLogin: ''
+        msg: '',
       }
     }
   },
@@ -88,8 +89,8 @@ export default {
               this.form.headers.loginButton = "Zaloguj";
               this.form.headers.registerButton = "Zarejestruj";
               this.form.headers.emptyInput = "Uzupełnij to pole.";
-              this.alert.createdUser = "Utworzono użytkownika.";
-              this.alert.badLogin = "Błędna nazwa użytkownika lub hasło.";
+              this.form.headers.createdUser = "Utworzono użytkownika.";
+              this.form.headers.badLogin = "Błędna nazwa użytkownika lub hasło.";
         break;
         case "en":
               this.form.headers.username = "Username";
@@ -99,8 +100,8 @@ export default {
               this.form.headers.loginButton = "Login";
               this.form.headers.registerButton = "Register";
               this.form.headers.emptyInput = "Fill this field.";
-              this.alert.createdUser = "User created succesfully.";
-              this.alert.badLogin = "Wrong username or password.";
+              this.form.headers.createdUser = "User created succesfully.";
+              this.form.headers.badLogin = "Wrong username or password.";
         default:
         break;
       }
@@ -121,6 +122,7 @@ export default {
       else
       {
         this.alert.type = "danger";
+        this.alert.msg = this.form.headers.badLogin;
         this.alert.dismissCountDown = this.alert.dismissSecs;
       }
     },
@@ -128,6 +130,7 @@ export default {
     onRegistered() {
       this.$refs.registerModalRef.hide();
       this.alert.type = "success";
+      this.alert.msg = this.form.headers.createdUser;
       this.alert.dismissCountDown = this.alert.dismissSecs;
     },
 
