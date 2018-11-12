@@ -23,7 +23,10 @@
 export default {
   data() {
     return {
-      lang: String
+      lang: String,
+      //TODO sk: remove when database will be ready
+      username: '',
+      password: '',
     }
   },
   computed: {
@@ -43,7 +46,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="css">
   .footer {
     font-style: italic;
     opacity: 0.25;
