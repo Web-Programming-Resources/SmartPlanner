@@ -4,6 +4,7 @@
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <b-navbar-brand :to="{path: '/'}">Smart Planner</b-navbar-brand>
       <b-navbar-nav class="ml-auto">
+        <b-nav-item v-if="isAuthenticated" active-class="active font-weight-bold" :to="{path:'/'}">{{navbar.headers.myPlans}}</b-nav-item>
         <b-nav-item v-if="isAuthenticated" active-class="active font-weight-bold" @click="logout()">{{navbar.headers.logout}}</b-nav-item>
         <b-nav-item-dropdown v-bind:text="$store.getters.language" right>
           <b-dropdown-item v-on:click="chooseLanguage('pl')">pl</b-dropdown-item>
@@ -27,7 +28,8 @@ export default {
       {
         headers:
         {
-          logout: ""
+          logout: "",
+          myPlans: "",
         }
       },
       //TODO sk: remove when database will be ready
@@ -48,10 +50,12 @@ export default {
       this.$store.commit('setLanguage', lang);
       switch(lang) {
         case "pl":
-          this.navbar.headers.logout = "wyloguj";
+          this.navbar.headers.logout = "Wyloguj";
+          this.navbar.headers.myPlans = "Moje Plany";
         break;
         case "en":
-          this.navbar.headers.logout = "logout";
+          this.navbar.headers.logout = "Logout";
+          this.navbar.headers.myPlans = "My Plans";
         break;
       }
     },

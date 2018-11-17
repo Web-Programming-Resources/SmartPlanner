@@ -1,5 +1,5 @@
 import Login from './subpages/Login/'
-import Planner from './subpages/Planner/'
+import MyPlans from './subpages/MyPlans/'
 
 export const routes = [
     {
@@ -8,6 +8,6 @@ export const routes = [
     },
     {
         path: '/',
-        component: Planner
+        component: MyPlans
     }
 ]
