@@ -4,10 +4,10 @@
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <b-navbar-brand :to="{path: '/'}">Smart Planner</b-navbar-brand>
       <b-navbar-nav class="ml-auto">
-        <b-nav-item v-if="isAuthenticated" active-class="active font-weight-bold" @click="logout()">Logout</b-nav-item>
+        <b-nav-item v-if="isAuthenticated" active-class="active font-weight-bold" @click="logout()">{{navbar.headers.logout}}</b-nav-item>
         <b-nav-item-dropdown v-bind:text="$store.getters.language" right>
-          <b-dropdown-item v-on:click="$store.commit('setLanguage', 'pl')">pl</b-dropdown-item>
-          <b-dropdown-item v-on:click="$store.commit('setLanguage', 'en')">en</b-dropdown-item>
+          <b-dropdown-item v-on:click="chooseLanguage('pl')">pl</b-dropdown-item>
+          <b-dropdown-item v-on:click="chooseLanguage('en')">en</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-navbar>
@@ -23,7 +23,13 @@
 export default {
   data() {
     return {
-      lang: String,
+      navbar:
+      {
+        headers:
+        {
+          logout: ""
+        }
+      },
       //TODO sk: remove when database will be ready
       username: '',
       password: '',
@@ -35,9 +41,20 @@ export default {
     }
   },
   created() {
-    this.$store.commit('setLanguage', 'pl');
+    this.chooseLanguage('pl');
   },
   methods: {
+    chooseLanguage(lang) {
+      this.$store.commit('setLanguage', lang);
+      switch(lang) {
+        case "pl":
+          this.navbar.headers.logout = "wyloguj";
+        break;
+        case "en":
+          this.navbar.headers.logout = "logout";
+        break;
+      }
+    },
     logout() {
       this.$store.commit("logout");
       this.$root.$router.push({path: "/Login"});
