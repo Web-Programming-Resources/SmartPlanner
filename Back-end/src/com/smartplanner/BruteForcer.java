@@ -5,31 +5,47 @@ import java.util.ArrayList;
 public class BruteForcer
 {
     private ArrayList<Activity> activities;
-    private int indexes[];
+    private int termIndexes[];
     private boolean hasFinished=false;
+    private int maxDaysInCycle;
 
-    public BruteForcer(ArrayList<Activity> activities)
+    public BruteForcer(ArrayList<Activity> activities, int maxDaysInCycle)
     {
+        this.maxDaysInCycle=maxDaysInCycle;
         this.activities=activities;
-        this.indexes = new int[activities.size()];
+        this.termIndexes = new int[activities.size()];
 
-        for(int index : indexes)
+        for(int index : termIndexes)
             index=0;
     }
 
-    boolean isNext()
+    public boolean isNext()
     {
         return !hasFinished;
     }
 
-    ArrayList<TimetableEntry> getNext()
+    public ArrayList<TimetableEntry> getNext()
     {
         ArrayList<TimetableEntry> possibleTimeTable = new ArrayList<TimetableEntry>();
 
-        for (int act = 0; act < activities.size(); ++act) {
-            ArrayList<Term> terms = activities.get(act).getTerms();
-            Term term = terms.get(indexes[act]);
-            possibleTimeTable.add(new TimetableEntry(activities.get(act).getID(), term));
+        for (int actIndx = 0; actIndx < activities.size(); ++actIndx)
+        {
+            ArrayList<Term> currActTerms = activities.get(actIndx).getTerms();
+
+
+            Term firstTerm = currActTerms.get(termIndexes[actIndx]);
+
+
+            final int REPEAT_EVERY=7;
+            for(int i =0; ; ++i)//add repeats in cycle
+            {
+                int nextRepeatDay=firstTerm.getNumberOfCycleDay() + i*REPEAT_EVERY;
+                if(nextRepeatDay>maxDaysInCycle)
+                    break;
+
+                Term nextTerm=new Term(firstTerm.getLengthInMin(), nextRepeatDay);
+                possibleTimeTable.add(new TimetableEntry(activities.get(actIndx).getID(), nextTerm));
+            }
         }
 
         nextSet();
@@ -38,10 +54,19 @@ public class BruteForcer
     }
 
     private void nextSet() {
+        ++termIndexes[0];
 
+        for(int activityIndex=0; activityIndex+1<termIndexes.length; ++activityIndex)
+        {
+            if(termIndexes[activityIndex]>=activities.get(activityIndex).getTerms().size())
+            {
+                termIndexes[activityIndex]=0;
+                ++termIndexes[activityIndex+1];
+            }
+        }
 
-
-
-        //TODO: after reaching max it should set flag hasFinished to true
+        int lastActivityIndex=termIndexes.length-1;
+        if(termIndexes[lastActivityIndex]>activities.get(lastActivityIndex).getTerms().size())
+            hasFinished=true;
     }
 }

@@ -20,7 +20,8 @@ public class SmartPlanner
 
     ArrayList<TimetableEntry> calculate()
     {
-        validateActivities() //TODO: check if fits in cycleLength
+        //TODO might be used later
+        /*        validateActivities() //TODO: check if fits in cycleLength
         int maxTimeSpentOnOptimizedActivity=0;
         ArrayList<TimetableEntry> bestTimeTable=null;
 
@@ -42,7 +43,9 @@ public class SmartPlanner
             }
         }
 
-        return bestTimeTable;
+        return bestTimeTable;*/
+
+        return null;
 
     }
 
