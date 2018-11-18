@@ -2,6 +2,8 @@ package com.smartplanner;
 
 import java.util.ArrayList;
 
+
+//TODO: make cleanup
 public class BruteForcer
 {
     private ArrayList<Activity> activities;
@@ -66,7 +68,7 @@ public class BruteForcer
         }
 
         int lastActivityIndex=termIndexes.length-1;
-        if(termIndexes[lastActivityIndex]>activities.get(lastActivityIndex).getTerms().size())
+        if(termIndexes[lastActivityIndex]>=activities.get(lastActivityIndex).getTerms().size())
             hasFinished=true;
     }
 }
