@@ -45,7 +45,7 @@ public class BruteForcer
                 if(nextRepeatDay>maxDaysInCycle)
                     break;
 
-                Term nextTerm=new Term(firstTerm.getLengthInMin(), nextRepeatDay);
+                Term nextTerm=new Term(firstTerm.getLengthInMin(), nextRepeatDay, firstTerm.getStartTime());
                 possibleTimeTable.add(new TimetableEntry(activities.get(actIndx).getID(), nextTerm));
             }
         }
@@ -60,7 +60,8 @@ public class BruteForcer
 
         for(int activityIndex=0; activityIndex+1<termIndexes.length; ++activityIndex)
         {
-            if(termIndexes[activityIndex]>=activities.get(activityIndex).getTerms().size())
+            int qntOfTermsForCurrActivity=activities.get(activityIndex).getTerms().size();
+            if(termIndexes[activityIndex]>=qntOfTermsForCurrActivity)
             {
                 termIndexes[activityIndex]=0;
                 ++termIndexes[activityIndex+1];

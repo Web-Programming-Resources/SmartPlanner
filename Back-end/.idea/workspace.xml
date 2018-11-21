@@ -3,11 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="5f0757bc-d8ab-4c3d-a847-afc9ccf6376c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-end.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Back-end.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Back-end/Activity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Back-end/SmartPlanner.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Back-end/TimeDistanceManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Back-end/com/smartplanner/BruteForcer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Back-end/com/smartplanner/BruteForcer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Back-end/com/smartplanner/Term.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Back-end/com/smartplanner/Term.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Back-end/com/smartplanner/TimetableEntry.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Back-end/com/smartplanner/TimetableEntry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/Back-end/com/smartplanner/BruteForcerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/Back-end/com/smartplanner/BruteForcerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/Back-end/tests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/smartplanner/BruteForcer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/smartplanner/BruteForcer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/smartplanner/SmartPlanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/smartplanner/SmartPlanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/smartplanner/Term.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/smartplanner/Term.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/smartplanner/TimetableEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/smartplanner/TimetableEntry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/com/smartplanner/BruteForcerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/com/smartplanner/BruteForcerTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,6 +20,14 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/Back_end$BruteForcerTest_getNextReturnsAllPossibletimeTables.ic" NAME="BruteForcerTest.getNextReturnsAllPossibletimeTables Coverage Results" MODIFIED="1542828542999" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.smartplanner.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="241" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="555774948">
@@ -51,28 +64,32 @@
     <session id="-1192616179">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="6" />
+          <entry key="class" value="4" />
+          <entry key="java" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="6" />
+          <entry key="CLASS" value="4" />
+          <entry key="JAVA" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="57" />
+          <entry key="java" value="2347" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="57" />
+          <entry key="JAVA" value="2347" />
         </counts>
       </usages-collector>
     </session>
@@ -80,51 +97,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/smartplanner/SmartPlanner.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/smartplanner/BruteForcer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
-              <folding>
-                <element signature="e#429#430#0" expanded="true" />
-                <element signature="e#464#465#0" expanded="true" />
-                <element signature="e#580#596#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/smartplanner/TimetableEntry.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/smartplanner/Term.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            <state relative-caret-position="425">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
             </state>
           </provider>
         </entry>
@@ -139,15 +115,31 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testSrc/com/smartplanner/BruteForcerTest.java">
+        <entry file="file://$PROJECT_DIR$/src/com/smartplanner/BruteForcer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+            <state relative-caret-position="779">
+              <caret line="63" selection-start-line="63" selection-end-line="63" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#190#191#0" expanded="true" />
-                <element signature="e#229#230#0" expanded="true" />
+                <element signature="e#724#740#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/com/smartplanner/BruteForcerTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="356">
+              <caret line="115" column="9" lean-forward="true" selection-start-line="115" selection-start-column="9" selection-end-line="115" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/smartplanner/Term.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="320">
+              <caret line="34" selection-start-line="34" selection-end-line="34" />
             </state>
           </provider>
         </entry>
@@ -165,6 +157,10 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>numberOfCycleDay</find>
+      <find>entries</find>
+      <find>timeTableShouldBe</find>
+      <find>++</find>
+      <find>==</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -179,13 +175,15 @@
         <option value="$PROJECT_DIR$/src/TimeDistanceManager.java" />
         <option value="$PROJECT_DIR$/src/SmartPlanner.java" />
         <option value="$PROJECT_DIR$/src/TimetableEntry.java" />
-        <option value="$PROJECT_DIR$/src/com/smartplanner/TimetableEntry.java" />
         <option value="$PROJECT_DIR$/src/com/smartplanner/Activity.java" />
-        <option value="$PROJECT_DIR$/src/com/smartplanner/BruteForcer.java" />
         <option value="$PROJECT_DIR$/src/tests.java" />
         <option value="$PROJECT_DIR$/testSrc/com/smartplanner/BruteForcerTest.java" />
-        <option value="$PROJECT_DIR$/src/com/smartplanner/SmartPlanner.java" />
         <option value="$PROJECT_DIR$/testSrc/tests.java" />
+        <option value="$PROJECT_DIR$/src/com/smartplanner/SmartPlanner.java" />
+        <option value="$PROJECT_DIR$/src/com/smartplanner/Term.java" />
+        <option value="$PROJECT_DIR$/src/com/smartplanner/TimetableEntry.java" />
+        <option value="$PROJECT_DIR$/src/com/smartplanner/BruteForcer.java" />
+        <option value="$PROJECT_DIR$/tests/com/smartplanner/BruteForcerTest.java" />
       </list>
     </option>
   </component>
@@ -201,50 +199,12 @@
     <option name="width" value="1616" />
     <option name="height" value="876" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Back-end" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Back-end" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Back-end" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Back-end" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="smartplanner" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Back-end" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="testSrc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Back-end" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Back-end" type="462c0819:PsiDirectoryNode" />
-              <item name="testSrc" type="462c0819:PsiDirectoryNode" />
-              <item name="smartplanner" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="Downloaded.Files.Path.Enabled" value="false" />
@@ -252,7 +212,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541692260926" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542829543780" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -288,15 +248,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="TestNG.tests.testCreate">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="Back-end" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BruteForcerTest.name" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.BruteForcerTest.getNextReturnsAllPossibletimeTables">
+    <configuration name="BruteForcerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Back-end" />
       <extension name="coverage">
         <pattern>
@@ -306,7 +259,37 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.smartplanner" />
       <option name="MAIN_CLASS_NAME" value="com.smartplanner.BruteForcerTest" />
-      <option name="METHOD_NAME" value="name" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BruteForcerTest.getNextReturnsAllPossibletimeTables" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Back-end" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.smartplanner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.smartplanner" />
+      <option name="MAIN_CLASS_NAME" value="com.smartplanner.BruteForcerTest" />
+      <option name="METHOD_NAME" value="getNextReturnsAllPossibletimeTables" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BruteForcerTest.isNextReturnsTrueIfThereIsNextCombinationToGet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Back-end" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.smartplanner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.smartplanner" />
+      <option name="MAIN_CLASS_NAME" value="com.smartplanner.BruteForcerTest" />
+      <option name="METHOD_NAME" value="isNextReturnsTrueIfThereIsNextCombinationToGet" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -337,17 +320,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Main" />
-      <item itemvalue="JUnit.BruteForcerTest.name" />
       <item itemvalue="TestNG.Test.testCreate" />
       <item itemvalue="TestNG.tests.testCreate" />
+      <item itemvalue="JUnit.BruteForcerTest" />
+      <item itemvalue="JUnit.BruteForcerTest.getNextReturnsAllPossibletimeTables" />
+      <item itemvalue="JUnit.BruteForcerTest.isNextReturnsTrueIfThereIsNextCombinationToGet" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BruteForcerTest.getNextReturnsAllPossibletimeTables" />
+        <item itemvalue="JUnit.BruteForcerTest.isNextReturnsTrueIfThereIsNextCombinationToGet" />
+        <item itemvalue="JUnit.BruteForcerTest" />
         <item itemvalue="TestNG.tests.testCreate" />
         <item itemvalue="TestNG.Test.testCreate" />
-        <item itemvalue="JUnit.BruteForcerTest.name" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -365,21 +350,50 @@
       <workItem from="1541275023136" duration="5830000" />
       <workItem from="1541579158369" duration="10000" />
       <workItem from="1541687460019" duration="2537000" />
+      <workItem from="1542824919123" duration="4565000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="tests_testCreate - 2018.11.08 at 16h 44m 22s.xml">
-      <configuration name="tests.testCreate" configurationId="TestNG" />
+    <history-entry file="BruteForcerTest_getNextReturnsAllPossibletimeTables - 2018.11.21 at 20h 12m 21s.xml">
+      <configuration name="BruteForcerTest.getNextReturnsAllPossibletimeTables" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BruteForcerTest_getNextReturnsAllPossibletimeTables - 2018.11.21 at 20h 12m 55s.xml">
+      <configuration name="BruteForcerTest.getNextReturnsAllPossibletimeTables" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BruteForcerTest_getNextReturnsAllPossibletimeTables - 2018.11.21 at 20h 14m 45s.xml">
+      <configuration name="BruteForcerTest.getNextReturnsAllPossibletimeTables" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BruteForcerTest_getNextReturnsAllPossibletimeTables - 2018.11.21 at 20h 25m 57s.xml">
+      <configuration name="BruteForcerTest.getNextReturnsAllPossibletimeTables" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BruteForcerTest_getNextReturnsAllPossibletimeTables - 2018.11.21 at 20h 28m 46s.xml">
+      <configuration name="BruteForcerTest.getNextReturnsAllPossibletimeTables" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BruteForcerTest_getNextReturnsAllPossibletimeTables - 2018.11.21 at 20h 28m 50s.xml">
+      <configuration name="BruteForcerTest.getNextReturnsAllPossibletimeTables" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BruteForcerTest_getNextReturnsAllPossibletimeTables - 2018.11.21 at 20h 29m 04s.xml">
+      <configuration name="BruteForcerTest.getNextReturnsAllPossibletimeTables" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BruteForcerTest_getNextReturnsAllPossibletimeTables - 2018.11.21 at 20h 39m 50s.xml">
+      <configuration name="BruteForcerTest.getNextReturnsAllPossibletimeTables" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BruteForcerTest_getNextReturnsAllPossibletimeTables - 2018.11.21 at 20h 42m 42s.xml">
+      <configuration name="BruteForcerTest.getNextReturnsAllPossibletimeTables" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BruteForcerTest_getNextReturnsAllPossibletimeTables - 2018.11.21 at 20h 42m 45s.xml">
+      <configuration name="BruteForcerTest.getNextReturnsAllPossibletimeTables" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12882000" />
+    <option name="totallyTimeSpent" value="26190000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2595949" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -387,9 +401,9 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3286334" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39911798" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3286334" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39804772" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -398,6 +412,7 @@
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.3286334" />
+      <window_info anchor="right" id="Coverage" side_tool="true" weight="0.32995737" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -445,6 +460,43 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="j==7" language="JAVA" />
+          <url>file://$PROJECT_DIR$/tests/com/smartplanner/BruteForcerTest.java</url>
+          <line>121</line>
+          <properties />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="singleTimeTableShouldBe" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="breakpointCondition">
+      <expression>
+        <expression-string>j==7</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+    <expressions id="watch">
+      <expression>
+        <expression-string>singleTimeTableShouldBe</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Tsp.java" />
     <entry file="file://$PROJECT_DIR$/src/com/smartplanner/Activity.java">
@@ -467,36 +519,85 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/smartplanner/SmartPlanner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testSrc/tests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/testSrc/tests.java" />
     <entry file="file://$PROJECT_DIR$/testSrc/com/smartplanner/BruteForcerTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="156" column="4" selection-start-line="156" selection-start-column="4" selection-end-line="156" selection-end-column="37" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#190#191#0" expanded="true" />
-            <element signature="e#229#230#0" expanded="true" />
+            <element signature="e#5877#5878#0" expanded="true" />
+            <element signature="e#5913#5914#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/smartplanner/TimetableEntry.java">
+    <entry file="file://$PROJECT_DIR$/src/com/smartplanner/SmartPlanner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        <state relative-caret-position="289">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/time/LocalTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="294" column="28" selection-start-line="294" selection-start-column="28" selection-end-line="294" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/jdk/internal/reflect/NativeMethodAccessorImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="61" selection-start-line="61" selection-end-line="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/jdk/internal/reflect/DelegatingMethodAccessorImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/lang/reflect/Method.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="565" selection-start-line="565" selection-end-line="565" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="1544" column="7" lean-forward="true" selection-start-line="1544" selection-start-column="7" selection-end-line="1544" selection-end-column="7" />
+          <folding>
+            <element signature="e#10596#10597#0" expanded="true" />
+            <element signature="e#10623#10624#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.3.1/junit-platform-commons-1.3.1.jar!/org/junit/platform/commons/util/ReflectionUtils.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="235" selection-start-line="235" selection-end-line="235" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/smartplanner/Term.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
         </state>
       </provider>
     </entry>
@@ -507,22 +608,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/smartplanner/Term.java">
+    <entry file="file://$PROJECT_DIR$/src/com/smartplanner/TimetableEntry.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        <state relative-caret-position="425">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/smartplanner/BruteForcer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="779">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
           <folding>
-            <element signature="e#429#430#0" expanded="true" />
-            <element signature="e#464#465#0" expanded="true" />
-            <element signature="e#580#596#0" expanded="true" />
+            <element signature="e#724#740#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/com/smartplanner/BruteForcerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="115" column="9" lean-forward="true" selection-start-line="115" selection-start-column="9" selection-end-line="115" selection-end-column="9" />
         </state>
       </provider>
     </entry>
