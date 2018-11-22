@@ -1,25 +1,18 @@
 package com.smartplanner;
 
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.TimerTask;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class BruteForcerTest{
-
     ArrayList<Activity> activities;
     BruteForcer bruteForcer;
     int allPossibilities;
 
     @BeforeEach
     void beforeEach() {
-
         activities = new ArrayList<Activity>();
 
         ArrayList<Term> termsAct1 = new ArrayList<Term>();
@@ -43,19 +36,14 @@ class BruteForcerTest{
 
     @Test
     void isNextReturnsTrueIfThereIsNextCombinationToGet() {
-
-        for(int i=0; i<allPossibilities; ++i)
-        {
+        for(int i=0; i<allPossibilities; ++i, bruteForcer.getNext())
             assertTrue(bruteForcer.isNext());
-            bruteForcer.getNext();
-        }
 
         assertFalse(bruteForcer.isNext());
     }
 
     @Test
     void getNextReturnsAllPossibletimeTables() {
-
         ArrayList<ArrayList<TimetableEntry>> allPossibleTimeTablesShouldBe = new ArrayList<>();
 
         ArrayList<TimetableEntry> timeTable1 = new ArrayList<>();
@@ -116,7 +104,6 @@ class BruteForcerTest{
         }
     }
 
-
     boolean hasFoundTimetableInside(ArrayList<TimetableEntry> timeTable, ArrayList<ArrayList<TimetableEntry>> searchInside){
         for(int j=0; j<searchInside.size(); ++j) {
             if (isTimeTableEqual(timeTable, searchInside.get(j))) {
@@ -126,24 +113,14 @@ class BruteForcerTest{
         return false;
     }
 
-    boolean isTimeTableEqual( ArrayList<TimetableEntry> lhs,  ArrayList<TimetableEntry> rhs)    {
+    boolean isTimeTableEqual(ArrayList<TimetableEntry> lhs,  ArrayList<TimetableEntry> rhs) {
         if(lhs.size()!=rhs.size())
             return false;
 
         for(TimetableEntry singleLhsEntry : lhs)
-        {
-            boolean hasFound=false;
-            for(TimetableEntry singleRhsEntry: rhs)
-            {
-                if(singleLhsEntry.equals(singleRhsEntry))
-                {
-                    hasFound=true;
-                    break;
-                }
-            }
-            if(hasFound==false)
+            if(rhs.indexOf(singleLhsEntry) == -1)
                 return false;
-        }
+
         return true;
     }
 }

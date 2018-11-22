@@ -44,7 +44,7 @@ public class SmartPlanner
             }
         }
 
-        return bestTimeTable;*/
+        return bestTimeTable;
 
         return null;
 
