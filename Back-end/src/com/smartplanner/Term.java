@@ -3,37 +3,38 @@ package com.smartplanner;
 import java.time.LocalTime;
 
 public class Term {
-    private int lengthInMin;
-    private int numberOfCycleDay; //date in cycle
+    private int durationInMin;
+    private int cycleDayNumber; //date in cycle
     private LocalTime startTime;
 
-    public Term(int lengthInMin, int numberOfWeekDay, LocalTime startTime) {
-        this.lengthInMin = lengthInMin;
-        this.numberOfCycleDay = numberOfWeekDay;
+    public Term(int durationInMin, int numberOfWeekDay, LocalTime startTime) {
+        this.durationInMin = durationInMin;
+        this.cycleDayNumber = numberOfWeekDay;
         this.startTime = startTime;
 }
 
-    public int getLengthInMin() {
-        return lengthInMin;
+    public int getDurationInMin() {
+        return durationInMin;
     }
 
-    public int getNumberOfCycleDay() {
-        return numberOfCycleDay;
+    public int getCycleDayNumber() {
+        return cycleDayNumber;
     }
 
-    public LocalTime getStartTime(){
+    public LocalTime getStartTime() {
         return startTime;
     }
 
     @Override
-    public boolean equals(Object other){
+    public boolean equals(Object other) {
+        if (other == null || !(other instanceof Term) )
+            return false;
+        if (other == this)
+            return true;
 
-        if (other == null) return false;
-        if (other == this) return true;
-        if (!(other instanceof Term))return false;
         Term otherTimetableEntry = (Term) other;
-        return otherTimetableEntry.lengthInMin==this.lengthInMin
-                && otherTimetableEntry.numberOfCycleDay == this.numberOfCycleDay
+        return otherTimetableEntry.durationInMin ==this.durationInMin
+                && otherTimetableEntry.cycleDayNumber == this.cycleDayNumber
                 && otherTimetableEntry.startTime.equals(this.startTime);
     }
 }

@@ -11,17 +11,18 @@ public class TimetableEntry {
         this.pickedTerm = pickedTerm;
     }
 
-    public Term getTerm(){
+    public Term getTerm() {
 
         return pickedTerm;
     }
 
     @Override
-    public boolean equals(Object other){
+    public boolean equals(Object other) {
+        if (other == null || !(other instanceof TimetableEntry))
+            return false;
+        if (other == this)
+            return true;
 
-        if (other == null) return false;
-        if (other == this) return true;
-        if (!(other instanceof TimetableEntry))return false;
         TimetableEntry otherTimetableEntry = (TimetableEntry) other;
         return otherTimetableEntry.pickedTerm.equals(this.pickedTerm);
     }

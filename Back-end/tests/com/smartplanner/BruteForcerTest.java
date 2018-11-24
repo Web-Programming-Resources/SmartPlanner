@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
-class BruteForcerTest{
+class BruteForcerTest {
     ArrayList<Activity> activities;
     BruteForcer bruteForcer;
     int allPossibilities;
@@ -44,6 +44,37 @@ class BruteForcerTest{
 
     @Test
     void getNextReturnsAllPossibletimeTables() {
+        ArrayList<ArrayList<TimetableEntry>> allPossibleTimeTablesShouldBe = init();
+
+        ArrayList<ArrayList<TimetableEntry>> allActualPossibleTimeTables = new ArrayList<>();
+        for(int i = 0; i<allPossibilities; ++i)
+            allActualPossibleTimeTables.add(bruteForcer.getNext());
+
+        for(int i = 0; i<allPossibleTimeTablesShouldBe.size(); ++i) {
+            ArrayList<TimetableEntry> singleTimeTableShouldBe = allPossibleTimeTablesShouldBe.get(i);
+            assertTrue(hasFoundTimetableInside(singleTimeTableShouldBe, allActualPossibleTimeTables));
+        }
+    }
+
+    boolean hasFoundTimetableInside(ArrayList<TimetableEntry> timeTable, ArrayList<ArrayList<TimetableEntry>> searchInside) {
+        for(int j = 0; j<searchInside.size(); ++j)
+            if (isTimeTableEqual(timeTable, searchInside.get(j)))
+                return true;
+        return false;
+    }
+
+    boolean isTimeTableEqual(ArrayList<TimetableEntry> lhs,  ArrayList<TimetableEntry> rhs) {
+        if(lhs.size()!=rhs.size())
+            return false;
+
+        for(TimetableEntry singleLhsEntry : lhs)
+            if(rhs.indexOf(singleLhsEntry) == -1)
+                return false;
+
+        return true;
+    }
+
+    private ArrayList<ArrayList<TimetableEntry>> init() {
         ArrayList<ArrayList<TimetableEntry>> allPossibleTimeTablesShouldBe = new ArrayList<>();
 
         ArrayList<TimetableEntry> timeTable1 = new ArrayList<>();
@@ -93,34 +124,6 @@ class BruteForcerTest{
         timeTable8.add(new TimetableEntry(0, new Term(40, 4, LocalTime.of(12, 30))));
         timeTable8.add(new TimetableEntry(0, new Term(60, 6, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable8);
-
-        ArrayList<ArrayList<TimetableEntry>> allActualPossibleTimeTables = new ArrayList<>();
-        for(int i=0; i<allPossibilities; ++i)
-            allActualPossibleTimeTables.add(bruteForcer.getNext());
-
-        for(int i=0; i<allPossibleTimeTablesShouldBe.size(); ++i) {
-            ArrayList<TimetableEntry> singleTimeTableShouldBe = allPossibleTimeTablesShouldBe.get(i);
-            assertTrue(hasFoundTimetableInside(singleTimeTableShouldBe, allActualPossibleTimeTables));
-        }
-    }
-
-    boolean hasFoundTimetableInside(ArrayList<TimetableEntry> timeTable, ArrayList<ArrayList<TimetableEntry>> searchInside){
-        for(int j=0; j<searchInside.size(); ++j) {
-            if (isTimeTableEqual(timeTable, searchInside.get(j))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    boolean isTimeTableEqual(ArrayList<TimetableEntry> lhs,  ArrayList<TimetableEntry> rhs) {
-        if(lhs.size()!=rhs.size())
-            return false;
-
-        for(TimetableEntry singleLhsEntry : lhs)
-            if(rhs.indexOf(singleLhsEntry) == -1)
-                return false;
-
-        return true;
+        return allPossibleTimeTablesShouldBe;
     }
 }

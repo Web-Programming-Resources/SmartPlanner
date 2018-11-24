@@ -3,8 +3,8 @@ package com.smartplanner;
 import java.util.ArrayList;
 
 public class Activity {
-    private int ID;
-    static private int objectsCreated=0;
+    private int id;
+    static private int objectsCreated = 0;
 
 
     private String name;
@@ -14,8 +14,8 @@ public class Activity {
 
     public Activity(String name, ArrayList<Term> terms) {
         this.name = name;
-        this.terms=terms;
-        this.ID=objectsCreated;
+        this.terms = terms;
+        this.id = objectsCreated;
         ++objectsCreated;
     }
 
@@ -23,8 +23,8 @@ public class Activity {
         return terms;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 }
 

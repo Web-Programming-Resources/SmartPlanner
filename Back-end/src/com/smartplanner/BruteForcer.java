@@ -2,74 +2,62 @@ package com.smartplanner;
 
 import java.util.ArrayList;
 
-
-//TODO: make cleanup
-public class BruteForcer
-{
+public class BruteForcer {
     private ArrayList<Activity> activities;
     private int termIndexes[];
-    private boolean hasFinished=false;
+    private boolean hasFinished = false;
     private int maxDaysInCycle;
 
-    public BruteForcer(ArrayList<Activity> activities, int maxDaysInCycle)
-    {
-        this.maxDaysInCycle=maxDaysInCycle;
-        this.activities=activities;
+    public BruteForcer(ArrayList<Activity> activities, int maxDaysInCycle) {
+        this.maxDaysInCycle = maxDaysInCycle;
+        this.activities = activities;
         this.termIndexes = new int[activities.size()];
 
         for(int index : termIndexes)
-            index=0;
+            index = 0;
     }
 
-    public boolean isNext()
-    {
+    public boolean isNext() {
         return !hasFinished;
     }
 
-    public ArrayList<TimetableEntry> getNext()
-    {
+    public ArrayList<TimetableEntry> getNext() {
         ArrayList<TimetableEntry> possibleTimeTable = new ArrayList<TimetableEntry>();
 
-        for (int actIndx = 0; actIndx < activities.size(); ++actIndx)
-        {
-            ArrayList<Term> currActTerms = activities.get(actIndx).getTerms();
+        for (int activityIndex = 0; activityIndex < activities.size(); ++activityIndex) {
+            ArrayList<Term> currActTerms = activities.get(activityIndex).getTerms();
+            Term firstTerm = currActTerms.get(termIndexes[activityIndex]);
 
-
-            Term firstTerm = currActTerms.get(termIndexes[actIndx]);
-
-
-            final int REPEAT_EVERY=7;
-            for(int i =0; ; ++i)//add repeats in cycle
-            {
-                int nextRepeatDay=firstTerm.getNumberOfCycleDay() + i*REPEAT_EVERY;
-                if(nextRepeatDay>maxDaysInCycle)
-                    break;
-
-                Term nextTerm=new Term(firstTerm.getLengthInMin(), nextRepeatDay, firstTerm.getStartTime());
-                possibleTimeTable.add(new TimetableEntry(activities.get(actIndx).getID(), nextTerm));
-            }
+            addRepeatsInCycle(possibleTimeTable, activityIndex, firstTerm);
         }
-
         nextSet();
-
         return possibleTimeTable;
+    }
+
+    private void addRepeatsInCycle(ArrayList<TimetableEntry> possibleTimeTable, int activityIndex, Term firstTerm) {
+        final int REPEAT_EVERY = 7;
+        for(int i = 0; ; ++i) { //add repeats in cycle
+            int nextRepeatDay = firstTerm.getCycleDayNumber() + i*REPEAT_EVERY;
+            if(nextRepeatDay > maxDaysInCycle)
+                break;
+            Term nextTerm = new Term(firstTerm.getDurationInMin(), nextRepeatDay, firstTerm.getStartTime());
+            possibleTimeTable.add(new TimetableEntry(activities.get(activityIndex).getId(), nextTerm));
+        }
     }
 
     private void nextSet() {
         ++termIndexes[0];
 
-        for(int activityIndex=0; activityIndex+1<termIndexes.length; ++activityIndex)
-        {
-            int qntOfTermsForCurrActivity=activities.get(activityIndex).getTerms().size();
-            if(termIndexes[activityIndex]>=qntOfTermsForCurrActivity)
-            {
-                termIndexes[activityIndex]=0;
+        for(int activityIndex = 0; activityIndex+1 < termIndexes.length; ++activityIndex)  {
+            int qntOfTermsForCurrActivity = activities.get(activityIndex).getTerms().size();
+            if(termIndexes[activityIndex] >= qntOfTermsForCurrActivity) {
+                termIndexes[activityIndex] = 0;
                 ++termIndexes[activityIndex+1];
             }
         }
 
-        int lastActivityIndex=termIndexes.length-1;
-        if(termIndexes[lastActivityIndex]>=activities.get(lastActivityIndex).getTerms().size())
-            hasFinished=true;
+        int lastActivityIndex = termIndexes.length-1;
+        if(termIndexes[lastActivityIndex] >= activities.get(lastActivityIndex).getTerms().size())
+            hasFinished = true;
     }
 }
