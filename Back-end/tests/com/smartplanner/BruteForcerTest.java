@@ -124,6 +124,7 @@ class BruteForcerTest {
         timeTable8.add(new TimetableEntry(0, new Term(40, 4, LocalTime.of(12, 30))));
         timeTable8.add(new TimetableEntry(0, new Term(60, 6, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable8);
+
         return allPossibleTimeTablesShouldBe;
     }
 }
