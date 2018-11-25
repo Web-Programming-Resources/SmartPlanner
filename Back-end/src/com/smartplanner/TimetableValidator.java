@@ -8,7 +8,7 @@ public class TimetableValidator {
     public boolean isValid(ArrayList<TimetableEntry> timeTable) {
         for(int i = 0; i < timeTable.size(); ++i) {
             for(int j = 0; j < timeTable.size(); ++j) {
-                if(i==j)
+                if(i == j)
                     continue;
                 if(doesOverlap(timeTable.get(i), timeTable.get(j)))
                     return false;
@@ -17,18 +17,18 @@ public class TimetableValidator {
         return true;
     }
 
-    private boolean doesOverlap(TimetableEntry entry1, TimetableEntry entry2) {
-        Term term1 = entry1.getTerm();
-        Term term2 = entry2.getTerm();
+    private boolean doesOverlap(TimetableEntry lhs, TimetableEntry rhs) {
+        Term lhsTerm = lhs.getTerm();
+        Term rhsTerm = rhs.getTerm();
 
         Term earlier;
         Term later;
-        if (term1.getStartTime().isAfter(term2.getStartTime())) {
-            later = term1;
-            earlier = term2;
+        if (lhsTerm.getStartTime().isAfter(rhsTerm.getStartTime())) {
+            later = lhsTerm;
+            earlier = rhsTerm;
         } else {
-            later = term2;
-            earlier = term1;
+            later = rhsTerm;
+            earlier = lhsTerm;
         }
 
         LocalTime earlierEndingTime = earlier.getStartTime().plusMinutes(earlier.getDurationInMin());
@@ -37,5 +37,4 @@ public class TimetableValidator {
         else
             return false;
     }
-
 }
