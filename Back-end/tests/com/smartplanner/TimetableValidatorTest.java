@@ -15,7 +15,7 @@ public class TimetableValidatorTest {
                         new TimetableEntry(3, new Term(60, 5, LocalTime.of(14,30)))
                 )
         );
-        
+
         TimetableValidator validator = new TimetableValidator();
         assertFalse(validator.isValid(invalidTimetable));
     }

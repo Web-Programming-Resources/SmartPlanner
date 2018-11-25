@@ -30,22 +30,22 @@ public class BruteForcer {
 
             addRepeatsInCycle(possibleTimeTable, activityIndex, firstTerm);
         }
-        nextSet();
+        shiftIndexesToNextSet();
         return possibleTimeTable;
     }
 
-    private void addRepeatsInCycle(ArrayList<TimetableEntry> possibleTimeTable, int activityIndex, Term firstTerm) {
+    private void addRepeatsInCycle(ArrayList<TimetableEntry> timetable, int activityIndex, Term firstTerm) {
         final int REPEAT_EVERY = 7;
         for(int i = 0; ; ++i) { //add repeats in cycle
             int nextRepeatDay = firstTerm.getCycleDayNumber() + i*REPEAT_EVERY;
             if(nextRepeatDay > maxDaysInCycle)
                 break;
             Term nextTerm = new Term(firstTerm.getDurationInMin(), nextRepeatDay, firstTerm.getStartTime());
-            possibleTimeTable.add(new TimetableEntry(activities.get(activityIndex).getId(), nextTerm));
+            timetable.add(new TimetableEntry(activities.get(activityIndex).getId(), nextTerm));
         }
     }
 
-    private void nextSet() {
+    private void shiftIndexesToNextSet() {
         ++termIndexes[0];
 
         for(int activityIndex = 0; activityIndex+1 < termIndexes.length; ++activityIndex)  {

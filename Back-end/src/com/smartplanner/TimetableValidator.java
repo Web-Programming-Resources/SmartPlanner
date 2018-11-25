@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class TimetableValidator {
 
     public boolean isValid(ArrayList<TimetableEntry> timeTable) {
-        for(int i=0; i<timeTable.size(); ++i) {
-            for(int j=0; j<timeTable.size(); ++j) {
+        for(int i = 0; i < timeTable.size(); ++i) {
+            for(int j = 0; j < timeTable.size(); ++j) {
                 if(i==j)
                     continue;
                 if(doesOverlap(timeTable.get(i), timeTable.get(j)))

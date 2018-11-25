@@ -9,7 +9,7 @@ public class TimeDistanceManager {
         this.timeDistanceInMin = timeDistanceInMin;
     }
 
-    public int getTimeDistanceInMin(int fromId, int toId) {
-        return timeDistanceInMin.get(fromId).get(toId);
+    public int getTimeDistanceInMin(Activity from, Activity to) {
+        return timeDistanceInMin.get(from.getId()).get(to.getId());
     }
 }
