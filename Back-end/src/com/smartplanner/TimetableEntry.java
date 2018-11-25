@@ -1,11 +1,11 @@
 package com.smartplanner;
 
 public class TimetableEntry {
-    private int activityId;
+    private Activity activity;
     private Term pickedTerm;
 
-    public TimetableEntry(int activityId, Term pickedTerm) {
-        this.activityId = activityId;
+    public TimetableEntry(Activity activity, Term pickedTerm) {
+        this.activity = activity;
         this.pickedTerm = pickedTerm;
     }
 

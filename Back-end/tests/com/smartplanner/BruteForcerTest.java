@@ -78,51 +78,51 @@ class BruteForcerTest {
         ArrayList<ArrayList<TimetableEntry>> allPossibleTimeTablesShouldBe = new ArrayList<>();
 
         ArrayList<TimetableEntry> timeTable1 = new ArrayList<>();
-        timeTable1.add(new TimetableEntry(0, new Term(10, 1, LocalTime.of(12, 30))));
-        timeTable1.add(new TimetableEntry(0, new Term(30, 3, LocalTime.of(12, 30))));
-        timeTable1.add(new TimetableEntry(0, new Term(50, 5, LocalTime.of(12, 30))));
+        timeTable1.add(new TimetableEntry(new Activity("test", null), new Term(10, 1, LocalTime.of(12, 30))));
+        timeTable1.add(new TimetableEntry(new Activity("test", null), new Term(30, 3, LocalTime.of(12, 30))));
+        timeTable1.add(new TimetableEntry(new Activity("test", null), new Term(50, 5, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable1);
 
         ArrayList<TimetableEntry> timeTable2 = new ArrayList<>();
-        timeTable2.add(new TimetableEntry(0, new Term(10, 1, LocalTime.of(12, 30))));
-        timeTable2.add(new TimetableEntry(0, new Term(40, 4, LocalTime.of(12, 30))));
-        timeTable2.add(new TimetableEntry(0, new Term(60, 6, LocalTime.of(12, 30))));
+        timeTable2.add(new TimetableEntry(new Activity("test", null), new Term(10, 1, LocalTime.of(12, 30))));
+        timeTable2.add(new TimetableEntry(new Activity("test", null), new Term(40, 4, LocalTime.of(12, 30))));
+        timeTable2.add(new TimetableEntry(new Activity("test", null), new Term(60, 6, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable2);
 
         ArrayList<TimetableEntry> timeTable3 = new ArrayList<>();
-        timeTable3.add(new TimetableEntry(0, new Term(10, 1, LocalTime.of(12, 30))));
-        timeTable3.add(new TimetableEntry(0, new Term(40, 4, LocalTime.of(12, 30))));
-        timeTable3.add(new TimetableEntry(0, new Term(50, 5, LocalTime.of(12, 30))));
+        timeTable3.add(new TimetableEntry(new Activity("test", null), new Term(10, 1, LocalTime.of(12, 30))));
+        timeTable3.add(new TimetableEntry(new Activity("test", null), new Term(40, 4, LocalTime.of(12, 30))));
+        timeTable3.add(new TimetableEntry(new Activity("test", null), new Term(50, 5, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable3);
 
         ArrayList<TimetableEntry> timeTable4 = new ArrayList<>();
-        timeTable4.add(new TimetableEntry(0, new Term(10, 1, LocalTime.of(12, 30))));
-        timeTable4.add(new TimetableEntry(0, new Term(30, 3, LocalTime.of(12, 30))));
-        timeTable4.add(new TimetableEntry(0, new Term(60, 6, LocalTime.of(12, 30))));
+        timeTable4.add(new TimetableEntry(new Activity("test", null), new Term(10, 1, LocalTime.of(12, 30))));
+        timeTable4.add(new TimetableEntry(new Activity("test", null), new Term(30, 3, LocalTime.of(12, 30))));
+        timeTable4.add(new TimetableEntry(new Activity("test", null), new Term(60, 6, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable4);
 
         ArrayList<TimetableEntry> timeTable5 = new ArrayList<>();
-        timeTable5.add(new TimetableEntry(0, new Term(20, 2, LocalTime.of(12, 30))));
-        timeTable5.add(new TimetableEntry(0, new Term(30, 3, LocalTime.of(12, 30))));
-        timeTable5.add(new TimetableEntry(0, new Term(50, 5, LocalTime.of(12, 30))));
+        timeTable5.add(new TimetableEntry(new Activity("test", null), new Term(20, 2, LocalTime.of(12, 30))));
+        timeTable5.add(new TimetableEntry(new Activity("test", null), new Term(30, 3, LocalTime.of(12, 30))));
+        timeTable5.add(new TimetableEntry(new Activity("test", null), new Term(50, 5, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable5);
 
         ArrayList<TimetableEntry> timeTable6 = new ArrayList<>();
-        timeTable6.add(new TimetableEntry(0, new Term(20, 2, LocalTime.of(12, 30))));
-        timeTable6.add(new TimetableEntry(0, new Term(40, 4, LocalTime.of(12, 30))));
-        timeTable6.add(new TimetableEntry(0, new Term(50, 5, LocalTime.of(12, 30))));
+        timeTable6.add(new TimetableEntry(new Activity("test", null), new Term(20, 2, LocalTime.of(12, 30))));
+        timeTable6.add(new TimetableEntry(new Activity("test", null), new Term(40, 4, LocalTime.of(12, 30))));
+        timeTable6.add(new TimetableEntry(new Activity("test", null), new Term(50, 5, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable6);
 
         ArrayList<TimetableEntry> timeTable7 = new ArrayList<>();
-        timeTable7.add(new TimetableEntry(0, new Term(20, 2, LocalTime.of(12, 30))));
-        timeTable7.add(new TimetableEntry(0, new Term(30, 3, LocalTime.of(12, 30))));
-        timeTable7.add(new TimetableEntry(0, new Term(60, 6, LocalTime.of(12, 30))));
+        timeTable7.add(new TimetableEntry(new Activity("test", null), new Term(20, 2, LocalTime.of(12, 30))));
+        timeTable7.add(new TimetableEntry(new Activity("test", null), new Term(30, 3, LocalTime.of(12, 30))));
+        timeTable7.add(new TimetableEntry(new Activity("test", null), new Term(60, 6, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable7);
 
         ArrayList<TimetableEntry> timeTable8 = new ArrayList<>();
-        timeTable8.add(new TimetableEntry(0, new Term(20, 2, LocalTime.of(12, 30))));
-        timeTable8.add(new TimetableEntry(0, new Term(40, 4, LocalTime.of(12, 30))));
-        timeTable8.add(new TimetableEntry(0, new Term(60, 6, LocalTime.of(12, 30))));
+        timeTable8.add(new TimetableEntry(new Activity("test", null), new Term(20, 2, LocalTime.of(12, 30))));
+        timeTable8.add(new TimetableEntry(new Activity("test", null), new Term(40, 4, LocalTime.of(12, 30))));
+        timeTable8.add(new TimetableEntry(new Activity("test", null), new Term(60, 6, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable8);
 
         return allPossibleTimeTablesShouldBe;

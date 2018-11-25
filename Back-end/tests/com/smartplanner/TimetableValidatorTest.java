@@ -11,8 +11,8 @@ public class TimetableValidatorTest {
     void validatorReturnsFalseIfThereAreEntriesThatOverlapsEeachOther() {
         ArrayList<TimetableEntry> invalidTimetable=new ArrayList<TimetableEntry>(
                 Arrays.asList(
-                        new TimetableEntry(2, new Term(60, 5, LocalTime.of(14,00))),
-                        new TimetableEntry(3, new Term(60, 5, LocalTime.of(14,30)))
+                        new TimetableEntry(new Activity("test", null), new Term(60, 5, LocalTime.of(14,00))),
+                        new TimetableEntry(new Activity("test", null), new Term(60, 5, LocalTime.of(14,30)))
                 )
         );
 

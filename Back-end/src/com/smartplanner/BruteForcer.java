@@ -41,7 +41,7 @@ public class BruteForcer {
             if(nextRepeatDay > maxDaysInCycle)
                 break;
             Term nextTerm = new Term(firstTerm.getDurationInMin(), nextRepeatDay, firstTerm.getStartTime());
-            timetable.add(new TimetableEntry(activities.get(activityIndex).getId(), nextTerm));
+            timetable.add(new TimetableEntry(activities.get(activityIndex), nextTerm));
         }
     }
 
