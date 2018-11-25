@@ -13,6 +13,10 @@ public class TimetableEntry {
         return pickedTerm;
     }
 
+    public String getName() {
+        return activity.getName();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == null || !(other instanceof TimetableEntry))
