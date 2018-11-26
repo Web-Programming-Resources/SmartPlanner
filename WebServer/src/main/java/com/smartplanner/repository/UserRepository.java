@@ -1,9 +1,9 @@
 package com.smartplanner.repository;
 
-import com.smartplanner.model.Plan;
+import com.smartplanner.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PlanRepository extends JpaRepository<Plan, Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 }

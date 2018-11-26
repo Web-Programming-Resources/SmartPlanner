@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Plan {
+public class User {
 
     @Id
     @Getter
@@ -16,9 +16,14 @@ public class Plan {
 
     @Getter
     @Setter
-    private String name;
+    private String login;
 
     @Getter
     @Setter
-    private int maxDaysInCycle;
+    private String email;
+
+    @Getter
+    @Setter
+    private String password;
+
 }
