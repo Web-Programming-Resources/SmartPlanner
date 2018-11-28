@@ -6,40 +6,40 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
-class BruteForcerTest {
-    ArrayList<Activity> activities;
-    BruteForcer bruteForcer;
+class PickLessonBruteForcerTest {
+    ArrayList<Lesson> lessons;
+    PickLessonBruteForcer pickLessonBruteForcer;
     int allPossibilities;
 
     @BeforeEach
     void beforeEach() {
-        activities = new ArrayList<Activity>();
+        lessons = new ArrayList<Lesson>();
 
         ArrayList<Term> termsAct1 = new ArrayList<Term>();
         termsAct1.add(new Term(10, 1, LocalTime.of(12, 30)));
         termsAct1.add(new Term(20, 2, LocalTime.of(12, 30)));
-        activities.add(new Activity("activity1", termsAct1));
+        lessons.add(new Lesson("lesson1", termsAct1, 7));
 
         ArrayList<Term> termsAct2 = new ArrayList<Term>();
         termsAct2.add(new Term(30, 3, LocalTime.of(12, 30)));
         termsAct2.add(new Term(40, 4, LocalTime.of(12, 30)));
-        activities.add(new Activity("activity2", termsAct2));
+        lessons.add(new Lesson("lesson2", termsAct2, 7));
 
         ArrayList<Term> termsAct3 = new ArrayList<Term>();
         termsAct3.add(new Term(50, 5, LocalTime.of(12, 30)));
         termsAct3.add(new Term(60, 6, LocalTime.of(12, 30)));
-        activities.add(new Activity("activity3", termsAct3));
+        lessons.add(new Lesson("lesson3", termsAct3, 7));
 
-        bruteForcer = new BruteForcer(activities, 7);
+        pickLessonBruteForcer = new PickLessonBruteForcer(lessons, 7);
         allPossibilities=termsAct1.size()*termsAct2.size()*termsAct3.size();
     }
 
     @Test
     void isNextReturnsTrueIfThereIsNextCombinationToGet() {
-        for(int i=0; i<allPossibilities; ++i, bruteForcer.getNext())
-            assertTrue(bruteForcer.isNext());
+        for(int i=0; i<allPossibilities; ++i, pickLessonBruteForcer.getNext())
+            assertTrue(pickLessonBruteForcer.isNext());
 
-        assertFalse(bruteForcer.isNext());
+        assertFalse(pickLessonBruteForcer.isNext());
     }
 
     @Test
@@ -48,7 +48,7 @@ class BruteForcerTest {
 
         ArrayList<ArrayList<TimetableEntry>> allActualPossibleTimeTables = new ArrayList<>();
         for(int i = 0; i<allPossibilities; ++i)
-            allActualPossibleTimeTables.add(bruteForcer.getNext());
+            allActualPossibleTimeTables.add(pickLessonBruteForcer.getNext());
 
         for(int i = 0; i<allPossibleTimeTablesShouldBe.size(); ++i) {
             ArrayList<TimetableEntry> singleTimeTableShouldBe = allPossibleTimeTablesShouldBe.get(i);
@@ -78,51 +78,51 @@ class BruteForcerTest {
         ArrayList<ArrayList<TimetableEntry>> allPossibleTimeTablesShouldBe = new ArrayList<>();
 
         ArrayList<TimetableEntry> timeTable1 = new ArrayList<>();
-        timeTable1.add(new TimetableEntry(new Activity("test", null), new Term(10, 1, LocalTime.of(12, 30))));
-        timeTable1.add(new TimetableEntry(new Activity("test", null), new Term(30, 3, LocalTime.of(12, 30))));
-        timeTable1.add(new TimetableEntry(new Activity("test", null), new Term(50, 5, LocalTime.of(12, 30))));
+        timeTable1.add(new TimetableEntry(new Lesson("test", null, 7), new Term(10, 1, LocalTime.of(12, 30))));
+        timeTable1.add(new TimetableEntry(new Lesson("test", null, 7), new Term(30, 3, LocalTime.of(12, 30))));
+        timeTable1.add(new TimetableEntry(new Lesson("test", null, 7), new Term(50, 5, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable1);
 
         ArrayList<TimetableEntry> timeTable2 = new ArrayList<>();
-        timeTable2.add(new TimetableEntry(new Activity("test", null), new Term(10, 1, LocalTime.of(12, 30))));
-        timeTable2.add(new TimetableEntry(new Activity("test", null), new Term(40, 4, LocalTime.of(12, 30))));
-        timeTable2.add(new TimetableEntry(new Activity("test", null), new Term(60, 6, LocalTime.of(12, 30))));
+        timeTable2.add(new TimetableEntry(new Lesson("test", null, 7), new Term(10, 1, LocalTime.of(12, 30))));
+        timeTable2.add(new TimetableEntry(new Lesson("test", null, 7), new Term(40, 4, LocalTime.of(12, 30))));
+        timeTable2.add(new TimetableEntry(new Lesson("test", null, 7), new Term(60, 6, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable2);
 
         ArrayList<TimetableEntry> timeTable3 = new ArrayList<>();
-        timeTable3.add(new TimetableEntry(new Activity("test", null), new Term(10, 1, LocalTime.of(12, 30))));
-        timeTable3.add(new TimetableEntry(new Activity("test", null), new Term(40, 4, LocalTime.of(12, 30))));
-        timeTable3.add(new TimetableEntry(new Activity("test", null), new Term(50, 5, LocalTime.of(12, 30))));
+        timeTable3.add(new TimetableEntry(new Lesson("test", null, 7), new Term(10, 1, LocalTime.of(12, 30))));
+        timeTable3.add(new TimetableEntry(new Lesson("test", null, 7), new Term(40, 4, LocalTime.of(12, 30))));
+        timeTable3.add(new TimetableEntry(new Lesson("test", null, 7), new Term(50, 5, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable3);
 
         ArrayList<TimetableEntry> timeTable4 = new ArrayList<>();
-        timeTable4.add(new TimetableEntry(new Activity("test", null), new Term(10, 1, LocalTime.of(12, 30))));
-        timeTable4.add(new TimetableEntry(new Activity("test", null), new Term(30, 3, LocalTime.of(12, 30))));
-        timeTable4.add(new TimetableEntry(new Activity("test", null), new Term(60, 6, LocalTime.of(12, 30))));
+        timeTable4.add(new TimetableEntry(new Lesson("test", null, 7), new Term(10, 1, LocalTime.of(12, 30))));
+        timeTable4.add(new TimetableEntry(new Lesson("test", null, 7), new Term(30, 3, LocalTime.of(12, 30))));
+        timeTable4.add(new TimetableEntry(new Lesson("test", null, 7), new Term(60, 6, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable4);
 
         ArrayList<TimetableEntry> timeTable5 = new ArrayList<>();
-        timeTable5.add(new TimetableEntry(new Activity("test", null), new Term(20, 2, LocalTime.of(12, 30))));
-        timeTable5.add(new TimetableEntry(new Activity("test", null), new Term(30, 3, LocalTime.of(12, 30))));
-        timeTable5.add(new TimetableEntry(new Activity("test", null), new Term(50, 5, LocalTime.of(12, 30))));
+        timeTable5.add(new TimetableEntry(new Lesson("test", null, 7), new Term(20, 2, LocalTime.of(12, 30))));
+        timeTable5.add(new TimetableEntry(new Lesson("test", null, 7), new Term(30, 3, LocalTime.of(12, 30))));
+        timeTable5.add(new TimetableEntry(new Lesson("test", null, 7), new Term(50, 5, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable5);
 
         ArrayList<TimetableEntry> timeTable6 = new ArrayList<>();
-        timeTable6.add(new TimetableEntry(new Activity("test", null), new Term(20, 2, LocalTime.of(12, 30))));
-        timeTable6.add(new TimetableEntry(new Activity("test", null), new Term(40, 4, LocalTime.of(12, 30))));
-        timeTable6.add(new TimetableEntry(new Activity("test", null), new Term(50, 5, LocalTime.of(12, 30))));
+        timeTable6.add(new TimetableEntry(new Lesson("test", null, 7), new Term(20, 2, LocalTime.of(12, 30))));
+        timeTable6.add(new TimetableEntry(new Lesson("test", null, 7), new Term(40, 4, LocalTime.of(12, 30))));
+        timeTable6.add(new TimetableEntry(new Lesson("test", null, 7), new Term(50, 5, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable6);
 
         ArrayList<TimetableEntry> timeTable7 = new ArrayList<>();
-        timeTable7.add(new TimetableEntry(new Activity("test", null), new Term(20, 2, LocalTime.of(12, 30))));
-        timeTable7.add(new TimetableEntry(new Activity("test", null), new Term(30, 3, LocalTime.of(12, 30))));
-        timeTable7.add(new TimetableEntry(new Activity("test", null), new Term(60, 6, LocalTime.of(12, 30))));
+        timeTable7.add(new TimetableEntry(new Lesson("test", null, 7), new Term(20, 2, LocalTime.of(12, 30))));
+        timeTable7.add(new TimetableEntry(new Lesson("test", null, 7), new Term(30, 3, LocalTime.of(12, 30))));
+        timeTable7.add(new TimetableEntry(new Lesson("test", null, 7), new Term(60, 6, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable7);
 
         ArrayList<TimetableEntry> timeTable8 = new ArrayList<>();
-        timeTable8.add(new TimetableEntry(new Activity("test", null), new Term(20, 2, LocalTime.of(12, 30))));
-        timeTable8.add(new TimetableEntry(new Activity("test", null), new Term(40, 4, LocalTime.of(12, 30))));
-        timeTable8.add(new TimetableEntry(new Activity("test", null), new Term(60, 6, LocalTime.of(12, 30))));
+        timeTable8.add(new TimetableEntry(new Lesson("test", null, 7), new Term(20, 2, LocalTime.of(12, 30))));
+        timeTable8.add(new TimetableEntry(new Lesson("test", null, 7), new Term(40, 4, LocalTime.of(12, 30))));
+        timeTable8.add(new TimetableEntry(new Lesson("test", null, 7), new Term(60, 6, LocalTime.of(12, 30))));
         allPossibleTimeTablesShouldBe.add(timeTable8);
 
         return allPossibleTimeTablesShouldBe;

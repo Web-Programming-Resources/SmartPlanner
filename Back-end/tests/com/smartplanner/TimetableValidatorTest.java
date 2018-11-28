@@ -10,8 +10,8 @@ public class TimetableValidatorTest {
     void validatorReturnsFalseIfThereAreEntriesThatOverlapsEeachOther() {
         ArrayList<TimetableEntry> invalidTimetable=new ArrayList<TimetableEntry>(
                 Arrays.asList(
-                        new TimetableEntry(new Activity("test", null), new Term(60, 5, LocalTime.of(14,00))),
-                        new TimetableEntry(new Activity("test", null), new Term(60, 5, LocalTime.of(14,30)))
+                        new TimetableEntry(new Lesson("test", null, 7), new Term(60, 5, LocalTime.of(14,00))),
+                        new TimetableEntry(new Lesson("test", null, 7), new Term(60, 5, LocalTime.of(14,30)))
                 )
         );
 
@@ -23,8 +23,8 @@ public class TimetableValidatorTest {
     void validatorReturnsTrueIfEntriesDoesNotOverlapEachOther() {
         ArrayList<TimetableEntry> validTimetable = new ArrayList<TimetableEntry>(
                 Arrays.asList(
-                        new TimetableEntry(new Activity("test", null), new Term(60, 5, LocalTime.of(14, 00))),
-                        new TimetableEntry(new Activity("test", null), new Term(60, 5, LocalTime.of(16, 00)))
+                        new TimetableEntry(new Lesson("test", null, 7), new Term(60, 5, LocalTime.of(14, 00))),
+                        new TimetableEntry(new Lesson("test", null, 7), new Term(60, 5, LocalTime.of(16, 00)))
                 )
         );
 
@@ -36,8 +36,8 @@ public class TimetableValidatorTest {
     void validatorReturnsTrueIfOneActivityEndsPreciselyWhenTheOtherStarts() {
         ArrayList<TimetableEntry> validTimetable = new ArrayList<TimetableEntry>(
                 Arrays.asList(
-                        new TimetableEntry(new Activity("test", null), new Term(60, 5, LocalTime.of(14, 00))),
-                        new TimetableEntry(new Activity("test", null), new Term(60, 5, LocalTime.of(15, 00)))
+                        new TimetableEntry(new Lesson("test", null, 7), new Term(60, 5, LocalTime.of(14, 00))),
+                        new TimetableEntry(new Lesson("test", null, 7), new Term(60, 5, LocalTime.of(15, 00)))
                 )
         );
 
