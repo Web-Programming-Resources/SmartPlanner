@@ -18,8 +18,19 @@ public class GoWorkBruteforcer {
     }
 
     public ArrayList<Boolean> getNext() {
+        ArrayList<Boolean> returnedCombination = castToBooleanArrayList(currentCombination);
+
         shiftIndexesToNextSet();
-        return null;
+        return returnedCombination;
+    }
+
+    private ArrayList<Boolean> castToBooleanArrayList(ArrayList<AtomicInteger> currentCombination) {
+        ArrayList<Boolean> casted = new ArrayList<Boolean>(currentCombination.size());
+
+        for(int i=0; i<currentCombination.size(); ++i)
+            casted.add(currentCombination.get(i).get() == 1);
+
+        return casted;
     }
 
     public boolean isNext() {
