@@ -8,11 +8,11 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GoWorkBruteforcerTest {
+public class GoToOptimizedActivityDeciderTest {
 
     private ArrayList<TimetableEntry> timetable;
     private ArrayList<ArrayList<Boolean>> allPossibilities;
-    private GoWorkBruteforcer bruteforcer;
+    private GoToOptimizedActivityDecider bruteforcer;
     private int numberOfAllPossibilities;
 
     @BeforeEach
@@ -21,7 +21,7 @@ public class GoWorkBruteforcerTest {
         timetable.add(new TimetableEntry(new Activity("test"), new Term(60, 1, LocalTime.of(12, 00))));
         timetable.add(new TimetableEntry(new Activity("test"), new Term(60, 1, LocalTime.of(15, 00))));
 
-        bruteforcer = new GoWorkBruteforcer(timetable);
+        bruteforcer = new GoToOptimizedActivityDecider(timetable);
         numberOfAllPossibilities = (int) Math.pow(2, timetable.size() + 1); // we have n+1 decision points (before first activity, between activities and after the last one)
     }
 

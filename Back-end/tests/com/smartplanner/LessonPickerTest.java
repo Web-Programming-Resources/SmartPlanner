@@ -6,9 +6,9 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
-class PickLessonBruteForcerTest {
+class LessonPickerTest {
     ArrayList<Lesson> lessons;
-    PickLessonBruteForcer pickLessonBruteForcer;
+    LessonPicker lessonPicker;
     int allPossibilities;
 
     @BeforeEach
@@ -30,16 +30,16 @@ class PickLessonBruteForcerTest {
         termsAct3.add(new Term(60, 6, LocalTime.of(12, 30)));
         lessons.add(new Lesson("lesson3", termsAct3, 7));
 
-        pickLessonBruteForcer = new PickLessonBruteForcer(lessons, 7);
+        lessonPicker = new LessonPicker(lessons, 7);
         allPossibilities=termsAct1.size()*termsAct2.size()*termsAct3.size();
     }
 
     @Test
     void isNextReturnsTrueIfThereIsNextCombinationToGet() {
-        for(int i=0; i<allPossibilities; ++i, pickLessonBruteForcer.getNext())
-            assertTrue(pickLessonBruteForcer.isNext());
+        for(int i=0; i<allPossibilities; ++i, lessonPicker.getNext())
+            assertTrue(lessonPicker.isNext());
 
-        assertFalse(pickLessonBruteForcer.isNext());
+        assertFalse(lessonPicker.isNext());
     }
 
     @Test
@@ -48,7 +48,7 @@ class PickLessonBruteForcerTest {
 
         ArrayList<ArrayList<TimetableEntry>> allActualPossibleTimeTables = new ArrayList<>();
         for(int i = 0; i<allPossibilities; ++i)
-            allActualPossibleTimeTables.add(pickLessonBruteForcer.getNext());
+            allActualPossibleTimeTables.add(lessonPicker.getNext());
 
         for(int i = 0; i<allPossibleTimeTablesShouldBe.size(); ++i) {
             ArrayList<TimetableEntry> singleTimeTableShouldBe = allPossibleTimeTablesShouldBe.get(i);

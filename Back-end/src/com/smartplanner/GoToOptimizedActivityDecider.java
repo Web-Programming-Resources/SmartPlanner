@@ -1,13 +1,32 @@
 package com.smartplanner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class GoWorkBruteforcer {
+public class GoToOptimizedActivityDecider {
     private ArrayList<TimetableEntry> singleDayTimetable;
     private ArrayList<AtomicInteger> currentCombination;
     private boolean hasFinished;
-    public GoWorkBruteforcer(ArrayList<TimetableEntry> singleDayTimetable) {
+
+    public GoToOptimizedActivityDecider(ArrayList<TimetableEntry> singleDayTimetable) {
+        this.singleDayTimetable = singleDayTimetable;
+        this.hasFinished = false;
+
+        int numberOfDecisionPoints = singleDayTimetable.size() + 1;
+        this.currentCombination = new ArrayList<AtomicInteger>(numberOfDecisionPoints);
+        for(int i = 0; i < numberOfDecisionPoints; ++i)
+            currentCombination.add(new AtomicInteger(0));
+    }
+
+    public GoToOptimizedActivityDecider(ArrayList<TimetableEntry> completeTimetable, int getDecisionsForCycleNumberDay)
+    {
+        ArrayList<TimetableEntry> singleDayTimetable = new ArrayList<TimetableEntry>();
+
+        for(TimetableEntry entry : completeTimetable)
+            if(entry.getTerm().getCycleDayNumber() == getDecisionsForCycleNumberDay)
+                singleDayTimetable.add(entry);
+
         this.singleDayTimetable = singleDayTimetable;
         this.hasFinished = false;
 

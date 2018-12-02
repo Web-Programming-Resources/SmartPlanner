@@ -2,13 +2,13 @@ package com.smartplanner;
 
 import java.util.ArrayList;
 
-public class PickLessonBruteForcer {
+public class LessonPicker {
     private ArrayList<Lesson> lessons;
     private int termIndexes[];
     private boolean hasFinished = false;
     private int maxDaysInCycle;
 
-    public PickLessonBruteForcer(ArrayList<Lesson> lessons, int maxDaysInCycle) {
+    public LessonPicker(ArrayList<Lesson> lessons, int maxDaysInCycle) {
         this.maxDaysInCycle = maxDaysInCycle;
         this.lessons = lessons;
         this.termIndexes = new int[lessons.size()];
