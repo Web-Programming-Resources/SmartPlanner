@@ -2,20 +2,18 @@ package com.smartplanner;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GoWorkBruteforcerTest {
 
-    ArrayList<TimetableEntry> timetable;
-    ArrayList<ArrayList<Boolean>> allPossibilities;
-    GoWorkBruteforcer bruteforcer;
-    int numberOfAllPossibilities;
+    private ArrayList<TimetableEntry> timetable;
+    private ArrayList<ArrayList<Boolean>> allPossibilities;
+    private GoWorkBruteforcer bruteforcer;
+    private int numberOfAllPossibilities;
 
     @BeforeEach
     void beforeEach() {
@@ -25,14 +23,12 @@ public class GoWorkBruteforcerTest {
 
         bruteforcer = new GoWorkBruteforcer(timetable);
         numberOfAllPossibilities = (int) Math.pow(2, timetable.size() + 1); // we have n+1 decision points (before first activity, between activities and after the last one)
-
     }
 
     @Test
     void isNextReturnsTrueIfThereIsNextCombinationToGet() {
         for (int i = 0; i < numberOfAllPossibilities; ++i, bruteforcer.getNext())
             assertTrue(bruteforcer.isNext());
-
         assertFalse(bruteforcer.isNext());
     }
 
@@ -44,9 +40,8 @@ public class GoWorkBruteforcerTest {
         for (int i = 0; i < allPossibleOutputsShouldBe.size(); ++i)
             allActualOutputs.add(bruteforcer.getNext());
 
-        for(ArrayList<Boolean> singleOutputShouldBe : allPossibleOutputsShouldBe) {
+        for(ArrayList<Boolean> singleOutputShouldBe : allPossibleOutputsShouldBe)
             assertTrue(hasFoundTimetableInside(singleOutputShouldBe, allActualOutputs));
-        }
     }
 
 
@@ -82,6 +77,4 @@ public class GoWorkBruteforcerTest {
 
         return true;
     }
-
-//TODO: test for timetable with TimetableEntries with different numberOfWeekDay
 }

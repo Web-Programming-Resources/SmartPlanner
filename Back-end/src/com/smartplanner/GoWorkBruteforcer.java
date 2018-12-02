@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GoWorkBruteforcer {
-    private ArrayList<TimetableEntry> timetable;
+    private ArrayList<TimetableEntry> singleDayTimetable;
     private ArrayList<AtomicInteger> currentCombination;
     private boolean hasFinished;
-    public GoWorkBruteforcer(ArrayList<TimetableEntry> timetable) {
-        this.timetable = timetable;
-        this.hasFinished=false;
+    public GoWorkBruteforcer(ArrayList<TimetableEntry> singleDayTimetable) {
+        this.singleDayTimetable = singleDayTimetable;
+        this.hasFinished = false;
 
-        int numberOfDecisionPoints = timetable.size()+1;
+        int numberOfDecisionPoints = singleDayTimetable.size() + 1;
         this.currentCombination = new ArrayList<AtomicInteger>(numberOfDecisionPoints);
-        for(int i=0; i < numberOfDecisionPoints; ++i)
+        for(int i = 0; i < numberOfDecisionPoints; ++i)
             currentCombination.add(new AtomicInteger(0));
     }
 
@@ -47,7 +47,7 @@ public class GoWorkBruteforcer {
             }
         }
 
-        int lastIndex = currentCombination.size()-1;
+        int lastIndex = currentCombination.size() - 1;
         if(currentCombination.get(lastIndex).get() > 1)
             hasFinished = true;
     }
