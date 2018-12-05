@@ -24,7 +24,7 @@ public class OptimalityCalculator {
         this.numberOfDaysInCycle = numberOfDaysInCycle;
     }
 
-    public int calculate(ArrayList<TimetableEntry> timetable){
+    public OptimalTimetable calculate(ArrayList<TimetableEntry> timetable){
 
         ArrayList<ArrayList<Boolean>> optimalDecisionPoints = new ArrayList<ArrayList<Boolean>>(numberOfDaysInCycle); //TODO: return it somehow
 
@@ -51,8 +51,8 @@ public class OptimalityCalculator {
 
         }
 
-
-        return timeSpentInWorkInCycle;
+        OptimalTimetable optimalTimetable = new OptimalTimetable(timeSpentInWorkInCycle, timetable, optimalDecisionPoints);
+        return optimalTimetable;
     }
 
     private int getNumberOfOnes(ArrayList<Boolean> decisionPoints) {

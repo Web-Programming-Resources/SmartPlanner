@@ -30,6 +30,7 @@ class OptimalityCalculatorTest {
     from   A 10 10 10
            B 10 10 10
            W 10 10 10 */
+
         distManag = new TimeDistanceManager(
                 new ArrayList<ArrayList<Integer>>(
                         Arrays.asList(
@@ -54,7 +55,7 @@ class OptimalityCalculatorTest {
         optimalityCalculator = new OptimalityCalculator(distManag, Integer.MAX_VALUE, 60, optActOpensAt, optActClosesAt, 1, optimizedActivity);
 
     }
-    
+
     @Test
     void unlimitedCommutes_optimalityCalculatorCalculatesAmountOfMinutesSpentInOptimizedActivity() {
         initDataForTest();
@@ -64,13 +65,14 @@ class OptimalityCalculatorTest {
         Activity secondLesson = timetable.get(1).getActivity();
         int secondLessonDuration = timetable.get(1).getTerm().getDurationInMin();
 
-        int optActOpenedInMin = optActClosesAt.getHour()*60 + optActClosesAt.getMinute() - (optActOpensAt.getHour()*60 + optActOpensAt.getMinute());
-        int minutesInTransportation = distManag.getTimeDistanceInMin(firstLesson, optimizedActivity) + distManag.getTimeDistanceInMin(optimizedActivity, secondLesson) + distManag.getTimeDistanceInMin(secondLesson, optimizedActivity);
+        final int MINUTES_IN_HOUR=60;
+        int optActOpenedInMin = optActClosesAt.getHour()*MINUTES_IN_HOUR + optActClosesAt.getMinute() - (optActOpensAt.getHour()*MINUTES_IN_HOUR + optActOpensAt.getMinute());
+        int minutesInTransportation = distManag.getTimeDistanceInMin(firstLesson, optimizedActivity)
+                + distManag.getTimeDistanceInMin(optimizedActivity, secondLesson) + distManag.getTimeDistanceInMin(secondLesson, optimizedActivity);
         int minutesSpentOnActivities = firstLessonDuration + secondLessonDuration;
 
         int minSpentOnOptAct = optActOpenedInMin - minutesInTransportation - minutesSpentOnActivities;
 
-        assertEquals(minSpentOnOptAct, optimalityCalculator.calculate(timetable));
+        assertEquals(minSpentOnOptAct, optimalityCalculator.calculate(timetable).getMinutesSpentAtOptimizedActivity());
     }
-
 }
