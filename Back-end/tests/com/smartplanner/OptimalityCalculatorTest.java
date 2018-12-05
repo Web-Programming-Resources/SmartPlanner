@@ -1,5 +1,6 @@
 package com.smartplanner;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -15,6 +16,11 @@ class OptimalityCalculatorTest {
     private OptimalityCalculator optimalityCalculator;
     private ArrayList<TimetableEntry> timetable;
     private OptimizedActivity optimizedActivity;
+
+    @BeforeEach
+    void beforeEach() {
+        Activity.resetId(); //so that id doesn't crash if one run all tests at once
+    }
 
     private void initDataForTest() {
 
@@ -48,8 +54,7 @@ class OptimalityCalculatorTest {
         optimalityCalculator = new OptimalityCalculator(distManag, Integer.MAX_VALUE, 60, optActOpensAt, optActClosesAt, 1, optimizedActivity);
 
     }
-
-    //TODO: fix test, it doesn't pass if all test are runned at once
+    
     @Test
     void unlimitedCommutes_optimalityCalculatorCalculatesAmountOfMinutesSpentInOptimizedActivity() {
         initDataForTest();

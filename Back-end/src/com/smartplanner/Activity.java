@@ -20,6 +20,10 @@ public class Activity {
     public String getName() {
         return name;
     }
+
+    public static void resetId() {
+        objectsCreated=0;
+    }
 }
 
 
