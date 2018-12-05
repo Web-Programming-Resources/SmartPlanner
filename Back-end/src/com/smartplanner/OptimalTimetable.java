@@ -16,7 +16,8 @@ public class OptimalTimetable {
     // optimalDecisionPoints.get(0).get(n) answers question: should I go to work in day 0 after last activity (where n = last index in array)
 
 
-    public OptimalTimetable(int minutesSpentAtOptimizedActivity, ArrayList<TimetableEntry> optimalTimetable, ArrayList<ArrayList<Boolean>> optimalDecisionPoints) {
+    public OptimalTimetable(int minutesSpentAtOptimizedActivity, ArrayList<TimetableEntry> optimalTimetable,
+                            ArrayList<ArrayList<Boolean>> optimalDecisionPoints) {
         this.minutesSpentAtOptimizedActivity = minutesSpentAtOptimizedActivity;
         this.optimalTimetable = optimalTimetable;
         this.optimalDecisionPoints = optimalDecisionPoints;

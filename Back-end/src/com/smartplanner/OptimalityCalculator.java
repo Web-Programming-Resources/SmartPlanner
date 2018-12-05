@@ -63,8 +63,9 @@ public class OptimalityCalculator {
         ArrayList<TimetableEntry> specifiedDayTimetable = extractEntriesForSpecifiedDay(timetable, cycleDayNumber);
 
         if (currDecisionPoints.get(0) == true) {
-            int timeBetweenOptimizedActivityOpenAndFirstActivityStart = calculateMinutesBetweenTwoTimePoints(optimizedActivity.getOpensAt(),
-                    specifiedDayTimetable.get(0).getTerm().getStartTime()) - timeDistanceManager.getTimeDistanceInMin(specifiedDayTimetable.get(0).getActivity(), optimizedActivity);
+            int timeBetweenOptimizedActivityOpenAndFirstActivityStart = calculateMinutesBetweenTwoTimePoints(
+                    optimizedActivity.getOpensAt(), specifiedDayTimetable.get(0).getTerm().getStartTime())
+                    - timeDistanceManager.getTimeDistanceInMin(specifiedDayTimetable.get(0).getActivity(), optimizedActivity);
             int minutesSpentInWorkForCurrDecisionPoint = timeBetweenOptimizedActivityOpenAndFirstActivityStart;
 
             if (minutesSpentInWorkForCurrDecisionPoint >= minTimeSpentOnOptimizedAtOnceInMinutes)
