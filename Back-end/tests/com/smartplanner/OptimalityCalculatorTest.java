@@ -41,7 +41,6 @@ class OptimalityCalculatorTest {
                 )
         );
 
-
         timetable = new ArrayList<TimetableEntry>(
                 Arrays.asList(
                         new TimetableEntry(new Lesson("test", null, 7), new Term(60, 0, LocalTime.of(8,00))),
@@ -59,13 +58,13 @@ class OptimalityCalculatorTest {
     @Test
     void unlimitedCommutes_optimalityCalculatorCalculatesAmountOfMinutesSpentInOptimizedActivity() {
         initDataForTest();
+        final int MINUTES_IN_HOUR=60;
 
         Activity firstLesson = timetable.get(0).getActivity();
         int firstLessonDuration = timetable.get(0).getTerm().getDurationInMin();
         Activity secondLesson = timetable.get(1).getActivity();
         int secondLessonDuration = timetable.get(1).getTerm().getDurationInMin();
 
-        final int MINUTES_IN_HOUR=60;
         int optActOpenedInMin = optActClosesAt.getHour()*MINUTES_IN_HOUR + optActClosesAt.getMinute() - (optActOpensAt.getHour()*MINUTES_IN_HOUR + optActOpensAt.getMinute());
         int minutesInTransportation = distManag.getTimeDistanceInMin(firstLesson, optimizedActivity)
                 + distManag.getTimeDistanceInMin(optimizedActivity, secondLesson) + distManag.getTimeDistanceInMin(secondLesson, optimizedActivity);
