@@ -11,8 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class OptimalityCalculatorTest {
 
     private TimeDistanceManager distManag;
-    private LocalTime optActOpensAt;
-    private LocalTime optActClosesAt;
     private OptimalityCalculator optimalityCalculator;
     private ArrayList<TimetableEntry> timetable;
     private OptimizedActivity optimizedActivity;
@@ -48,11 +46,8 @@ class OptimalityCalculatorTest {
                 )
         );
 
-        optActOpensAt = LocalTime.of(8,00);
-        optActClosesAt = LocalTime.of(18,00);
-        optimizedActivity = new OptimizedActivity("work");
-        optimalityCalculator = new OptimalityCalculator(distManag, Integer.MAX_VALUE, 60, optActOpensAt, optActClosesAt, 1, optimizedActivity);
-
+        optimizedActivity = new OptimizedActivity("work", LocalTime.of(8,00), LocalTime.of(18,00));
+        optimalityCalculator = new OptimalityCalculator(distManag, Integer.MAX_VALUE, 60, 1, optimizedActivity);
     }
 
     @Test
@@ -65,13 +60,13 @@ class OptimalityCalculatorTest {
         Activity secondLesson = timetable.get(1).getActivity();
         int secondLessonDuration = timetable.get(1).getTerm().getDurationInMin();
 
-        int optActOpenedInMin = optActClosesAt.getHour()*MINUTES_IN_HOUR + optActClosesAt.getMinute() - (optActOpensAt.getHour()*MINUTES_IN_HOUR + optActOpensAt.getMinute());
+        int optActOpenedInMin = optimizedActivity.getClosesAt().getHour()*MINUTES_IN_HOUR + optimizedActivity.getClosesAt().getMinute()
+                - (optimizedActivity.getOpensAt().getHour()*MINUTES_IN_HOUR + optimizedActivity.getOpensAt().getMinute());
         int minutesInTransportation = distManag.getTimeDistanceInMin(firstLesson, optimizedActivity)
                 + distManag.getTimeDistanceInMin(optimizedActivity, secondLesson) + distManag.getTimeDistanceInMin(secondLesson, optimizedActivity);
         int minutesSpentOnActivities = firstLessonDuration + secondLessonDuration;
 
         int minSpentOnOptAct = optActOpenedInMin - minutesInTransportation - minutesSpentOnActivities;
-
         assertEquals(minSpentOnOptAct, optimalityCalculator.calculate(timetable).getMinutesSpentAtOptimizedActivity());
     }
 }
