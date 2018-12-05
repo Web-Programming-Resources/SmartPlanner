@@ -19,8 +19,7 @@ public class GoToOptimizedActivityDecider {
             currentCombination.add(new AtomicInteger(0));
     }
 
-    public GoToOptimizedActivityDecider(ArrayList<TimetableEntry> completeTimetable, int getDecisionsForCycleNumberDay)
-    {
+    public GoToOptimizedActivityDecider(ArrayList<TimetableEntry> completeTimetable, int getDecisionsForCycleNumberDay) {
         ArrayList<TimetableEntry> singleDayTimetable = new ArrayList<TimetableEntry>();
 
         for(TimetableEntry entry : completeTimetable)

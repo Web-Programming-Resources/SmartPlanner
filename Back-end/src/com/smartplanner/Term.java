@@ -25,6 +25,10 @@ public class Term {
         return startTime;
     }
 
+    public LocalTime getEndTime() {
+        LocalTime endTime = LocalTime.of(startTime.getHour(), startTime.getMinute());
+        return endTime.plusMinutes(durationInMin);
+    }
     @Override
     public boolean equals(Object other) {
         if (other == null || !(other instanceof Term) )
