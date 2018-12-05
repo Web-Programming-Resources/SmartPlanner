@@ -22,9 +22,9 @@ public class OptimalityCalculator {
 
     public OptimalTimetable calculate(ArrayList<TimetableEntry> timetable){
         ArrayList<ArrayList<Boolean>> optimalDecisionPoints = new ArrayList<ArrayList<Boolean>>(numberOfDaysInCycle);
-        int timeSpentInWorkInCycle=0;
+        int timeSpentInWorkInCycle = 0;
 
-        for(int cycleDayNumber=0; cycleDayNumber<numberOfDaysInCycle; ++cycleDayNumber) {
+        for(int cycleDayNumber = 0; cycleDayNumber<numberOfDaysInCycle; ++cycleDayNumber) {
             GoToOptimizedActivityDecider decider = new GoToOptimizedActivityDecider(timetable, cycleDayNumber);
             int maxForCurrentDay = 0;
             ArrayList<Boolean> bestDecisionPoints = null;
@@ -47,7 +47,7 @@ public class OptimalityCalculator {
     }
 
     private int getNumberOfOnes(ArrayList<Boolean> decisionPoints) {
-        int numberOfOnes=0;
+        int numberOfOnes = 0;
         for(Boolean decision : decisionPoints)
             if(decision == true)
                 ++numberOfOnes;
@@ -69,7 +69,7 @@ public class OptimalityCalculator {
             int minutesSpentInWorkForCurrDecisionPoint = timeBetweenOptimizedActivityOpenAndFirstActivityStart;
 
             if(minutesSpentInWorkForCurrDecisionPoint >= minTimeSpentOnOptimizedAtOnceInMinutes)
-                timeSpentInWork+=minutesSpentInWorkForCurrDecisionPoint;
+                timeSpentInWork += minutesSpentInWorkForCurrDecisionPoint;
         }
 
         for(int i = 1; i < currDecisionPoints.size() - 1; ++i) {
