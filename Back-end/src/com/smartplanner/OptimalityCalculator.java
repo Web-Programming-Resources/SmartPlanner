@@ -4,8 +4,6 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-//TODO: take into account max time spent in work
-
 public class OptimalityCalculator {
     private TimeDistanceManager timeDistanceManager;
     private int maxCommutesPerDay;
@@ -43,6 +41,9 @@ public class OptimalityCalculator {
                     maxForCurrentDay = currentVal;
                 }
             }
+            
+            if(maxForCurrentDay > optimizedActivity.getMaxTimeSpentInActivityInMin())
+                maxForCurrentDay = optimizedActivity.getMaxTimeSpentInActivityInMin();
 
             timeSpentInWorkInCycle += maxForCurrentDay;
             optimalDecisionPoints.add(bestDecisionPoints);

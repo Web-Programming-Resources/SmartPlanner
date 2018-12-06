@@ -47,7 +47,7 @@ class OptimalityCalculatorTest {
                 )
         );
 
-        optimizedAct = new OptimizedActivity("work", LocalTime.of(8, 00), LocalTime.of(18, 00));
+        optimizedAct = new OptimizedActivity("work", LocalTime.of(8, 00), LocalTime.of(18, 00), 8*60);
         optimalityCalculator = new OptimalityCalculator(distManag, Integer.MAX_VALUE, 60, 1, optimizedAct);
     }
 
