@@ -41,7 +41,7 @@ public class OptimalityCalculator {
                     maxForCurrentDay = currentVal;
                 }
             }
-            
+
             if(maxForCurrentDay > optimizedActivity.getMaxTimeSpentInActivityInMin())
                 maxForCurrentDay = optimizedActivity.getMaxTimeSpentInActivityInMin();
 

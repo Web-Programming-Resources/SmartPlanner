@@ -33,7 +33,7 @@ public class SmartPlanner {
         while(lessonPicker.isNext())
             potentialTimetables.add(lessonPicker.getNext());
 
-        TimetableValidator validator = new TimetableValidator();
+        TimetableValidator validator = new TimetableValidator(distManag);
 
         ArrayList<ArrayList<TimetableEntry>> validTimetables = new ArrayList<ArrayList<TimetableEntry>>();
 
