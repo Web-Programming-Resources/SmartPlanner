@@ -1,5 +1,6 @@
 package com.smartplanner;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
@@ -14,6 +15,11 @@ import static org.junit.jupiter.api.Assertions.*;
  * OptimizedActivity must be created as the last one object (after creation of all Lesson objects)
  */
 class SmartPlannerTest {
+
+    @BeforeEach
+    void beforeEach() {
+        Activity.resetId(); //so that id doesn't crash if one run all tests at once
+    }
 
     @Test
     void getOptimalPlanTest() {

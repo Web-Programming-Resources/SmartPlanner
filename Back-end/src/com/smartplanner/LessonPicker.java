@@ -37,7 +37,8 @@ public class LessonPicker {
     private void addRepeatsInCycle(ArrayList<TimetableEntry> timetable, int activityIndex, Term firstTerm) {
         for(int i = 0; ; ++i) { //adds repeats in cycle
             int nextRepeatDay = firstTerm.getCycleDayNumber() + i*lessons.get(activityIndex).getRepeatingPeriod();
-            if(nextRepeatDay > daysInCycle)
+            // -1 because nextRepeatDay is counted from 0 whereas daysInCycle is counted from 0
+            if(nextRepeatDay > daysInCycle - 1)
                 break;
             Term nextTerm = new Term(firstTerm.getDurationInMin(), nextRepeatDay, firstTerm.getStartTime());
             timetable.add(new TimetableEntry(lessons.get(activityIndex), nextTerm));

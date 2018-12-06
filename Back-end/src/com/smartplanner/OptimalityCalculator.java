@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+//TODO: take into account max time spent in work
+
 public class OptimalityCalculator {
     private TimeDistanceManager timeDistanceManager;
     private int maxCommutesPerDay;
@@ -66,6 +68,8 @@ public class OptimalityCalculator {
 
         int timeSpentInWork = 0;
         ArrayList<TimetableEntry> specifiedDayTimetable = extractEntriesForSpecifiedDay(timetable, cycleDayNumber);
+        if(specifiedDayTimetable.size() ==  0) //there are no lessons that day
+            return calculateMinutesBetweenTwoTimePoints(optimizedActivity.getOpensAt(), optimizedActivity.getClosesAt());
 
         if (currDecisionPoints.get(0) == true) {
             int timeBetweenOptimizedActivityOpenAndFirstActivityStart = calculateMinutesBetweenTwoTimePoints(
