@@ -2,7 +2,7 @@ package com.smartplanner;
 
 import java.util.ArrayList;
 
-public class OptimalTimetable {
+public class TimetableWithDecisionPointsAndScore {
     private int minutesSpentAtOptimizedActivity;
     private ArrayList<TimetableEntry> optimalTimetable;
     private ArrayList<ArrayList<Boolean>> optimalDecisionPoints;
@@ -16,8 +16,8 @@ public class OptimalTimetable {
     // optimalDecisionPoints.get(0).get(n) answers question: should I go to work in day 0 after last activity (where n = last index in array)
 
 
-    public OptimalTimetable(int minutesSpentAtOptimizedActivity, ArrayList<TimetableEntry> optimalTimetable,
-                            ArrayList<ArrayList<Boolean>> optimalDecisionPoints) {
+    public TimetableWithDecisionPointsAndScore(int minutesSpentAtOptimizedActivity, ArrayList<TimetableEntry> optimalTimetable,
+                                               ArrayList<ArrayList<Boolean>> optimalDecisionPoints) {
         this.minutesSpentAtOptimizedActivity = minutesSpentAtOptimizedActivity;
         this.optimalTimetable = optimalTimetable;
         this.optimalDecisionPoints = optimalDecisionPoints;

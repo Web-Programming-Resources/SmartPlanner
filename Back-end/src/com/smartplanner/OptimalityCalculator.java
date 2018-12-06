@@ -11,8 +11,10 @@ public class OptimalityCalculator {
     private int numberOfDaysInCycle;
     private OptimizedActivity optimizedActivity;
 
-    public OptimalityCalculator(TimeDistanceManager timeDistanceManager, int maxCommutesPerDay,
-                                int minTimeSpentOnOptimizedAtOnceInMinutes, int numberOfDaysInCycle,
+    public OptimalityCalculator(TimeDistanceManager timeDistanceManager,
+                                int maxCommutesPerDay,
+                                int minTimeSpentOnOptimizedAtOnceInMinutes,
+                                int numberOfDaysInCycle,
                                 OptimizedActivity optimizedActivity) {
         this.optimizedActivity = optimizedActivity;
         this.timeDistanceManager = timeDistanceManager;
@@ -21,7 +23,7 @@ public class OptimalityCalculator {
         this.numberOfDaysInCycle = numberOfDaysInCycle;
     }
 
-    public OptimalTimetable calculate(ArrayList<TimetableEntry> timetable) {
+    public TimetableWithDecisionPointsAndScore calculate(ArrayList<TimetableEntry> timetable) {
         ArrayList<ArrayList<Boolean>> optimalDecisionPoints = new ArrayList<ArrayList<Boolean>>(numberOfDaysInCycle);
         int timeSpentInWorkInCycle = 0;
 
@@ -44,7 +46,7 @@ public class OptimalityCalculator {
             optimalDecisionPoints.add(bestDecisionPoints);
         }
 
-        return new OptimalTimetable(timeSpentInWorkInCycle, timetable, optimalDecisionPoints);
+        return new TimetableWithDecisionPointsAndScore(timeSpentInWorkInCycle, timetable, optimalDecisionPoints);
     }
 
     private int getNumberOfCommutesToWork(ArrayList<Boolean> decisionPoints) {
@@ -57,7 +59,8 @@ public class OptimalityCalculator {
     }
 
     private int calculateRegardingProvidedDecisionPoints(ArrayList<TimetableEntry> timetable,
-                                                         ArrayList<Boolean> currDecisionPoints, int cycleDayNumber) {
+                                                         ArrayList<Boolean> currDecisionPoints,
+                                                         int cycleDayNumber) {
         if (getNumberOfCommutesToWork(currDecisionPoints) > maxCommutesPerDay)
             return 0;
 
