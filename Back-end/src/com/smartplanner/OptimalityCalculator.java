@@ -3,6 +3,7 @@ package com.smartplanner;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class OptimalityCalculator {
     private TimeDistanceManager timeDistanceManager;
@@ -28,6 +29,12 @@ public class OptimalityCalculator {
         int timeSpentInWorkInCycle = 0;
 
         for (int cycleDayNumber = 0; cycleDayNumber < numberOfDaysInCycle; ++cycleDayNumber) {
+
+            if(optimizedActivity.isOpenedInDay(cycleDayNumber) == false) {
+                optimalDecisionPoints.add(new ArrayList<Boolean>(Arrays.asList(false)));
+                continue;
+            }
+
             GoToOptimizedActivityDecider decider = new GoToOptimizedActivityDecider(timetable, cycleDayNumber);
             int maxForCurrentDay = 0;
             ArrayList<Boolean> bestDecisionPoints = null;

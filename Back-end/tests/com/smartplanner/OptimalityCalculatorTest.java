@@ -10,7 +10,6 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OptimalityCalculatorTest {
-
     private TimeDistanceManager distManag;
     private OptimalityCalculator optimalityCalculator;
     private ArrayList<TimetableEntry> timetable;
@@ -47,7 +46,9 @@ class OptimalityCalculatorTest {
                 )
         );
 
-        optimizedAct = new OptimizedActivity("work", LocalTime.of(8, 00), LocalTime.of(18, 00), 8*60);
+        ArrayList<Boolean> isOpenedInDay = new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, false, false));
+
+        optimizedAct = new OptimizedActivity("work", LocalTime.of(8, 00), LocalTime.of(18, 00), 8*60, isOpenedInDay);
         optimalityCalculator = new OptimalityCalculator(distManag, Integer.MAX_VALUE, 60, 1, optimizedAct);
     }
 

@@ -51,6 +51,7 @@ class SmartPlannerTest {
         ArrayList<Lesson> lessons = new ArrayList<Lesson>(Arrays.asList(lesson1, lesson2, lesson3, lesson4));
 
         int daysInCycle = 7;
+        ArrayList<Boolean> isOpenedInDay = new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, false, false));
 
           /* COMMUTE MATRIX (A = lesson1, B = lesson2, C = lesson3, D = lesson4, W = optimized activity)
                 to
@@ -75,12 +76,14 @@ class SmartPlannerTest {
 
         int maxCommutesPerDay = Integer.MAX_VALUE;
         int minTimeSpentOnOptimizedAtOnceInMinutes = 120;
-        OptimizedActivity optimizedActivity = new OptimizedActivity("work", LocalTime.of(8,00), LocalTime.of(18, 00), 8*60);
+        OptimizedActivity optimizedActivity = new OptimizedActivity("work", LocalTime.of(8,00),
+                LocalTime.of(18, 00), 8*60, isOpenedInDay);
 
-        SmartPlanner planner = new SmartPlanner(lessons, daysInCycle, distManag, maxCommutesPerDay, minTimeSpentOnOptimizedAtOnceInMinutes, optimizedActivity);
+        SmartPlanner planner = new SmartPlanner(lessons, daysInCycle, distManag, maxCommutesPerDay,
+                minTimeSpentOnOptimizedAtOnceInMinutes, optimizedActivity);
 
         TimetableWithDecisionPointsAndScore optimal = planner.getOptimalPlan();
-        assertTrue(true);
+        assertEquals(optimal.getMinutesSpentAtOptimizedActivity(), 2390);
     }
 
 }
