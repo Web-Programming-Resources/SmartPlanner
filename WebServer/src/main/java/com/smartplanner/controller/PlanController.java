@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
-@RequestMapping("/api/plans")
+@RequestMapping("api/plans")
 public class PlanController {
 
     private final PlanService planService;
@@ -23,7 +23,7 @@ public class PlanController {
     @GetMapping("{id}")
     public Plan getPlanById(@PathVariable(value = "id") int id) throws ResourceNotFoundException {
         if (!planService.findPlanById(id)) {
-            throw new ResourceNotFoundException("Plan", "id", id);
+            throw new ResourceNotFoundException("Plan", "ID", id);
         }
 
         return planService.getPlanById(id);

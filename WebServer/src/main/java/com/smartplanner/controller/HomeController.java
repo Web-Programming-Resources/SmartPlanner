@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
     @RequestMapping("/")
-    public String index() {
-        return "Index";
+    public String getHomeControllerString() {
+        return "Smart Planner API";
     }
 }
