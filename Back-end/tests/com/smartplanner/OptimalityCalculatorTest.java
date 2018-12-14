@@ -10,11 +10,10 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OptimalityCalculatorTest {
-
     private TimeDistanceManager distManag;
     private OptimalityCalculator optimalityCalculator;
     private ArrayList<TimetableEntry> timetable;
-    private OptimizedActivity optimizedActivity;
+    private OptimizedActivity optimizedAct;
 
     @BeforeEach
     void beforeEach() {
@@ -47,8 +46,10 @@ class OptimalityCalculatorTest {
                 )
         );
 
-        optimizedActivity = new OptimizedActivity("work", LocalTime.of(8, 00), LocalTime.of(18, 00));
-        optimalityCalculator = new OptimalityCalculator(distManag, Integer.MAX_VALUE, 60, 1, optimizedActivity);
+        ArrayList<Boolean> isOpenedInDay = new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, false, false));
+
+        optimizedAct = new OptimizedActivity("work", LocalTime.of(8, 00), LocalTime.of(18, 00), 8*60, isOpenedInDay);
+        optimalityCalculator = new OptimalityCalculator(distManag, Integer.MAX_VALUE, 60, 1, optimizedAct);
     }
 
     @Test
@@ -61,10 +62,10 @@ class OptimalityCalculatorTest {
         Activity secondLesson = timetable.get(1).getActivity();
         int secondLessonDuration = timetable.get(1).getTerm().getDurationInMin();
 
-        int optActOpenedInMin = optimizedActivity.getClosesAt().getHour() * MINUTES_IN_HOUR + optimizedActivity.getClosesAt().getMinute()
-                - (optimizedActivity.getOpensAt().getHour() * MINUTES_IN_HOUR + optimizedActivity.getOpensAt().getMinute());
-        int minutesInTransportation = distManag.getTimeDistanceInMin(firstLesson, optimizedActivity)
-                + distManag.getTimeDistanceInMin(optimizedActivity, secondLesson) + distManag.getTimeDistanceInMin(secondLesson, optimizedActivity);
+        int optActOpenedInMin = optimizedAct.getClosesAt().getHour() * MINUTES_IN_HOUR + optimizedAct.getClosesAt().getMinute()
+                - (optimizedAct.getOpensAt().getHour() * MINUTES_IN_HOUR + optimizedAct.getOpensAt().getMinute());
+        int minutesInTransportation = distManag.getTimeDistanceInMin(firstLesson, optimizedAct)
+                + distManag.getTimeDistanceInMin(optimizedAct, secondLesson) + distManag.getTimeDistanceInMin(secondLesson, optimizedAct);
         int minutesSpentOnActivities = firstLessonDuration + secondLessonDuration;
 
         int minSpentOnOptAct = optActOpenedInMin - minutesInTransportation - minutesSpentOnActivities;
