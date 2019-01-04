@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("com.smartplanner.repository")
 public class SmartPlannerApi {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SmartPlannerApi.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SmartPlannerApi.class, args);
+    }
 }
