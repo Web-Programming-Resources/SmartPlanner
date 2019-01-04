@@ -1,6 +1,6 @@
 package com.smartplanner.repository;
 
-import com.smartplanner.model.User;
+import com.smartplanner.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

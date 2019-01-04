@@ -1,6 +1,6 @@
 package com.smartplanner.service.implementation;
 
-import com.smartplanner.model.User;
+import com.smartplanner.model.entity.User;
 import com.smartplanner.repository.UserRepository;
 import com.smartplanner.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

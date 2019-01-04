@@ -1,13 +1,11 @@
 package com.smartplanner.controller;
 
 import com.smartplanner.exception.ResourceNotFoundException;
-import com.smartplanner.model.Plan;
+import com.smartplanner.model.dto.SmartPlannerInputDto;
+import com.smartplanner.model.entity.Plan;
 import com.smartplanner.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/plans")
@@ -27,5 +25,10 @@ public class PlanController {
         }
 
         return planService.getPlanById(id);
+    }
+
+    @PostMapping()
+    public SmartPlannerInputDto createPlan(@RequestBody SmartPlannerInputDto smartPlannerInputDto) {
+        return smartPlannerInputDto;
     }
 }
