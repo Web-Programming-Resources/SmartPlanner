@@ -16,11 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class SmartPlannerTest {
 
-    @BeforeEach
-    void beforeEach() {
-        Activity.resetId(); //so that id doesn't crash if one run all tests at once
-    }
-
     @Test
     void getOptimalPlanTest() {
 
@@ -28,25 +23,25 @@ class SmartPlannerTest {
                 new Term(60, 0, LocalTime.of(9, 00)),
                 new Term(60, 0, LocalTime.of(10, 00))
         ));
-        Lesson lesson1 = new Lesson("Lesson 1", lesson1Terms, 7);
+        Lesson lesson1 = new Lesson(0,"Lesson 0", lesson1Terms, 7);
 
         ArrayList<Term> lesson2Terms = new ArrayList<>(Arrays.asList(
                 new Term(60, 0, LocalTime.of(11, 00)),
                 new Term(60, 1, LocalTime.of(14, 00))
         ));
-        Lesson lesson2 = new Lesson("Lesson 2", lesson2Terms, 7);
+        Lesson lesson2 = new Lesson(1,"Lesson 1", lesson2Terms, 7);
 
         ArrayList<Term> lesson3Terms = new ArrayList<>(Arrays.asList(
                 new Term(60, 1, LocalTime.of(9, 00)),
                 new Term(60, 1, LocalTime.of(12, 00))
         ));
-        Lesson lesson3 = new Lesson("Lesson 3", lesson3Terms, 7);
+        Lesson lesson3 = new Lesson(2,"Lesson 2", lesson3Terms, 7);
 
         ArrayList<Term> lesson4Terms = new ArrayList<>(Arrays.asList(
                 new Term(60, 0, LocalTime.of(15, 00)),
                 new Term(60, 1, LocalTime.of(8, 00))
         ));
-        Lesson lesson4 = new Lesson("Lesson 4", lesson4Terms, 7);
+        Lesson lesson4 = new Lesson(3,"Lesson 3", lesson4Terms, 7);
 
         ArrayList<Lesson> lessons = new ArrayList<Lesson>(Arrays.asList(lesson1, lesson2, lesson3, lesson4));
 
@@ -77,7 +72,7 @@ class SmartPlannerTest {
         int maxCommutesPerDay = Integer.MAX_VALUE;
         int minTimeSpentOnOptimizedAtOnceInMinutes = 120;
         int maxTimeSpentInOptimizedActivityInMin = 8*60;
-        OptimizedActivity optimizedActivity = new OptimizedActivity("work", LocalTime.of(8,00),
+        OptimizedActivity optimizedActivity = new OptimizedActivity(4,"work", LocalTime.of(8,00),
                 LocalTime.of(18, 00), minTimeSpentOnOptimizedAtOnceInMinutes, maxTimeSpentInOptimizedActivityInMin, isOpenedInDay);
 
         SmartPlanner planner = new SmartPlanner(lessons, daysInCycle, distManag, maxCommutesPerDay, optimizedActivity);

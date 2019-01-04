@@ -1,11 +1,11 @@
 package com.smartplanner;
 
 public class TimetableEntry {
-    private Activity activity;
+    private Lesson lesson;
     private Term pickedTerm;
 
-    public TimetableEntry(Activity activity, Term pickedTerm) {
-        this.activity = activity;
+    public TimetableEntry(Lesson lesson, Term pickedTerm) {
+        this.lesson = lesson;
         this.pickedTerm = pickedTerm;
     }
 
@@ -14,11 +14,11 @@ public class TimetableEntry {
     }
 
     public String getName() {
-        return activity.getName();
+        return lesson.getName();
     }
 
-    public Activity getActivity() {
-        return activity;
+    public Lesson getLesson() {
+        return lesson;
     }
 
     @Override

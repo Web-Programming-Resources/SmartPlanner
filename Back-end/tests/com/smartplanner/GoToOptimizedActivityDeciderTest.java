@@ -18,8 +18,8 @@ public class GoToOptimizedActivityDeciderTest {
     @BeforeEach
     void beforeEach() {
         timetable = new ArrayList<TimetableEntry>();
-        timetable.add(new TimetableEntry(new Activity("test"), new Term(60, 1, LocalTime.of(12, 00))));
-        timetable.add(new TimetableEntry(new Activity("test"), new Term(60, 1, LocalTime.of(15, 00))));
+        timetable.add(new TimetableEntry(new Lesson(0,"test", null,7), new Term(60, 1, LocalTime.of(12, 00))));
+        timetable.add(new TimetableEntry(new Lesson(1,"test", null, 7), new Term(60, 1, LocalTime.of(15, 00))));
 
         bruteforcer = new GoToOptimizedActivityDecider(timetable);
         numberOfAllPossibilities = (int) Math.pow(2, timetable.size() + 1); // we have n+1 decision points (before first activity, between activities and after the last one)

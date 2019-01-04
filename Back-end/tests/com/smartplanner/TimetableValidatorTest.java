@@ -12,8 +12,6 @@ public class TimetableValidatorTest {
 
     @BeforeEach
     void beforeEach() {
-
-        Activity.resetId(); //so that it doesn't crash if all tests are run at once
         distManag = new TimeDistanceManager(
                 new ArrayList<ArrayList<Integer>>(
                         Arrays.asList(
@@ -28,8 +26,8 @@ public class TimetableValidatorTest {
     void validatorReturnsFalseIfThereAreEntriesThatOverlapsEeachOther() {
         ArrayList<TimetableEntry> invalidTimetable=new ArrayList<TimetableEntry>(
                 Arrays.asList(
-                        new TimetableEntry(new Lesson("test", null, 7), new Term(60, 5, LocalTime.of(14,00))),
-                        new TimetableEntry(new Lesson("test", null, 7), new Term(60, 5, LocalTime.of(14,30)))
+                        new TimetableEntry(new Lesson(0,"test", null, 7), new Term(60, 5, LocalTime.of(14,00))),
+                        new TimetableEntry(new Lesson(1,"test", null, 7), new Term(60, 5, LocalTime.of(14,30)))
                 )
         );
 
@@ -41,8 +39,8 @@ public class TimetableValidatorTest {
     void validatorReturnsTrueIfEntriesDoesNotOverlapEachOther() {
         ArrayList<TimetableEntry> validTimetable = new ArrayList<TimetableEntry>(
                 Arrays.asList(
-                        new TimetableEntry(new Lesson("test", null, 7), new Term(60, 5, LocalTime.of(14, 00))),
-                        new TimetableEntry(new Lesson("test", null, 7), new Term(60, 5, LocalTime.of(16, 00)))
+                        new TimetableEntry(new Lesson(0,"test", null, 7), new Term(60, 5, LocalTime.of(14, 00))),
+                        new TimetableEntry(new Lesson(1,"test", null, 7), new Term(60, 5, LocalTime.of(16, 00)))
                 )
         );
 
@@ -54,8 +52,8 @@ public class TimetableValidatorTest {
     void validatorReturnsTrueIfOneActivityEndsPreciselyWhenTheOtherStarts() {
         ArrayList<TimetableEntry> validTimetable = new ArrayList<TimetableEntry>(
                 Arrays.asList(
-                        new TimetableEntry(new Lesson("test", null, 7), new Term(60, 5, LocalTime.of(14, 00))),
-                        new TimetableEntry(new Lesson("test", null, 7), new Term(60, 5, LocalTime.of(15, 00)))
+                        new TimetableEntry(new Lesson(0,"test", null, 7), new Term(60, 5, LocalTime.of(14, 00))),
+                        new TimetableEntry(new Lesson(1,"test", null, 7), new Term(60, 5, LocalTime.of(15, 00)))
                 )
         );
 
@@ -77,8 +75,8 @@ public class TimetableValidatorTest {
 
         ArrayList<TimetableEntry> validTimetable = new ArrayList<TimetableEntry>(
                 Arrays.asList(
-                        new TimetableEntry(new Lesson("test", null, 7), new Term(60, 5, LocalTime.of(14, 00))),
-                        new TimetableEntry(new Lesson("test", null, 7), new Term(60, 5, LocalTime.of(15, 00)))
+                        new TimetableEntry(new Lesson(0,"test", null, 7), new Term(60, 5, LocalTime.of(14, 00))),
+                        new TimetableEntry(new Lesson(1,"test", null, 7), new Term(60, 5, LocalTime.of(15, 00)))
                 )
         );
 

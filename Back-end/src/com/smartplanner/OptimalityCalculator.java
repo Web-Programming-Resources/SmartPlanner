@@ -82,7 +82,7 @@ public class OptimalityCalculator {
         if (currDecisionPoints.get(0) == true) {
             int timeBetweenOptimizedActivityOpenAndFirstActivityStart = calculateMinutesBetweenTwoTimePoints(
                     optimizedActivity.getOpensAt(), specifiedDayTimetable.get(0).getTerm().getStartTime())
-                    - timeDistanceManager.getTimeDistanceInMin(specifiedDayTimetable.get(0).getActivity(), optimizedActivity);
+                    - timeDistanceManager.getTimeDistanceInMin(specifiedDayTimetable.get(0).getLesson(), optimizedActivity);
             int minutesSpentInWorkForCurrDecisionPoint = timeBetweenOptimizedActivityOpenAndFirstActivityStart;
 
             if (minutesSpentInWorkForCurrDecisionPoint >= minTimeSpentOnOptimizedAtOnceInMinutes)
@@ -94,9 +94,9 @@ public class OptimalityCalculator {
                 int timeBetweenTwoActivities = calculateMinutesBetweenTwoTimePoints(specifiedDayTimetable.get(i).getTerm()
                                 .getStartTime(), specifiedDayTimetable.get(i - 1).getTerm().getEndTime());
                 int transportTimeFromFirstActToOptimized = timeDistanceManager.getTimeDistanceInMin(specifiedDayTimetable
-                        .get(i - 1).getActivity(), optimizedActivity);
+                        .get(i - 1).getLesson(), optimizedActivity);
                 int transportTimeFromOptimizedToSecondAct = timeDistanceManager.getTimeDistanceInMin(optimizedActivity,
-                        specifiedDayTimetable.get(i).getActivity());
+                        specifiedDayTimetable.get(i).getLesson());
                 int minutesSpentInWorkForCurrDecisionPoint = timeBetweenTwoActivities
                         - transportTimeFromFirstActToOptimized - transportTimeFromOptimizedToSecondAct;
 
@@ -109,7 +109,7 @@ public class OptimalityCalculator {
             int timeBetweenLastActivityEndingAndOptimizedActivityClose = calculateMinutesBetweenTwoTimePoints(specifiedDayTimetable
                     .get(specifiedDayTimetable.size() - 1).getTerm().getEndTime(), optimizedActivity.getClosesAt());
             int travelTimeFromLastActivityToOptimizedActivity = timeDistanceManager.getTimeDistanceInMin(specifiedDayTimetable
-                    .get(specifiedDayTimetable.size() - 1).getActivity(), optimizedActivity);
+                    .get(specifiedDayTimetable.size() - 1).getLesson(), optimizedActivity);
             int minutesSpentInWorkForCurrDecisionPoint = timeBetweenLastActivityEndingAndOptimizedActivityClose
                     - travelTimeFromLastActivityToOptimizedActivity;
 

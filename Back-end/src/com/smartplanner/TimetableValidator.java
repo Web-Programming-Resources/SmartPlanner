@@ -45,7 +45,7 @@ public class TimetableValidator {
             return true;
 
         LocalTime possibleArrivalToSecondActivityTime = first.getTerm().getEndTime()
-                .plusMinutes(distManag.getTimeDistanceInMin(first.getActivity(), second.getActivity()));
+                .plusMinutes(distManag.getTimeDistanceInMin(first.getLesson(), second.getLesson()));
 
         return possibleArrivalToSecondActivityTime.isAfter(second.getTerm().getStartTime()) == false;
     }
