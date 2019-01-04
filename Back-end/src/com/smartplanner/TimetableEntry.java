@@ -1,19 +1,24 @@
 package com.smartplanner;
 
-import java.sql.Time;
-
 public class TimetableEntry {
-    private int activityID;
+    private Lesson lesson;
     private Term pickedTerm;
 
-    public TimetableEntry(int activityID, Term pickedTerm) {
-        this.activityID = activityID;
+    public TimetableEntry(Lesson lesson, Term pickedTerm) {
+        this.lesson = lesson;
         this.pickedTerm = pickedTerm;
     }
 
     public Term getTerm() {
-
         return pickedTerm;
+    }
+
+    public String getName() {
+        return lesson.getName();
+    }
+
+    public Lesson getLesson() {
+        return lesson;
     }
 
     @Override
@@ -26,5 +31,4 @@ public class TimetableEntry {
         TimetableEntry otherTimetableEntry = (TimetableEntry) other;
         return otherTimetableEntry.pickedTerm.equals(this.pickedTerm);
     }
-
 }
