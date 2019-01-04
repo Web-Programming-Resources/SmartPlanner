@@ -76,11 +76,11 @@ class SmartPlannerTest {
 
         int maxCommutesPerDay = Integer.MAX_VALUE;
         int minTimeSpentOnOptimizedAtOnceInMinutes = 120;
+        int maxTimeSpentInOptimizedActivityInMin = 8*60;
         OptimizedActivity optimizedActivity = new OptimizedActivity("work", LocalTime.of(8,00),
-                LocalTime.of(18, 00), 8*60, isOpenedInDay);
+                LocalTime.of(18, 00), minTimeSpentOnOptimizedAtOnceInMinutes, maxTimeSpentInOptimizedActivityInMin, isOpenedInDay);
 
-        SmartPlanner planner = new SmartPlanner(lessons, daysInCycle, distManag, maxCommutesPerDay,
-                minTimeSpentOnOptimizedAtOnceInMinutes, optimizedActivity);
+        SmartPlanner planner = new SmartPlanner(lessons, daysInCycle, distManag, maxCommutesPerDay, optimizedActivity);
 
         TimetableWithDecisionPointsAndScore optimal = planner.getOptimalPlan();
         assertEquals(optimal.getMinutesSpentAtOptimizedActivity(), 2390);

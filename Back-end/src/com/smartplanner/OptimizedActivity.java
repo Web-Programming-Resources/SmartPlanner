@@ -7,14 +7,20 @@ public class OptimizedActivity extends Activity {
     private LocalTime opensAt;
     private LocalTime closesAt;
     private int maxTimeSpentInActivityInMin;
+    private int minTimeSpentAtOptimizedAtOnceInMinutes;
     private ArrayList<Boolean> isOpenedInDay;
 
-    public OptimizedActivity(String name, LocalTime opensAt, LocalTime closesAt, int maxTimeSpentInActivityInMin, ArrayList<Boolean> isOpenedInDay) {
+    public OptimizedActivity(String name, LocalTime opensAt, LocalTime closesAt, int minTimeSpentAtOptimizedAtOnceInMinutes, int maxTimeSpentInActivityInMin, ArrayList<Boolean> isOpenedInDay) {
         super(name);
         this.opensAt = opensAt;
         this.closesAt = closesAt;
+        this.minTimeSpentAtOptimizedAtOnceInMinutes = minTimeSpentAtOptimizedAtOnceInMinutes;
         this.maxTimeSpentInActivityInMin = maxTimeSpentInActivityInMin;
         this.isOpenedInDay=isOpenedInDay;
+    }
+
+    public int getMinTimeSpentAtOptimizedAtOnceInMinutes() {
+        return minTimeSpentAtOptimizedAtOnceInMinutes;
     }
 
     public int getMaxTimeSpentInActivityInMin() {

@@ -14,13 +14,12 @@ public class SmartPlanner {
     OptimizedActivity optimizedActivity;
 
     public SmartPlanner(ArrayList<Lesson> lessons, int daysInCycle, TimeDistanceManager distManag,
-                        int maxCommutesPerDay, int minTimeSpentAtOptimizedAtOnceInMinutes,
-                        OptimizedActivity optimizedActivity) {
+                        int maxCommutesPerDay, OptimizedActivity optimizedActivity) {
         this.lessons = lessons;
         this.daysInCycle = daysInCycle;
         this.distManag = distManag;
         this.maxCommutesPerDay = maxCommutesPerDay;
-        this.minTimeSpentAtOptimizedAtOnceInMinutes = minTimeSpentAtOptimizedAtOnceInMinutes;
+        this.minTimeSpentAtOptimizedAtOnceInMinutes = optimizedActivity.getMinTimeSpentAtOptimizedAtOnceInMinutes(); //TODO:
         this.optimizedActivity = optimizedActivity;
     }
 

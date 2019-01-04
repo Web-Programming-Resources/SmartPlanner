@@ -48,8 +48,8 @@ class OptimalityCalculatorTest {
 
         ArrayList<Boolean> isOpenedInDay = new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, false, false));
 
-        optimizedAct = new OptimizedActivity("work", LocalTime.of(8, 00), LocalTime.of(18, 00), 8*60, isOpenedInDay);
-        optimalityCalculator = new OptimalityCalculator(distManag, Integer.MAX_VALUE, 60, 1, optimizedAct);
+        optimizedAct = new OptimizedActivity("work", LocalTime.of(8, 00), LocalTime.of(18, 00), 60, 8*60, isOpenedInDay);
+        optimalityCalculator = new OptimalityCalculator(distManag, Integer.MAX_VALUE, optimizedAct.getMinTimeSpentAtOptimizedAtOnceInMinutes(), 1, optimizedAct);
     }
 
     @Test
