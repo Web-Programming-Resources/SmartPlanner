@@ -1,6 +1,6 @@
 package com.smartplanner.service;
 
-import com.smartplanner.model.User;
+import com.smartplanner.model.entity.User;
 import org.springframework.stereotype.Service;
 
 @Service

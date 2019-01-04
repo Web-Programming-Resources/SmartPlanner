@@ -1,6 +1,6 @@
 package com.smartplanner.service.implementation;
 
-import com.smartplanner.model.Plan;
+import com.smartplanner.model.entity.Plan;
 import com.smartplanner.repository.PlanRepository;
 import com.smartplanner.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;

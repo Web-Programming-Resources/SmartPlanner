@@ -1,7 +1,7 @@
 package com.smartplanner.controller;
 
 import com.smartplanner.exception.ResourceNotFoundException;
-import com.smartplanner.model.User;
+import com.smartplanner.model.entity.User;
 import com.smartplanner.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
