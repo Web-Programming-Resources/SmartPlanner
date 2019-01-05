@@ -1,5 +1,9 @@
 package com.smartplanner.service.implementation;
 
+import com.smartplanner.model.SmartPlanner;
+import com.smartplanner.model.TimeDistanceManager;
+import com.smartplanner.model.TimetableWithDecisionPointsAndScore;
+import com.smartplanner.model.dto.SmartPlannerInputDto;
 import com.smartplanner.model.entity.Plan;
 import com.smartplanner.repository.PlanRepository;
 import com.smartplanner.service.PlanService;
@@ -22,5 +26,20 @@ public class PlanServiceImpl implements PlanService {
 
     public Plan getPlanById(int id) {
         return planRepository.getOne(id);
+    }
+
+    @Override
+    public Plan generateOptimalPlan(SmartPlannerInputDto smartPlannerInputDto) {
+        SmartPlanner smartPlanner = new SmartPlanner(
+                smartPlannerInputDto.getLessons(),
+                smartPlannerInputDto.getDaysInCycle(),
+                new TimeDistanceManager(smartPlannerInputDto.getTimeDistanceInMinutes()),
+                smartPlannerInputDto.getMaxCommutesPerDay(),
+                smartPlannerInputDto.getOptimizedActivity()
+        );
+
+        TimetableWithDecisionPointsAndScore timetable = smartPlanner.getOptimalPlan();
+
+        return new Plan();
     }
 }

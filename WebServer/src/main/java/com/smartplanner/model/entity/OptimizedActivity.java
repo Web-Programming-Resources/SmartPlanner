@@ -7,44 +7,36 @@ import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "optimized_activity")
 public class OptimizedActivity {
 
     @Id
-    @Getter
-    @Setter
     @Column(name = "optimized_activity_id")
     private int id;
 
-    @Getter
-    @Setter
     @Column(name = "optimized_activity_name", length = 100)
     private String name;
 
-    @Getter
-    @Setter
-    @Column(name = "optimized_activity_opens_at")
-    private LocalTime opensAt;
+    @Column(name = "optimized_activity_starts_at")
+    private LocalTime startsAt;
 
-    @Getter
-    @Setter
-    @Column(name = "optimized_activity_closes_at")
-    private LocalTime closesAt;
+    @Column(name = "optimized_activity_ends_at")
+    private LocalTime endsAt;
 
-    @Getter
-    @Setter
     @Column(name = "optimized_activity_min_time")
     private int minTimeSpentAtOptimizedActivityAtOnceInMinutes;
 
-    @Getter
-    @Setter
     @Column(name = "optimized_activity_max_time")
     private int maxTimeSpentAtOptimizedActivityAtOnceInMinutes;
 
-    @Getter
-    @Setter
     @Column(name = "optimized_activity_is_opened_in_day")
     @ElementCollection(targetClass = Boolean.class)
     private List<Boolean> isOpenedInDay;
+
+    public Boolean isOpenedInDay(int dayNumber) {
+        return isOpenedInDay.get(dayNumber);
+    }
 }

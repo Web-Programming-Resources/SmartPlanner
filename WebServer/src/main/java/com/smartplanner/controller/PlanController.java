@@ -2,6 +2,7 @@ package com.smartplanner.controller;
 
 import com.smartplanner.exception.ResourceNotFoundException;
 import com.smartplanner.model.dto.SmartPlannerInputDto;
+import com.smartplanner.model.dto.SmartPlannerOutputDto;
 import com.smartplanner.model.entity.Plan;
 import com.smartplanner.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,11 @@ public class PlanController {
     }
 
     @PostMapping()
-    public SmartPlannerInputDto createPlan(@RequestBody SmartPlannerInputDto smartPlannerInputDto) {
-        return smartPlannerInputDto;
+    public SmartPlannerOutputDto createPlan(@RequestBody SmartPlannerInputDto smartPlannerInputDto) {
+        planService.generateOptimalPlan(smartPlannerInputDto);
+
+        SmartPlannerOutputDto smartPlannerOutputDto = new SmartPlannerOutputDto();
+
+        return smartPlannerOutputDto;
     }
 }
