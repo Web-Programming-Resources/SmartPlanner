@@ -9,11 +9,6 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/* DISCLAIMER:
- *
- * Lessons objects must be created in order as they occurs in TimeDistanceManager
- * OptimizedActivity must be created as the last one object (after creation of all Lesson objects)
- */
 class SmartPlannerTest {
 
     @Test
