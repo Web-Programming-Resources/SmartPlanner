@@ -1,26 +1,25 @@
 package com.smartplanner.model;
 
-import com.smartplanner.model.entity.Lesson;
 import com.smartplanner.model.entity.OptimizedActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SmartPlanner {
-    List<Lesson> lessons;
+    List<LessonWithPossibleTerms> lessons;
     int daysInCycle;
     TimeDistanceManager distanceManager;
     int maxCommutesPerDay;
     int minTimeSpentAtOptimizedAtOnceInMinutes;
     OptimizedActivity optimizedActivity;
 
-    public SmartPlanner(List<Lesson> lessons, int daysInCycle, TimeDistanceManager distanceManager,
+    public SmartPlanner(List<LessonWithPossibleTerms> lessons, int daysInCycle, TimeDistanceManager distanceManager,
                         int maxCommutesPerDay, OptimizedActivity optimizedActivity) {
         this.lessons = lessons;
         this.daysInCycle = daysInCycle;
         this.distanceManager = distanceManager;
         this.maxCommutesPerDay = maxCommutesPerDay;
-        this.minTimeSpentAtOptimizedAtOnceInMinutes = optimizedActivity.getMinTimeSpentAtOptimizedActivityAtOnceInMinutes(); //TODO:
+        this.minTimeSpentAtOptimizedAtOnceInMinutes = optimizedActivity.getMinTimeInMinutes(); //TODO:
         this.optimizedActivity = optimizedActivity;
     }
 
@@ -29,7 +28,7 @@ public class SmartPlanner {
      * everything else set to null if data provided for calculations was not valid
      */
     public TimetableWithDecisionPointsAndScore getOptimalPlan() {
-        LessonPicker lessonPicker = new LessonPicker((ArrayList<Lesson>) lessons, daysInCycle);
+        LessonPicker lessonPicker = new LessonPicker((ArrayList<LessonWithPossibleTerms>) lessons, daysInCycle);
 
         ArrayList<ArrayList<TimetableEntry>> potentialTimetables = new ArrayList<ArrayList<TimetableEntry>>();
 

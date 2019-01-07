@@ -51,8 +51,8 @@ public class OptimalityCalculator {
                 }
             }
 
-            if (maxForCurrentDay > optimizedActivity.getMaxTimeSpentAtOptimizedActivityAtOnceInMinutes())
-                maxForCurrentDay = optimizedActivity.getMaxTimeSpentAtOptimizedActivityAtOnceInMinutes();
+            if (maxForCurrentDay > optimizedActivity.getMaxTimeInMinutes())
+                maxForCurrentDay = optimizedActivity.getMaxTimeInMinutes();
 
             timeSpentInWorkInCycle += maxForCurrentDay;
             optimalDecisionPoints.add(bestDecisionPoints);

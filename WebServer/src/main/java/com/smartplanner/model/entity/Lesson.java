@@ -1,10 +1,10 @@
 package com.smartplanner.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
@@ -18,7 +18,8 @@ public class Lesson {
 
     @ManyToOne(targetEntity = Plan.class)
     @JoinColumn(name = "plan_id")
-    private int planId;
+    @JsonIgnore
+    private Plan plan;
 
     @Column(name = "lesson_name", length = 100)
     private String name;
@@ -26,7 +27,6 @@ public class Lesson {
     @Column(name = "repeating_period")
     private int repeatingPeriod;
 
-    @Column(name = "terms")
-    @OneToMany(mappedBy = "lesson")
-    private List<Term> terms;
+    @OneToOne(mappedBy = "lesson")
+    private Term term;
 }

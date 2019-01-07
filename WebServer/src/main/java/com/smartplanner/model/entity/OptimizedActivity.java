@@ -1,5 +1,6 @@
 package com.smartplanner.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,11 @@ public class OptimizedActivity {
     @Column(name = "optimized_activity_id")
     private int id;
 
+    @OneToOne
+    @MapsId
+    @JsonIgnore
+    private Plan plan;
+
     @Column(name = "optimized_activity_name", length = 100)
     private String name;
 
@@ -27,10 +33,10 @@ public class OptimizedActivity {
     private LocalTime endsAt;
 
     @Column(name = "optimized_activity_min_time")
-    private int minTimeSpentAtOptimizedActivityAtOnceInMinutes;
+    private int minTimeInMinutes;
 
     @Column(name = "optimized_activity_max_time")
-    private int maxTimeSpentAtOptimizedActivityAtOnceInMinutes;
+    private int maxTimeInMinutes;
 
     @Column(name = "optimized_activity_is_opened_in_day")
     @ElementCollection(targetClass = Boolean.class)

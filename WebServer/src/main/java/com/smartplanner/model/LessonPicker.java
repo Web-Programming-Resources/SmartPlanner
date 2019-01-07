@@ -1,18 +1,17 @@
 package com.smartplanner.model;
 
-import com.smartplanner.model.entity.Lesson;
 import com.smartplanner.model.entity.Term;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LessonPicker {
-    private List<Lesson> lessons;
+    private List<LessonWithPossibleTerms> lessons;
     private int[] termIndexes;
     private boolean hasFinished = false;
     private int daysInCycle;
 
-    public LessonPicker(ArrayList<Lesson> lessons, int daysInCycle) {
+    public LessonPicker(ArrayList<LessonWithPossibleTerms> lessons, int daysInCycle) {
         this.daysInCycle = daysInCycle;
         this.lessons = lessons;
         this.termIndexes = new int[lessons.size()];
@@ -29,7 +28,7 @@ public class LessonPicker {
         ArrayList<TimetableEntry> possibleTimeTable = new ArrayList<TimetableEntry>();
 
         for (int lessonIndex = 0; lessonIndex < lessons.size(); ++lessonIndex) {
-            ArrayList<Term> currLessonTerms = (ArrayList<Term>) lessons.get(lessonIndex).getTerms();
+            ArrayList<Term> currLessonTerms = (ArrayList<Term>) lessons.get(lessonIndex).getPossibleTerms();
             Term firstTerm = currLessonTerms.get(termIndexes[lessonIndex]);
 
             addRepeatsInCycle(possibleTimeTable, lessonIndex, firstTerm);
@@ -53,7 +52,7 @@ public class LessonPicker {
         ++termIndexes[0];
 
         for (int activityIndex = 0; activityIndex + 1 < termIndexes.length; ++activityIndex) {
-            int qntOfTermsForCurrActivity = lessons.get(activityIndex).getTerms().size();
+            int qntOfTermsForCurrActivity = lessons.get(activityIndex).getPossibleTerms().size();
             if (termIndexes[activityIndex] >= qntOfTermsForCurrActivity) {
                 termIndexes[activityIndex] = 0;
                 ++termIndexes[activityIndex + 1];
@@ -61,7 +60,7 @@ public class LessonPicker {
         }
 
         int lastActivityIndex = termIndexes.length - 1;
-        if (termIndexes[lastActivityIndex] >= lessons.get(lastActivityIndex).getTerms().size())
+        if (termIndexes[lastActivityIndex] >= lessons.get(lastActivityIndex).getPossibleTerms().size())
             hasFinished = true;
     }
 }

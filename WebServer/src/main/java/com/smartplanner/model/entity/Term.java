@@ -1,5 +1,6 @@
 package com.smartplanner.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,10 +15,12 @@ public class Term {
 
     @Id
     @Column(name = "term_id")
+    @JsonIgnore
     private int id;
 
-    @JoinColumn(name = "lesson_id")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne
+    @MapsId
+    @JsonIgnore
     private Lesson lesson;
 
     @Column(name = "duration_in_minutes")

@@ -16,9 +16,12 @@ public class Plan {
     @Column(name = "plan_id")
     private int id;
 
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    private int userId;
+    private User user;
+
+    @OneToOne(mappedBy = "plan")
+    private OptimizedActivity optimizedActivity;
 
     @Column(name = "plan_name", length = 100)
     private String name;
@@ -29,11 +32,8 @@ public class Plan {
     @Column(name = "max_commutes_per_day")
     private int maxCommutesPerDay;
 
-    @Column(name = "optimized_activity_starts_at")
-    private String optimizedActivityStartsAt;
-
-    @Column(name = "optimized_activity_ends_at")
-    private String optimizedActivityEndsAt;
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
+    private List<Lesson> lessons;
 
     @Column(name = "time_distance")
     @ElementCollection(targetClass = Integer.class)
