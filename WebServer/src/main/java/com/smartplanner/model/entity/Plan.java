@@ -6,50 +6,36 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "plan")
 public class Plan {
 
     @Id
-    @Getter
-    @Setter
     @Column(name = "plan_id")
     private int id;
 
-    @Getter
-    @Setter
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    private int userId;
+    private User user;
 
-    @Getter
-    @Setter
+    @OneToOne(mappedBy = "plan")
+    private OptimizedActivity optimizedActivity;
+
     @Column(name = "plan_name", length = 100)
     private String name;
 
-    @Getter
-    @Setter
     @Column(name = "max_days_in_cycle")
     private int maxDaysInCycle;
 
-    @Getter
-    @Setter
     @Column(name = "max_commutes_per_day")
     private int maxCommutesPerDay;
 
-    @Getter
-    @Setter
-    @Column(name = "optimized_activity_opens_at")
-    private String optimizedActivityOpensAt;
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
+    private List<Lesson> lessons;
 
-    @Getter
-    @Setter
-    @Column(name = "optimized_activity_closes_at")
-    private String optimizedActivityClosesAt;
-
-    @Getter
-    @Setter
-    @Column(name = "commute_matrix")
+    @Column(name = "time_distance")
     @ElementCollection(targetClass = Integer.class)
-    private List<List<Integer>> commuteMatrix;
+    private List<List<Integer>> timeDistanceInMinutes;
 }
