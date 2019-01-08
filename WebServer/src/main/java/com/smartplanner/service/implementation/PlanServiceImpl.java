@@ -55,7 +55,12 @@ public class PlanServiceImpl implements PlanService {
         List<TimetableEntry> timetableEntries = timetable.getOptimalTimetable();
         List<Lesson> lessons = new ArrayList<>();
 
-        timetableEntries.forEach(x -> lessons.add(modelMapper.map(x.getLesson(), Lesson.class)));
+        timetableEntries.forEach(x -> {
+                    Lesson lesson = modelMapper.map(x.getLesson(), Lesson.class);
+                    lesson.setTerm(x.getTerm());
+                    lessons.add(lesson);
+                }
+        );
 
         return lessons;
     }

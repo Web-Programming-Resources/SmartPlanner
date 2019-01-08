@@ -24,7 +24,7 @@ public class User {
     private String email;
 
     @Column(name = "password", length = 100)
-    @JsonIgnore
+    @Getter(onMethod = @__(@JsonIgnore))
     private String password;
 
     @OneToMany(mappedBy = "user")
