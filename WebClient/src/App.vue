@@ -29,6 +29,7 @@ export default {
         headers:
         {
           logout: "",
+          displayPlans: "",
           createPlan: "",
         }
       },
