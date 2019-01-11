@@ -93,8 +93,7 @@ export default {
   methods: {
     onSubmit(evt) {
         if (event) evt.preventDefault();
-        if(this.validateInputs())
-        {
+        if(this.validateInputs()) {
             this.alert.show = false;
             //TODO sk: change when databese will be ready
             this.$root.$data.username = this.form.inputs.username;
