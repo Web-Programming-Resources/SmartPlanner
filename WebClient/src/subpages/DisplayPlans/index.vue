@@ -7,37 +7,6 @@
       <b-collapse id="userInputs" visible>
         <b-card-body>
           <b-row>
-            <!-- <b-col cols="5">
-              <table class="table table-sm color mt-0 p-0">
-                <caption class="caption table-caption">Settings</caption>
-                <tbody>
-                  <tr>
-                    <th class="text-left font-weight-normal">Number of weeks</th>
-                    <td class="text-right">
-                      <b-form-input id="numOfWeeks" v-model="inputs.numOfWeeks" size="sm" class="text-right"></b-form-input>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="text-left font-weight-normal">Max commutes per day</th>
-                    <td class="text-right">
-                      <b-form-input id="maxCommutes" v-model="inputs.maxCommutes" size="sm" class="text-right"></b-form-input>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="text-left font-weight-normal">Activity starts at</th>
-                    <td class="text-right">
-                      <b-form-input id="activityStart" v-model="inputs.activityStart" size="sm" class="text-right"></b-form-input>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="text-left font-weight-normal">Activity ends at</th>
-                    <td class="text-right">
-                      <b-form-input id="activityEnd" v-model="inputs.activityEnd" size="sm" class="text-right"></b-form-input>
-                    </td>
-                  </tr>                  
-                </tbody>
-              </table>
-            </b-col> -->
             <b-col cols="5">
               <table class="table table-sm color">
                 <caption class="caption table-caption">{{headers.planInformation.name}}</caption>

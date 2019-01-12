@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { routes } from './routes'
-import store from './store'
+import store from './store';
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -10,11 +10,11 @@ const router = new VueRouter({
   })
 
   router.beforeEach((to, from, next) => {
-    if(!store.getters.isAuthenticated && to.path !== '/Login')
+    /*if(!store.getters.isAuthenticated && to.path !== '/Login')
         next('/Login');
     else if(store.getters.isAuthenticated && to.path =='/Login')
         next('/');
-    else
+    else */ 
         next();
   });
   
