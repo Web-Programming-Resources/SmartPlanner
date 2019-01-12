@@ -5,14 +5,27 @@ import com.smartplanner.model.entity.OptimizedActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Finder of optimal timetable that allows to spent maximum possible time doing
+ * optimized activity.
+ */
 public class SmartPlanner {
-    List<LessonWithPossibleTerms> lessons;
-    int daysInCycle;
-    TimeDistanceManager distanceManager;
-    int maxCommutesPerDay;
-    int minTimeSpentAtOptimizedAtOnceInMinutes;
-    OptimizedActivity optimizedActivity;
+    private List<LessonWithPossibleTerms> lessons;
+    private int daysInCycle;
+    private TimeDistanceManager distanceManager;
+    private int maxCommutesPerDay;
+    private int minTimeSpentAtOptimizedAtOnceInMinutes;
+    private OptimizedActivity optimizedActivity;
 
+    /**
+     * Creates SmartPlanner that finds the most optimal plan based on passed arguments
+     *
+     * @param lessons           list of all lessons that contains among others possible terms for each lesson.
+     * @param daysInCycle       amount of days, after which the whole plan will repeat
+     * @param distanceManager   object that contains commute matrix, which is data about travel time between each lesson and work
+     * @param maxCommutesPerDay maximal amount of commutes to work per day (specified by a user)
+     * @param optimizedActivity object containing data about optimized activity (for example work)
+     */
     public SmartPlanner(List<LessonWithPossibleTerms> lessons, int daysInCycle, TimeDistanceManager distanceManager,
                         int maxCommutesPerDay, OptimizedActivity optimizedActivity) {
         this.lessons = lessons;
@@ -24,8 +37,11 @@ public class SmartPlanner {
     }
 
     /**
-     * returns timetable with 0 score
-     * everything else set to null if data provided for calculations was not valid
+     * Returns the optimal plan that is calculated based on arguments passed in constructor
+     *
+     * @return if provided data is valid it returns specified terms for each lesson, amount of time spent and decision points(that tells us if we should go to work
+     * after each lesson. If data for computations is not valid returns object with amount of minutes spent on optimized activity
+     * equal to 0 and every other field set to null
      */
     public TimetableWithDecisionPointsAndScore getOptimalPlan() {
         LessonPicker lessonPicker = new LessonPicker((ArrayList<LessonWithPossibleTerms>) lessons, daysInCycle);
