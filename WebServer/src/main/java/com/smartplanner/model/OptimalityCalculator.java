@@ -7,6 +7,9 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Calculator for time spent on optimized activity.
+ */
 public class OptimalityCalculator {
     private TimeDistanceManager timeDistanceManager;
     private int maxCommutesPerDay;
@@ -14,6 +17,16 @@ public class OptimalityCalculator {
     private int numberOfDaysInCycle;
     private OptimizedActivity optimizedActivity;
 
+    /**
+     * Creates OptimalityCalculator.
+     *
+     * @param timeDistanceManager object that contains commute matrix, which is data about travel time between each lesson and work
+     * @param maxCommutesPerDay maximal amount of commutes to work per day (specified by a user)
+     * @param minTimeSpentOnOptimizedAtOnceInMinutes minimal amount of time in session that user wants to spent on
+     *                                               optimized activity if he decides to start it
+     * @param numberOfDaysInCycle number of days after which the plan will repeat
+     * @param optimizedActivity an object that contains data about optimized activity
+     */
     public OptimalityCalculator(TimeDistanceManager timeDistanceManager,
                                 int maxCommutesPerDay,
                                 int minTimeSpentOnOptimizedAtOnceInMinutes,
@@ -26,6 +39,12 @@ public class OptimalityCalculator {
         this.numberOfDaysInCycle = numberOfDaysInCycle;
     }
 
+    /**
+     * Calculates amount of time (in minutes) spent on optimized activity for provided timetable.
+     *
+     * @param timetable complete timetable that first should pass the validation done by TimetableValidator
+     * @return amount of minutes spent on optimized activity based on provided timetable
+     */
     public TimetableWithDecisionPointsAndScore calculate(ArrayList<TimetableEntry> timetable) {
         ArrayList<ArrayList<Boolean>> optimalDecisionPoints = new ArrayList<ArrayList<Boolean>>(numberOfDaysInCycle);
         int timeSpentInWorkInCycle = 0;

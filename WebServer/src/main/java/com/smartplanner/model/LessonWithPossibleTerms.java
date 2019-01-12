@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Binder for a Lesson object with an array of possible terms for the lesson
+ */
 @Getter
 @Setter
 public class LessonWithPossibleTerms extends Lesson {

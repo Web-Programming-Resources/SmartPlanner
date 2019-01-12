@@ -6,13 +6,27 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * Validator of timetables. It checks if lessons doesn't overlaps each other.
+ */
 public class TimetableValidator {
     TimeDistanceManager distanceManager;
 
+    /**
+     * Creates validator for timetables
+     *
+     * @param distanceManager object that contains commute matrix, which is data about travel time between each lesson and work
+     */
     public TimetableValidator(TimeDistanceManager distanceManager) {
         this.distanceManager = distanceManager;
     }
 
+    /**
+     * Checks if the timetable provided as an argument is valid (i.e. none of entries overlaps each other)
+     *
+     * @param timetable timetable to be validated
+     * @return true if timetable is valid, false else
+     */
     public boolean isValid(ArrayList<TimetableEntry> timetable) {
 
         ArrayList<TimetableEntry> timetableSorted = new ArrayList<TimetableEntry>(timetable);

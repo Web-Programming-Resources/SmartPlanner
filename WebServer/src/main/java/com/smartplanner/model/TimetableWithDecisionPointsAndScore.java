@@ -3,17 +3,7 @@ package com.smartplanner.model;
 import java.util.ArrayList;
 
 /**
- * first dimension is responsible for the day in cycle
- * second dimension is responsible for decision point
- * <p>
- * EXAMPLE:
- * optimalDecisionPoints.get(0).get(0) answers question:
- * Should I go to work in day 0 before first activity?
- * optimalDecisionPoints.get(0).get(1) answers question:
- * Should I go to work in day 0 after first activity?
- * ...
- * optimalDecisionPoints.get(0).get(n) [n = last index in array] answers question:
- * Should I go to work in day 0 after last activity?
+ * Holder of information about timetable. It stores decision points and amount of minutes spent on optimized activity.
  */
 public class TimetableWithDecisionPointsAndScore {
     private int minutesSpentAtOptimizedActivity;
@@ -35,6 +25,19 @@ public class TimetableWithDecisionPointsAndScore {
         return optimalTimetable;
     }
 
+    /**
+     * Calculates optimal timetable that will maximize amount of time spent on optimized activity.
+     *
+     * @return an array with decision points. First dimension is responsible for the day in cycle.
+     * Second dimension is responsible for decision point. e.g. <br>
+     * optimalDecisionPoints.get(0).get(0) answers question: <br>
+     *      Should I go to work in day 0 before first activity? <br>
+     * optimalDecisionPoints.get(0).get(1) answers question: <br>
+     *      Should I go to work in day 0 after first activity? <br>
+     *  ... <br>
+     * optimalDecisionPoints.get(0).get(n) [n = last index in array] answers question: <br>
+     *      Should I go to work in day 0 after last activity?
+     */
     public ArrayList<ArrayList<Boolean>> getOptimalDecisionPoints() {
         return optimalDecisionPoints;
     }

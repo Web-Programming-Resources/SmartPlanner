@@ -3,11 +3,22 @@ package com.smartplanner.model;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Generator for decision points (that tells us if we should go to work)
+ *
+ * GoToOptimizedActivityDecider can't be reused, what means that you have to create new object each time you want to get all of combinations.
+ * After getNext() returns false, the object is useless.
+ */
 public class GoToOptimizedActivityDecider {
     private ArrayList<TimetableEntry> singleDayTimetable;
     private ArrayList<AtomicInteger> currentCombination;
     private boolean hasFinished;
 
+    /**
+     * Creates decider based on single day timetable
+     *
+     * @param singleDayTimetable a timetable schedule for particular day
+     */
     public GoToOptimizedActivityDecider(ArrayList<TimetableEntry> singleDayTimetable) {
         this.singleDayTimetable = singleDayTimetable;
         this.hasFinished = false;
@@ -18,6 +29,14 @@ public class GoToOptimizedActivityDecider {
             currentCombination.add(new AtomicInteger(0));
     }
 
+    /**
+     * Creates decider based on complete timetable. Since the decider needs a timetable for single day, one have to provide
+     * number of the day in cycle as a second argument
+     *
+     * @param completeTimetable a complete timetable
+     * @param getDecisionsForCycleNumberDay specifies a particular day for computations, based on this argument getNext() method will
+     *                                      return decisions for the day passed in this argument
+     */
     public GoToOptimizedActivityDecider(ArrayList<TimetableEntry> completeTimetable, int getDecisionsForCycleNumberDay) {
         ArrayList<TimetableEntry> singleDayTimetable = new ArrayList<TimetableEntry>();
 
@@ -34,6 +53,12 @@ public class GoToOptimizedActivityDecider {
             currentCombination.add(new AtomicInteger(0));
     }
 
+    /**
+     * Returns next combination of decisions
+     *
+     * @return ArrayList of decision points generated using brute force method. returnedTable.get(n) equal to true
+     *          means that after n-th lesson we should go to optimized activity
+     */
     public ArrayList<Boolean> getNext() {
         ArrayList<Boolean> returnedCombination = castToBooleanArrayList(currentCombination);
 
@@ -50,6 +75,11 @@ public class GoToOptimizedActivityDecider {
         return casted;
     }
 
+    /**
+     * Checks if there is next combination available.
+     *
+     * @return true if there is another combination from brute force method, false else
+     */
     public boolean isNext() {
         return !hasFinished;
     }
