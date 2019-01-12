@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/plans")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class PlanController {
 
     private final PlanService planService;
