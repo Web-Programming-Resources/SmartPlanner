@@ -52,6 +52,7 @@
 <script>
 import Register from "../Register/"
 import listener from "../../utilities/listeners"
+import service from "../../services/HttpRequestService";
 
 export default {
   data() {
@@ -60,23 +61,23 @@ export default {
 
         form: {
             inputs: {
-            username: '',
-            password: '',
-            confirmPassword:'',
-            email:''
+                username: '',
+                password: '',
+                confirmPassword:'',
+                email:''
             },
             headers: {
-            username: '',
-            enterUsername: '',
-            password: '',
-            email: '',
-            enterEmail:'',
-            enterPassword: '',
-            loginButton: '',
-            registerButton:'',
-            emptyInput: '',
-            wrongEmail: '',
-            wrongPassword: ''
+                username: '',
+                enterUsername: '',
+                password: '',
+                email: '',
+                enterEmail:'',
+                enterPassword: '',
+                loginButton: '',
+                registerButton:'',
+                emptyInput: '',
+                wrongEmail: '',
+                wrongPassword: ''
             }
         },
         alert: {
@@ -95,10 +96,18 @@ export default {
         if (event) evt.preventDefault();
         if(this.validateInputs()) {
             this.alert.show = false;
-            //TODO sk: change when databese will be ready
-            this.$root.$data.username = this.form.inputs.username;
-            this.$root.$data.password = this.form.inputs.password;
-            this.$emit('registered');
+            var body = {
+                "email": this.form.inputs.email,
+                "username": this.form.inputs.username,
+                "password": this.form.inputs.password
+            };
+            service.postWithoutToken("/api/users/signup", body).then(
+                response => {
+                    this.$emit('registerSuccess');
+                })
+                .catch(error => {
+                    this.$emit('registerFail');
+                });
         }
         else
         {
@@ -106,6 +115,7 @@ export default {
         }
 
     },
+
     validateInputs() {
         if(this.form.inputs.password != this.form.inputs.confirmPassword) {
             this.alert.msg = this.form.headers.wrongPassword;
@@ -116,10 +126,12 @@ export default {
         }
         return true;
     },
+
     validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     },
+    
     chooseLanguage(lang) {
       switch(lang) {
         case "pl":

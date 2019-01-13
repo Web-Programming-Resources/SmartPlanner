@@ -15,6 +15,7 @@ export default new Vuex.Store({
   },
   getters: {
     isAuthenticated: state => state.user.token != "",
+    token: state => state.user.token,
     language: state => state.appData.language,
   },
   mutations: {

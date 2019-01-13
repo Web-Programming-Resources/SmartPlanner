@@ -5,7 +5,7 @@
       <b-navbar-brand :to="{path: '/'}">Smart Planner</b-navbar-brand>
       <b-navbar-nav class="ml-auto">
         <b-nav-item v-if="isAuthenticated" active-class="active font-weight-bold" :to="{path:'/'}">{{navbar.headers.displayPlans}}</b-nav-item>
-        <!-- <b-nav-item v-if="isAuthenticated" active-class="active font-weight-bold" :to="{path:'/CreatePlan'}">{{navbar.headers.createPlan}}</b-nav-item> -->
+        <b-nav-item v-if="isAuthenticated" active-class="active font-weight-bold" :to="{path:'/CreatePlan'}">{{navbar.headers.createPlan}}</b-nav-item>
         <b-nav-item v-if="isAuthenticated" active-class="active font-weight-bold" @click="logout()">{{navbar.headers.logout}}</b-nav-item>
         <b-nav-item-dropdown v-bind:text="$store.getters.language" right>
           <b-dropdown-item v-on:click="chooseLanguage('pl')">pl</b-dropdown-item>
@@ -29,10 +29,7 @@ export default {
           displayPlans: "",
           createPlan: "",
         }
-      },
-      //TODO sk: remove when database will be ready
-      username: '',
-      password: '',
+      }
     }
   },
   computed: {

@@ -12,6 +12,13 @@
                 <caption class="caption table-caption">{{headers.settings}}</caption>
                 <tbody>
                   <tr>
+                    <th class="text-left font-weight-normal">{{headers.planName}}</th>
+                    <td class="text-right">
+                      <b-form-input id="planName" v-model="inputs.planName" size="sm" class="text-right" :state="notNullState(this.inputs.planName)"></b-form-input>
+                      <b-form-invalid-feedback id="planNameFeedback">"{{headers.validators.notNull}}"</b-form-invalid-feedback>
+                    </td>
+                  </tr>
+                  <tr>
                     <th class="text-left font-weight-normal">{{headers.numOfWeeks}}</th>
                     <td class="text-right">
                       <b-form-input id="numOfWeeks" v-model="inputs.numOfWeeks" size="sm" class="text-right" type='number' :state="positiveNumberState(this.inputs.numOfWeeks)"></b-form-input>
@@ -91,14 +98,14 @@
                     <th class="text-left font-weight-normal">{{headers.lessonStartAt}}</th>
                     <td class="text-right">
                       <b-form-input id="lessonStartAt" v-model="inputs.lessonStartAt" size="sm" class="text-right"  type='time' :state="notNullState(this.inputs.lessonStartAt)"></b-form-input>
-                      <b-form-invalid-feedback id="lessonNameFeedback">"{{headers.validators.notNull}}"</b-form-invalid-feedback>
+                      <b-form-invalid-feedback id="lessonStartAtback">"{{headers.validators.notNull}}"</b-form-invalid-feedback>
                     </td>
                   </tr>
                   <tr>
                     <th class="text-left font-weight-normal">{{headers.lessonEndsAt}}</th>
                     <td class="text-right">
                       <b-form-input id="lessonEdnsAt" v-model="inputs.lessonEndsAt" size="sm" class="text-right"  type='time' :state="notNullState(this.inputs.lessonEndsAt)"></b-form-input>
-                      <b-form-invalid-feedback id="lessonNameFeedback">"{{headers.validators.notNull}}"</b-form-invalid-feedback>
+                      <b-form-invalid-feedback id="lessonEndsAtFeedback">"{{headers.validators.notNull}}"</b-form-invalid-feedback>
                     </td>
                   </tr>                  
                 </tbody>
@@ -106,6 +113,32 @@
                 <b-button type="submit" variant="primary" class="float-right" @click="addActivity()">{{headers.addButton}}</b-button>
             </b-col>
             <b-col cols="3">
+              <table class="table table-sm color mt-0 p-0">
+                <caption class="caption table-caption">{{headers.addTerm}}</caption>
+                <tbody>
+                  <tr>
+                    <th class="text-left font-weight-normal">{{headers.lessonId}}</th>
+                    <td class="text-right">
+                      <b-form-input id="numOfWeeks" v-model="inputs.addLessonId" size="sm" class="text-right"></b-form-input>
+                    </td>
+                  </tr>  
+                  <tr>
+                    <th class="text-left font-weight-normal">{{headers.lessonStartAt}}</th>
+                    <td class="text-right">
+                      <b-form-input id="lessonStartAt" v-model="inputs.addLessonStartAt" size="sm" class="text-right"  type='time' :state="notNullState(this.inputs.addLessonStartAt)"></b-form-input>
+                      <b-form-invalid-feedback id="lessonStartAtFeedback">"{{headers.validators.notNull}}"</b-form-invalid-feedback>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="text-left font-weight-normal">{{headers.lessonEndsAt}}</th>
+                    <td class="text-right">
+                      <b-form-input id="lessonEdnsAt" v-model="inputs.addLessonEndsAt" size="sm" class="text-right"  type='time' :state="notNullState(this.inputs.addLessonEndsAt)"></b-form-input>
+                      <b-form-invalid-feedback id="lessonEndsAtFeedback">"{{headers.validators.notNull}}"</b-form-invalid-feedback>
+                    </td>
+                  </tr>                
+                </tbody>
+              </table>
+              <b-button type="submit" variant="primary" class="float-right mb-3" @click="addTerm()">{{headers.addButton}}</b-button>
               <table class="table table-sm color mt-0 p-0">
                 <caption class="caption table-caption">{{headers.removeActivity}}</caption>
                 <tbody>
@@ -117,7 +150,7 @@
                   </tr>                
                 </tbody>
               </table>
-                <b-button type="submit" variant="danger" class="float-right" @click="removeActivity()">{{headers.removeButton}}</b-button>
+              <b-button type="submit" variant="danger" class="float-right" @click="removeActivity()">{{headers.removeButton}}</b-button>
             </b-col>
             <b-button type="submit" variant="primary" class="float-right" @click="generatePlan()">{{headers.generateButton}}</b-button>
           </b-row>
@@ -143,6 +176,7 @@ export default {
   data() {
     return {
       inputs: {
+        planName: 'plan',
         numOfWeeks: 1,
         maxCommutes: 1,
         activityStart: '08:00',
@@ -155,6 +189,9 @@ export default {
         startFromWeek: 1,
         lessonStartAt: '08:00',
         lessonEndsAt: '08:45',
+        addLessonStartAt: '08:00',
+        addLessonEndsAt: '08:45',
+        addLessonId: '',
         lessonId: '',
         days: []
       },
@@ -162,6 +199,7 @@ export default {
         settings: '',
         addActivity: '',
         addButton: '',
+        planName: '',
         numOfWeeks: '',
         maxCommutes: '',
         activityStart: '',
@@ -175,6 +213,8 @@ export default {
         lessonStartAt: '',
         lessonEndsAt: '',
         lessonId: '',
+        removeActivity: '',
+        addTerm: '',
         removeButton: '',
         generateButton: '',
         validators: {
@@ -227,6 +267,7 @@ export default {
           this.headers.addActivity = "Dodaj lekcje";
           this.headers.activities = "Dodane lekcje";
           this.headers.addButton = "Dodaj";
+          this.headers.planName = "Nazwa planu";
           this.headers.numOfWeeks = "Liczba tygodni w cyklu";
           this.headers.maxCommutes = "Max ilość dojazdow dziennie";
           this.headers.activityStart = "Praca otwiera sie o";
@@ -239,6 +280,7 @@ export default {
           this.headers.startFromWeek = "Zaczynając od tygodnia",
           this.headers.lessonStartAt = "Początek",
           this.headers.lessonEndsAt = "Koniec",
+          this.headers.addTerm = "Dodaj termin",
           this.headers.removeActivity = "Usuń lekcje",
           this.headers.lessonId = "ID",
           this.headers.removeButton = "Usun",
@@ -254,6 +296,7 @@ export default {
           this.headers.addActivity = "Add lesson";
           this.headers.activities = "Added lessons";
           this.headers.addButton = "Add";
+          this.headers.planName = "Plan name";
           this.headers.numOfWeeks = "Weeks in cycle";
           this.headers.maxCommutes = "Max commutes per day";
           this.headers.activityStart = "Work opens at";
@@ -266,6 +309,7 @@ export default {
           this.headers.startFromWeek = "Starting from week",
           this.headers.lessonStartAt = "Start",
           this.headers.lessonEndsAt = "End",
+          this.headers.addTerm = "Add term",
           this.headers.removeActivity = "Remove lesson",
           this.headers.lessonId = "ID",
           this.headers.removeButton = "Usun"
@@ -274,101 +318,91 @@ export default {
           this.headers.validators.numOfWeeks = "Value must be > 0";
           this.headers.validators.notNull = "Field cannot be empty";
           this.headers.validators.repeatEvery = "Value must be <= weeks in cycle and > 0";
-          this.headers.removeButton = "Generate"
+          this.headers.generateButton = "Generate"
         break;
       }
     },
     addActivity() {
-      console.log(this.inputs.activityStart);
+      this.lessons.push({Id: this.idCount, Name: this.inputs.lessonName, Day: this.inputs.lessonDay, repeat_every:  this.inputs.repeatEvery, start_from_week: this.inputs.startFromWeek, start: this.inputs.lessonStartAt, end: this.inputs.lessonEndsAt });
       ++this.idCount;
-      this.lessons.push({Id: this.idCount, Name: this.inputs.lessonName, Day: this.inputs.lessonDay, repeat_every:  this.inputs.repeatEvery, start: this.inputs.lessonStartAt, end: this.inputs.lessonEndsAt });
+    },
+    addTerm() {
+       for(var i = 0; i < this.lessons.length; ++i) {
+         if(this.lessons[i].Id == this.inputs.addLessonId) {
+          var newTerm = JSON.parse(JSON.stringify(this.lessons[i]));
+          newTerm.start = this.inputs.addLessonStartAt; 
+          newTerm.end = this.inputs.addLessonEndsAt;
+          this.lessons.push(newTerm);
+          break;
+         }
+       }
     },
     removeActivity() {
       for(var i = 0; i < this.lessons.length; ++i) {
-          console.log(this.lessons[i].Id, ", ", this.inputs.lessonId)
         if (this.lessons[i].Id == this.inputs.lessonId) {
            this.lessons.splice(i,1);
-           console.log("done");
+           --i;
         }
+      }
+    },
+    getDayIndex(day) {
+      for(var i = 0 ; i < 7; ++i) {
+        if(this.inputs.days[i].localeCompare(day))
+          return i;
       }
     },
     generatePlan() {
       var body = {
-  "planName" : "Plan #1",
-  "daysInCycle": 5,
-  "maxCommutesPerDay": 5,
-  "optimizedActivity": {
-  	"id" : 0,
-    "name": "Work #1",
-    "startsAt": "08:00",
-    "endsAt": "16:00",
-    "minTimeInMinutes": 120,
-    "maxTimeInMinutes": 360,
-    "isOpenedInDay": [
-      true,
-      true,
-      false,
-      true,
-      false
-    ]
-  },
-  "lessons": [
-    {
-      "id": 0,
-      "name": "Lesson #1",
-      "repeatingPeriod": 7,
-      "possibleTerms": [
-        {
-          "startTime": "09:00",
-          "durationInMinutes": 60,
-          "cycleDayNumber": 4
+        "planName" : this.inputs.planName,
+        "daysInCycle": parseInt(this.inputs.numOfWeeks * 7),
+        "maxCommutesPerDay": parseInt(this.inputs.maxCommutes),
+        "optimizedActivity": {
+          "id" : 0,
+          "name": "Work",
+          "startsAt": this.inputs.activityStart,
+          "endsAt":  this.inputs.activityEnd,
+          "minTimeInMinutes":   moment(this.inputs.minTimeAtActivity, 'HH:mm').hour() * 60 + moment(this.inputs.minTimeAtActivity, 'HH:mm').minutes(),
+          "maxTimeInMinutes":  moment(this.inputs.maxTimeAtActivity, 'HH:mm').hour() * 60 + moment(this.inputs.maxTimeAtActivity, 'HH:mm').minutes(),
+          "isOpenedInDay": []
         },
-        {
-          "startTime": "12:00",
-          "durationInMinutes": 60,
-          "cycleDayNumber": 4
+          "lessons": [],
+          "timeDistanceInMinutes": [],
+      }
+      body["lessons"] = new Array();
+      body["timeDistanceInMinutes"] = new Array();
+  for(var i = 0; i <  parseInt(this.inputs.numOfWeeks * 7); ++i) {
+    body["optimizedActivity"]["isOpenedInDay"].push(true);
+  }
+
+  for(let lesson of this.lessons) {
+    var lessonToParse = {
+      "id": lesson.Id,
+      "name": lesson.Name,
+      "repeatingPeriod": lesson.repeat_every,
+      "possibleTerms": []
+    };
+    lesson["possibleTerms"] = new Array();
+    for(let lsn of this.lessons) {
+      console.log(lsn.start_from_week);
+      if(parseInt(lsn.Id) == parseInt(lesson.Id)) {
+        var term = {
+          "startTime": lsn.start,
+          "durationInMinutes": moment.duration(moment(lsn.end, 'HH:mm').diff(moment(lsn.start, 'HH:mm'))).asMinutes(),
+          "cycleDayNumber": this.getDayIndex(lsn.Day) * 7 + lsn.start_from_week,
         }
-      ]
-    },
-    {
-      "id": 1,
-      "name": "Lesson #2",
-      "repeatingPeriod": 7,
-      "possibleTerms": [
-        {
-          "startTime": "13:30",
-          "durationInMinutes": 60,
-          "cycleDayNumber": 4
-        },
-        {
-          "startTime": "16:00",
-          "durationInMinutes": 60,
-          "cycleDayNumber": 4
-        }
-      ]
+        lessonToParse.possibleTerms.push(term);
+      }
     }
-  ],
-  "timeDistanceInMinutes": [
-    [
-      10,
-      10,
-      10
-    ],
-    [
-      20,
-      20,
-      20
-    ],
-    [
-      30,
-      30,
-      30
-	]
-  ]
-};
-      var res = service.post("http://localhost:8080/api/plans", body);
-      console.log("Eureka");
-      console.log("res");
+    body["lessons"].push(new Object(JSON.parse(JSON.stringify(lessonToParse))));
+  }
+  for(var i = 0; i < this.lessons.length; ++i) {
+    var arr = [];
+     for(var i = 0; i < this.lessons.length; ++i) {
+       arr.push(0);
+     }
+     body["timeDistanceInMinutes"].push(arr);
+  }
+    var res = service.post("/api/plans", body);
     }
   }
 }
