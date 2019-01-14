@@ -1,5 +1,6 @@
 package com.smartplanner.service.implementation;
 
+import com.smartplanner.exception.InvalidDataProvidedException;
 import com.smartplanner.model.SmartPlanner;
 import com.smartplanner.model.TimeDistanceManager;
 import com.smartplanner.model.TimetableEntry;
@@ -98,6 +99,11 @@ public class PlanServiceImpl implements PlanService {
         TimetableWithDecisionPointsAndScore timetable = smartPlanner.getOptimalPlan();
 
         List<TimetableEntry> timetableEntries = timetable.getOptimalTimetable();
+
+        if (timetableEntries == null) {
+            throw new InvalidDataProvidedException(
+                    "Activities are either unreachable or they overlap with each other");
+        }
 
         List<Lesson> lessons = new ArrayList<>();
         timetableEntries.forEach(x -> {

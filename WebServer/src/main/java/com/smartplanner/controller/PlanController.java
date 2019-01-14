@@ -1,5 +1,6 @@
 package com.smartplanner.controller;
 
+import com.smartplanner.exception.InvalidDataProvidedException;
 import com.smartplanner.exception.ResourceNotFoundException;
 import com.smartplanner.model.dto.PlanInputDto;
 import com.smartplanner.model.dto.PlanOutputDto;
@@ -7,10 +8,12 @@ import com.smartplanner.model.entity.Plan;
 import com.smartplanner.service.PlanService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/plans")
@@ -50,8 +53,12 @@ public class PlanController {
     public PlanOutputDto createPlan(@RequestBody PlanInputDto planInputDto) {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = ((UserDetails)principal).getUsername();
+        String username = ((UserDetails) principal).getUsername();
 
-        return planService.generateOptimalPlan(planInputDto, username);
+        try {
+            return planService.generateOptimalPlan(planInputDto, username);
+        } catch (InvalidDataProvidedException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 }
