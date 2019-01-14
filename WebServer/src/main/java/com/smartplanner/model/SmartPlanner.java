@@ -92,16 +92,17 @@ public class SmartPlanner {
         validTimetables.addAll(secondHalfOfValidTimetables);
 
         TimetableWithDecisionPointsAndScore bestTimetable = new TimetableWithDecisionPointsAndScore(0, null, null);
-        if (validTimetables.size() == 0)
-            return bestTimetable;
+        if (validTimetables.size() != 0)
+        {
+            OptimalityCalculator optimalityCalculator = new OptimalityCalculator(distanceManager, maxCommutesPerDay,
+                    minTimeSpentAtOptimizedAtOnceInMinutes, daysInCycle, optimizedActivity);
 
-        OptimalityCalculator optimalityCalculator = new OptimalityCalculator(distanceManager, maxCommutesPerDay,
-                minTimeSpentAtOptimizedAtOnceInMinutes, daysInCycle, optimizedActivity);
+            for (ArrayList<TimetableEntry> validTimetable : validTimetables) {
+                TimetableWithDecisionPointsAndScore currentTimetable = optimalityCalculator.calculate(validTimetable);
+                if (currentTimetable.getMinutesSpentAtOptimizedActivity() > bestTimetable.getMinutesSpentAtOptimizedActivity())
+                    bestTimetable = currentTimetable;
+            }
 
-        for (ArrayList<TimetableEntry> validTimetable : validTimetables) {
-            TimetableWithDecisionPointsAndScore currentTimetable = optimalityCalculator.calculate(validTimetable);
-            if (currentTimetable.getMinutesSpentAtOptimizedActivity() > bestTimetable.getMinutesSpentAtOptimizedActivity())
-                bestTimetable = currentTimetable;
         }
 
         return bestTimetable;

@@ -82,6 +82,9 @@ public class TimetableValidator {
         Term lhsTerm = lhs.getTerm();
         Term rhsTerm = rhs.getTerm();
 
+        if(lhsTerm.getCycleDayNumber() != rhsTerm.getCycleDayNumber())
+            return false;
+
         Term earlier;
         Term later;
         if (lhsTerm.getStartTime().isAfter(rhsTerm.getStartTime())) {
