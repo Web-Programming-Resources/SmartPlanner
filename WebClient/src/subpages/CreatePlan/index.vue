@@ -163,12 +163,27 @@
         </b-card-body>
       </b-collapse>
     </b-card>
+     <b-card id="matrix" no-body>
+      <b-card-header header-tag="header" class="p-0">
+        <b-btn block href="#" v-b-toggle.matrix variant="info" class="text-left">{{headers.activities}}</b-btn>
+      </b-card-header>
+      <b-collapse id="matrix" visible>
+        <table class="table table-sm table-hover">
+          <thead>
+            <th v-for="lesson in this.lessons" :key="lesson">
+              <p>{{lesson.Id}}</p>
+              <b-form-input id="commuteMatrix" v-model="inputs.commuteMatrix[0]" class="calculation-settings-input"></b-form-input>
+            </th>
+          </thead>
+        </table>
+      </b-collapse>
+    </b-card>
     <b-card id="activities" no-body>
       <b-card-header header-tag="header" class="p-0">
         <b-btn block href="#" v-b-toggle.activities variant="info" class="text-left">{{headers.activities}}</b-btn>
       </b-card-header>
       <b-collapse id="activities" visible>
-         <b-table striped hover :items="lessons"></b-table>
+        <b-table striped hover :items="lessons"></b-table>
       </b-collapse>
     </b-card>
   </div>
@@ -182,6 +197,7 @@ export default {
   data() {
     return {
       inputs: {
+        commuteMatrix: [0,0,0,0],
         planName: 'plan',
         numOfWeeks: 1,
         maxCommutes: 1,
@@ -354,6 +370,11 @@ export default {
            --i;
         }
       }
+      this.idCount = 1;
+      for(let lesson of this.lessons) {
+        lesson.Id = this.idCount;
+        ++this.idCount;
+      }
     },
     getDayIndex(day) {
       for(var i = 0 ; i < 7; ++i) {
@@ -389,7 +410,7 @@ export default {
     var lessonToParse = {
       "id": lessonsToParse[j].Id,
       "name": lessonsToParse[j].Name,
-      "repeatingPeriod": parseInt(lessonsToParse[j].repeat_every),
+      "repeatingPeriod": parseInt(lessonsToParse[j].repeat_every * 7),
       "possibleTerms": []
     };
     lessonToParse["possibleTerms"] = new Array();
@@ -421,6 +442,7 @@ export default {
   for(var i = 0; i < lessonsToParse.length; ++i) {
     body["timeDistanceInMinutes"].push(arr);
   }
+  body["timeDistanceInMinutes"]= [[1,1,1], [1,1,1], [1,1,1]];
     var res = service.post("/api/plans", body);
     }
   }
