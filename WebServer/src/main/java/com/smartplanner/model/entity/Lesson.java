@@ -14,7 +14,7 @@ public class Lesson {
 
     @Id
     @Column(name = "lesson_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne(targetEntity = Plan.class)
