@@ -121,7 +121,13 @@
                     <td class="text-right">
                       <b-form-input id="numOfWeeks" v-model="inputs.addLessonId" size="sm" class="text-right"></b-form-input>
                     </td>
-                  </tr>  
+                  </tr>
+                  <tr>
+                    <th class="text-left font-weight-normal">{{headers.lessonDay}}</th>
+                    <td class="text-right">
+                      <b-form-select id="numOfWeeks" v-model="inputs.addLessonDay" size="sm" class="text-right" :options="inputs.days"  :state="notNullState(this.inputs.addLessonDay)"></b-form-select>
+                    </td>
+                  </tr>
                   <tr>
                     <th class="text-left font-weight-normal">{{headers.lessonStartAt}}</th>
                     <td class="text-right">
@@ -193,6 +199,7 @@ export default {
         addLessonEndsAt: '08:45',
         addLessonId: '',
         lessonId: '',
+        addLessonDay: '',
         days: []
       },
       headers: {
@@ -286,6 +293,7 @@ export default {
           this.headers.removeButton = "Usun",
           this.inputs.days = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"];
           this.inputs.lessonDay = this.inputs.days[0];
+          this.inputs.addLessonDay = this.inputs.days[0];
           this.headers.validators.notNull = "Pole nie może być puste";
           this.headers.validators.positiveVal = "Wartość musi być > 0";
           this.headers.validators.repeatEvery = "Wartość musi być <= liczby tygodni w cyklu oraz > 0";
@@ -315,6 +323,7 @@ export default {
           this.headers.removeButton = "Usun"
           this.inputs.days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
           this.inputs.lessonDay = this.inputs.days[0];
+          this.inputs.addLessonDay = this.inputs.days[0];
           this.headers.validators.numOfWeeks = "Value must be > 0";
           this.headers.validators.notNull = "Field cannot be empty";
           this.headers.validators.repeatEvery = "Value must be <= weeks in cycle and > 0";
@@ -332,6 +341,7 @@ export default {
           var newTerm = JSON.parse(JSON.stringify(this.lessons[i]));
           newTerm.start = this.inputs.addLessonStartAt; 
           newTerm.end = this.inputs.addLessonEndsAt;
+          newTerm.Day = this.inputs.addLessonDay;
           this.lessons.push(newTerm);
           break;
          }
@@ -347,8 +357,9 @@ export default {
     },
     getDayIndex(day) {
       for(var i = 0 ; i < 7; ++i) {
-        if(this.inputs.days[i].localeCompare(day))
+        if(this.inputs.days[i] === day) {
           return i;
+        }
       }
     },
     generatePlan() {
@@ -373,34 +384,41 @@ export default {
   for(var i = 0; i <  parseInt(this.inputs.numOfWeeks * 7); ++i) {
     body["optimizedActivity"]["isOpenedInDay"].push(true);
   }
-
-  for(let lesson of this.lessons) {
+  var lessonsToParse = JSON.parse(JSON.stringify(this.lessons));
+  for(var j = 0; j < lessonsToParse.length; ++j) {
     var lessonToParse = {
-      "id": lesson.Id,
-      "name": lesson.Name,
-      "repeatingPeriod": lesson.repeat_every,
+      "id": lessonsToParse[j].Id,
+      "name": lessonsToParse[j].Name,
+      "repeatingPeriod": parseInt(lessonsToParse[j].repeat_every),
       "possibleTerms": []
     };
-    lesson["possibleTerms"] = new Array();
-    for(let lsn of this.lessons) {
-      console.log(lsn.start_from_week);
-      if(parseInt(lsn.Id) == parseInt(lesson.Id)) {
+    lessonToParse["possibleTerms"] = new Array();
+    var term = {
+      "startTime": lessonsToParse[j].start,
+      "durationInMinutes": moment.duration(moment(lessonsToParse[j].end, 'HH:mm').diff(moment(lessonsToParse[j].start, 'HH:mm'))).asMinutes(),
+      "cycleDayNumber": this.getDayIndex(lessonsToParse[j].Day) + 7 * (parseInt(lessonsToParse[j].start_from_week) - 1),
+    }
+    lessonToParse["possibleTerms"].push(term);
+    for(var i = j+1; i < lessonsToParse.length; ++i) {
+      if(parseInt(lessonsToParse[i].Id) == parseInt(lessonsToParse[i].Id)) {
         var term = {
-          "startTime": lsn.start,
-          "durationInMinutes": moment.duration(moment(lsn.end, 'HH:mm').diff(moment(lsn.start, 'HH:mm'))).asMinutes(),
-          "cycleDayNumber": this.getDayIndex(lsn.Day) * 7 + lsn.start_from_week,
+          "startTime": lessonsToParse[i].start,
+          "durationInMinutes": moment.duration(moment(lessonsToParse[i].end, 'HH:mm').diff(moment(lessonsToParse[i].start, 'HH:mm'))).asMinutes(),
+          "cycleDayNumber": this.getDayIndex(lessonsToParse[i].Day) + 7 * (parseInt(lessonsToParse[i].start_from_week) - 1),
         }
-        lessonToParse.possibleTerms.push(term);
+        lessonToParse["possibleTerms"].push(term);
+        lessonsToParse.splice(i,1);
+        --i;
       }
     }
     body["lessons"].push(new Object(JSON.parse(JSON.stringify(lessonToParse))));
   }
-  for(var i = 0; i < this.lessons.length; ++i) {
-    var arr = [];
-     for(var i = 0; i < this.lessons.length; ++i) {
-       arr.push(0);
-     }
-     body["timeDistanceInMinutes"].push(arr);
+  var arr = [];
+  for(var j = 0; j < lessonsToParse.length; ++j) {
+    arr.push(1);
+  }
+  for(var i = 0; i < lessonsToParse.length; ++i) {
+    body["timeDistanceInMinutes"].push(arr);
   }
     var res = service.post("/api/plans", body);
     }
