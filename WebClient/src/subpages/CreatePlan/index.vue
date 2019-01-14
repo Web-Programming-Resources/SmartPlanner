@@ -235,7 +235,7 @@ export default {
         }
       },
       lessons: [],
-      idCount: 0,
+      idCount: 1,
     }
   },
   computed: {
@@ -364,7 +364,7 @@ export default {
     },
     generatePlan() {
       var body = {
-        "planName" : this.inputs.planName,
+        "name" : this.inputs.planName,
         "daysInCycle": parseInt(this.inputs.numOfWeeks * 7),
         "maxCommutesPerDay": parseInt(this.inputs.maxCommutes),
         "optimizedActivity": {
@@ -399,8 +399,8 @@ export default {
       "cycleDayNumber": this.getDayIndex(lessonsToParse[j].Day) + 7 * (parseInt(lessonsToParse[j].start_from_week) - 1),
     }
     lessonToParse["possibleTerms"].push(term);
-    for(var i = j+1; i < lessonsToParse.length; ++i) {
-      if(parseInt(lessonsToParse[i].Id) == parseInt(lessonsToParse[i].Id)) {
+    for(var i = j + 1; i < lessonsToParse.length; ++i) {
+      if(parseInt(lessonsToParse[i].Id) == parseInt(lessonsToParse[j].Id)) {
         var term = {
           "startTime": lessonsToParse[i].start,
           "durationInMinutes": moment.duration(moment(lessonsToParse[i].end, 'HH:mm').diff(moment(lessonsToParse[i].start, 'HH:mm'))).asMinutes(),
@@ -413,6 +413,7 @@ export default {
     }
     body["lessons"].push(new Object(JSON.parse(JSON.stringify(lessonToParse))));
   }
+  console.log(body);
   var arr = [];
   for(var j = 0; j < lessonsToParse.length; ++j) {
     arr.push(1);
