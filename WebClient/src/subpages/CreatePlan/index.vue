@@ -165,17 +165,31 @@
     </b-card>
      <b-card id="matrix" no-body>
       <b-card-header header-tag="header" class="p-0">
-        <b-btn block href="#" v-b-toggle.matrix variant="info" class="text-left">{{headers.activities}}</b-btn>
+        <b-btn block href="#" v-b-toggle.matrix variant="info" class="text-left">{{headers.matrix}}</b-btn>
       </b-card-header>
       <b-collapse id="matrix" visible>
-        <table class="table table-sm table-hover">
-          <thead>
-            <th v-for="lesson in this.lessons" :key="lesson">
-              <p>{{lesson.Id}}</p>
-              <b-form-input id="commuteMatrix" v-model="inputs.commuteMatrix[0]" class="calculation-settings-input"></b-form-input>
-            </th>
-          </thead>
-        </table>
+        <b-container class="mt-3 mb-3">
+          <b-row>
+            <b-col class="bt br bl bb">ID</b-col>
+            <b-col class="bt br bl bb">{{headers.work}}</b-col>
+            <b-col v-for="lesson in lessonsToParse" :key="lesson.Id" class="bl bt br">{{lesson.Id}}</b-col>
+          </b-row>
+          <b-row>
+            <b-col class="bt br bl bb">{{headers.work}}</b-col>
+            <b-col v-for="i in (0, lessonsToParse.length + 1)" :key="i" class="bl bt br">
+              <b-form-input :id="toString(10*i)" v-model="inputs.commuteMatrix[0][i-1]" type='number' size="sm" class="text-right"></b-form-input>
+            </b-col>
+          </b-row>
+          <b-row v-for="(lesson, i) in lessonsToParse" :key="lesson.Id">
+            <b-col class="bt br bl bb">{{lesson.Id}}</b-col>
+            <b-col class="bt br bl bb">
+              <b-form-input :id="toString(10*i)" v-model="inputs.commuteMatrix[i+1][0]" type='number' size="sm" class="text-right"></b-form-input>
+            </b-col>
+            <b-col v-for="(lesson, j) in lessonsToParse" :key="lesson.Id" class="bt br bl bb">
+              <b-form-input :id="toString(10*i+j)" v-model="inputs.commuteMatrix[i+1][j+1]" type='number' size="sm" class="text-right"></b-form-input>
+            </b-col>
+        </b-row>
+        </b-container>
       </b-collapse>
     </b-card>
     <b-card id="activities" no-body>
@@ -197,7 +211,8 @@ export default {
   data() {
     return {
       inputs: {
-        commuteMatrix: [0,0,0,0],
+        x: '',
+        commuteMatrix: [[0]],
         planName: 'plan',
         numOfWeeks: 1,
         maxCommutes: 1,
@@ -240,6 +255,7 @@ export default {
         addTerm: '',
         removeButton: '',
         generateButton: '',
+        work: '',
         validators: {
           numOfWeeks: '',
           maxCommutes: '',
@@ -252,6 +268,7 @@ export default {
       },
       lessons: [],
       idCount: 1,
+      lessonsToParse: []
     }
   },
   computed: {
@@ -313,7 +330,9 @@ export default {
           this.headers.validators.notNull = "Pole nie może być puste";
           this.headers.validators.positiveVal = "Wartość musi być > 0";
           this.headers.validators.repeatEvery = "Wartość musi być <= liczby tygodni w cyklu oraz > 0";
-          this.headers.generateButton = "Generuj"
+          this.headers.generateButton = "Generuj";
+          this.headers.matrix = "Macierz dojazdów";
+          this.headers.work = "Praca";
         break;
         case "en":
           this.headers.settings = "Settings";
@@ -343,13 +362,24 @@ export default {
           this.headers.validators.numOfWeeks = "Value must be > 0";
           this.headers.validators.notNull = "Field cannot be empty";
           this.headers.validators.repeatEvery = "Value must be <= weeks in cycle and > 0";
-          this.headers.generateButton = "Generate"
+          this.headers.generateButton = "Generate";
+          this.headers.matrix = "Commute Matrix";
+          this.headers.work = "Work";
         break;
       }
     },
     addActivity() {
       this.lessons.push({Id: this.idCount, Name: this.inputs.lessonName, Day: this.inputs.lessonDay, repeat_every:  this.inputs.repeatEvery, start_from_week: this.inputs.startFromWeek, start: this.inputs.lessonStartAt, end: this.inputs.lessonEndsAt });
       ++this.idCount;
+      var body = { "lessons": []};
+      this.prepareLessons(body);
+      this.inputs.commuteMatrix = new Array(this.lessonsToParse.length + 1);
+      for(var i = 0; i < this.lessonsToParse.length + 1; ++i) {
+        this.inputs.commuteMatrix[i] = new Array(this.lessonsToParse.length + 1);
+        for(var j = 0; j < this.lessonsToParse.length + 1; ++j) {
+          this.inputs.commuteMatrix[i][j] = 0;
+        }
+      }
     },
     addTerm() {
        for(var i = 0; i < this.lessons.length; ++i) {
@@ -375,6 +405,16 @@ export default {
         lesson.Id = this.idCount;
         ++this.idCount;
       }
+
+    var body = { "lessons": []};
+      this.prepareLessons(body);
+      this.inputs.commuteMatrix = new Array(this.lessonsToParse.length + 1);
+      for(var i = 0; i < this.lessonsToParse.length + 1; ++i) {
+        this.inputs.commuteMatrix[i] = new Array(this.lessonsToParse.length + 1);
+        for(var j = 0; j < this.lessonsToParse.length + 1; ++j) {
+          this.inputs.commuteMatrix[i][j] = 0;
+        }
+      }
     },
     getDayIndex(day) {
       for(var i = 0 ; i < 7; ++i) {
@@ -383,6 +423,39 @@ export default {
         }
       }
     },
+
+    prepareLessons(body) {
+      this.lessonsToParse = JSON.parse(JSON.stringify(this.lessons));
+      for(var j = 0; j < this.lessonsToParse.length; ++j) {
+        var lessonToParse = {
+          "id": this.lessonsToParse[j].Id,
+          "name": this.lessonsToParse[j].Name,
+          "repeatingPeriod": parseInt(this.lessonsToParse[j].repeat_every * 7),
+          "possibleTerms": []
+        };
+        lessonToParse["possibleTerms"] = new Array();
+        var term = {
+          "startTime": this.lessonsToParse[j].start,
+          "durationInMinutes": moment.duration(moment(this.lessonsToParse[j].end, 'HH:mm').diff(moment(this.lessonsToParse[j].start, 'HH:mm'))).asMinutes(),
+          "cycleDayNumber": this.getDayIndex(this.lessonsToParse[j].Day) + 7 * (parseInt(this.lessonsToParse[j].start_from_week) - 1),
+        }
+        lessonToParse["possibleTerms"].push(term);
+        for(var i = j + 1; i < this.lessonsToParse.length; ++i) {
+          if(parseInt(this.lessonsToParse[i].Id) == parseInt(this.lessonsToParse[j].Id)) {
+            var term = {
+              "startTime": this.lessonsToParse[i].start,
+              "durationInMinutes": moment.duration(moment(this.lessonsToParse[i].end, 'HH:mm').diff(moment(this.lessonsToParse[i].start, 'HH:mm'))).asMinutes(),
+              "cycleDayNumber": this.getDayIndex(this.lessonsToParse[i].Day) + 7 * (parseInt(this.lessonsToParse[i].start_from_week) - 1),
+            }
+            lessonToParse["possibleTerms"].push(term);
+            this.lessonsToParse.splice(i,1);
+            --i;
+          }
+        }
+        body["lessons"].push(new Object(JSON.parse(JSON.stringify(lessonToParse))));
+      }
+    },
+
     generatePlan() {
       var body = {
         "name" : this.inputs.planName,
@@ -405,44 +478,14 @@ export default {
   for(var i = 0; i <  parseInt(this.inputs.numOfWeeks * 7); ++i) {
     body["optimizedActivity"]["isOpenedInDay"].push(true);
   }
-  var lessonsToParse = JSON.parse(JSON.stringify(this.lessons));
-  for(var j = 0; j < lessonsToParse.length; ++j) {
-    var lessonToParse = {
-      "id": lessonsToParse[j].Id,
-      "name": lessonsToParse[j].Name,
-      "repeatingPeriod": parseInt(lessonsToParse[j].repeat_every * 7),
-      "possibleTerms": []
-    };
-    lessonToParse["possibleTerms"] = new Array();
-    var term = {
-      "startTime": lessonsToParse[j].start,
-      "durationInMinutes": moment.duration(moment(lessonsToParse[j].end, 'HH:mm').diff(moment(lessonsToParse[j].start, 'HH:mm'))).asMinutes(),
-      "cycleDayNumber": this.getDayIndex(lessonsToParse[j].Day) + 7 * (parseInt(lessonsToParse[j].start_from_week) - 1),
+  this.prepareLessons(body);
+  for(var i = 0; i < this.lessonsToParse.length + 1; ++i) {
+    for(var j = 0; j < this.lessonsToParse.length + 1; ++j) {
+      this.inputs.commuteMatrix[i][j] = parseInt(this.inputs.commuteMatrix[i][j]);
     }
-    lessonToParse["possibleTerms"].push(term);
-    for(var i = j + 1; i < lessonsToParse.length; ++i) {
-      if(parseInt(lessonsToParse[i].Id) == parseInt(lessonsToParse[j].Id)) {
-        var term = {
-          "startTime": lessonsToParse[i].start,
-          "durationInMinutes": moment.duration(moment(lessonsToParse[i].end, 'HH:mm').diff(moment(lessonsToParse[i].start, 'HH:mm'))).asMinutes(),
-          "cycleDayNumber": this.getDayIndex(lessonsToParse[i].Day) + 7 * (parseInt(lessonsToParse[i].start_from_week) - 1),
-        }
-        lessonToParse["possibleTerms"].push(term);
-        lessonsToParse.splice(i,1);
-        --i;
-      }
-    }
-    body["lessons"].push(new Object(JSON.parse(JSON.stringify(lessonToParse))));
+    body["timeDistanceInMinutes"].push(this.inputs.commuteMatrix[i]);
   }
-  console.log(body);
-  var arr = [];
-  for(var j = 0; j < lessonsToParse.length; ++j) {
-    arr.push(1);
-  }
-  for(var i = 0; i < lessonsToParse.length; ++i) {
-    body["timeDistanceInMinutes"].push(arr);
-  }
-  body["timeDistanceInMinutes"]= [[1,1,1], [1,1,1], [1,1,1]];
+    console.log(body);
     var res = service.post("/api/plans", body);
     }
   }
