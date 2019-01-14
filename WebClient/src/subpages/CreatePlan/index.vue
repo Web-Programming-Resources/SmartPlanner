@@ -485,8 +485,14 @@ export default {
     }
     body["timeDistanceInMinutes"].push(this.inputs.commuteMatrix[i]);
   }
-    console.log(body);
-    var res = service.post("/api/plans", body);
+    var res = service.post("/api/plans", body).then(
+      response => {
+
+      }
+    )
+    .catch(error => {
+      console.log("error");
+    });
     }
   }
 }
