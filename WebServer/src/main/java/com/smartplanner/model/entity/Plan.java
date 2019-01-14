@@ -14,20 +14,21 @@ public class Plan {
 
     @Id
     @Column(name = "plan_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @Column(name = "plan_name", length = 100)
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(mappedBy = "plan")
+    @OneToOne(mappedBy = "plan", cascade = CascadeType.ALL)
     private OptimizedActivity optimizedActivity;
 
-    @Column(name = "plan_name", length = 100)
-    private String name;
-
-    @Column(name = "max_days_in_cycle")
-    private int maxDaysInCycle;
+    @Column(name = "days_in_cycle")
+    private int daysInCycle;
 
     @Column(name = "max_commutes_per_day")
     private int maxCommutesPerDay;
@@ -35,7 +36,6 @@ public class Plan {
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
     private List<Lesson> lessons;
 
-    @Column(name = "time_distance")
-    @ElementCollection(targetClass = Integer.class)
-    private List<List<Integer>> timeDistanceInMinutes;
+    @OneToMany
+    private List<TimeDistanceFirstDimension> timeDistanceFirstDimension;
 }

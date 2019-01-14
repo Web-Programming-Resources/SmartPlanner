@@ -3,6 +3,7 @@ package com.smartplanner.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalTime;
@@ -16,9 +17,11 @@ public class OptimizedActivity {
 
     @Id
     @Column(name = "optimized_activity_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @OneToOne
+    @JoinColumn(name = "plan_id")
     @MapsId
     @JsonIgnore
     private Plan plan;

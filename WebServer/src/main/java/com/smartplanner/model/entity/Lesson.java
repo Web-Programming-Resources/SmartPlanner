@@ -14,6 +14,7 @@ public class Lesson {
 
     @Id
     @Column(name = "lesson_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @ManyToOne(targetEntity = Plan.class)
@@ -27,6 +28,6 @@ public class Lesson {
     @Column(name = "repeating_period")
     private int repeatingPeriod;
 
-    @OneToOne(mappedBy = "lesson")
+    @OneToOne(mappedBy = "lesson", cascade = CascadeType.ALL)
     private Term term;
 }

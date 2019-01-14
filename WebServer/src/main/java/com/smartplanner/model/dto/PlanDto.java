@@ -8,9 +8,11 @@ import java.util.List;
 
 @Getter
 @Setter
-public class SmartPlannerDto {
+public class PlanDto {
 
-    private String planName;
+    private int id;
+
+    private String name;
 
     private int daysInCycle;
 
@@ -19,5 +21,4 @@ public class SmartPlannerDto {
     private OptimizedActivity optimizedActivity;
 
     private List<List<Integer>> timeDistanceInMinutes;
-
 }

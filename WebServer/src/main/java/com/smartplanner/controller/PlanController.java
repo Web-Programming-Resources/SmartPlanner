@@ -1,12 +1,15 @@
 package com.smartplanner.controller;
 
 import com.smartplanner.exception.ResourceNotFoundException;
-import com.smartplanner.model.dto.SmartPlannerInputDto;
-import com.smartplanner.model.dto.SmartPlannerOutputDto;
+import com.smartplanner.model.dto.PlanInputDto;
+import com.smartplanner.model.dto.PlanOutputDto;
 import com.smartplanner.model.entity.Plan;
 import com.smartplanner.service.PlanService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,21 +31,27 @@ public class PlanController {
     }
 
     @GetMapping("{id}")
-    public Plan getPlanById(@PathVariable(value = "id") int id) throws ResourceNotFoundException {
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public PlanOutputDto getPlanById(@PathVariable(value = "id") int id) throws ResourceNotFoundException {
         if (!planService.findPlanById(id)) {
             throw new ResourceNotFoundException("Plan", "id", id);
         }
 
-        return planService.getPlanById(id);
+        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Plan plan = planService.getPlanById(id);
+        PlanOutputDto planOutputDto = modelMapper.map(plan, PlanOutputDto.class);
+
+        return planOutputDto;
     }
 
     @PostMapping()
-    public SmartPlannerOutputDto createPlan(@RequestBody SmartPlannerInputDto smartPlannerInputDto) {
-        SmartPlannerOutputDto smartPlannerOutputDto =
-                modelMapper.map(smartPlannerInputDto, SmartPlannerOutputDto.class);
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public PlanOutputDto createPlan(@RequestBody PlanInputDto planInputDto) {
 
-        smartPlannerOutputDto.setLessons(planService.generateOptimalPlan(smartPlannerInputDto));
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
 
-        return smartPlannerOutputDto;
+        return planService.generateOptimalPlan(planInputDto, username);
     }
 }

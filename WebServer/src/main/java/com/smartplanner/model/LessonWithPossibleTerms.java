@@ -15,6 +15,5 @@ import java.util.List;
 @Setter
 public class LessonWithPossibleTerms extends Lesson {
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Term> possibleTerms;
 }

@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public User save(UserDto userDto) {
+    public User saveUser(UserDto userDto) {
         User newUser = modelMapper.map(userDto, User.class);
         newUser.setPassword(bcryptEncoder.encode(newUser.getPassword()));
 

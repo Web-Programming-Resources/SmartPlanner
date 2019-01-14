@@ -28,7 +28,7 @@ public class AuthenticationController {
     private UserService userService;
 
     @PostMapping(value = "/generate")
-    public ResponseEntity<?> register(@RequestBody LoginUser loginUser) throws AuthenticationException {
+    public ResponseEntity<?> registerUser(@RequestBody LoginUser loginUser) throws AuthenticationException {
 
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

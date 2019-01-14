@@ -13,7 +13,7 @@ public interface UserService {
 
     User getUserById(int id);
 
-    User save(UserDto user);
+    User saveUser(UserDto user);
 
     List<User> findAll();
 

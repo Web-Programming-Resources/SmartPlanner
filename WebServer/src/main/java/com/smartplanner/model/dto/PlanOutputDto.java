@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class SmartPlannerOutputDto extends SmartPlannerDto {
+public class PlanOutputDto extends PlanDto {
 
     private List<Lesson> lessons;
 }

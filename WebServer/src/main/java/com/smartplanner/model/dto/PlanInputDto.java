@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class SmartPlannerInputDto extends SmartPlannerDto {
+public class PlanInputDto extends PlanDto {
 
     private List<LessonWithPossibleTerms> lessons;
 }
