@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-modal ref="registerModalRef" id="register" header-bg-variant="info" header-text-variant="white" centered hide-footer size="lg" :title="form.headers.registerButton">
-      <register :isModal="true" block @registered="onRegistered" v-if="Register.drawComponent"></register>
+      <register :isModal="true" block @registerSuccess="onRegisterSuccess" @registerFail="onRegisterFail" v-if="Register.drawComponent"></register>
     </b-modal>
     <b-container>
       <b-row class="text-left align-items-center">
@@ -30,6 +30,7 @@
 <script>
 import Register from "../Register/"
 import listener from "../../utilities/listeners"
+import service from "../../services/HttpRequestService";
 
 export default {
   data() {
@@ -62,22 +63,26 @@ export default {
       }
     }
   },
+
   mounted() {
     this.chooseLanguage(this.language);
     listener.addValidityListeners(document, ['login_username', 'login_password'], this.form.headers.emptyInput);
   },
+
   computed: {
     language() {
       return this.$store.getters.language;
     }
   },
+
   watch: {
     language (newVal, oldVal) {
-    listener.removeValidityListeners(document, ['login_username', 'login_password'], this.form.headers.emptyInput);
-    this.chooseLanguage(newVal);
-    listener.addValidityListeners(document, ['login_username', 'login_password'], this.form.headers.emptyInput);
+      listener.removeValidityListeners(document, ['login_username', 'login_password'], this.form.headers.emptyInput);
+      this.chooseLanguage(newVal);
+      listener.addValidityListeners(document, ['login_username', 'login_password'], this.form.headers.emptyInput);
     }
   },
+
   methods: {
     chooseLanguage(lang) {
       switch(lang) {
@@ -90,6 +95,7 @@ export default {
               this.form.headers.registerButton = "Zarejestruj";
               this.form.headers.emptyInput = "Uzupełnij to pole.";
               this.form.headers.createdUser = "Utworzono użytkownika.";
+              this.form.headers.notCreatedUser = "Błąd podczas tworzenia użytkownika.";
               this.form.headers.badLogin = "Błędna nazwa użytkownika lub hasło.";
         break;
         case "en":
@@ -101,36 +107,46 @@ export default {
               this.form.headers.registerButton = "Register";
               this.form.headers.emptyInput = "Fill this field.";
               this.form.headers.createdUser = "User created succesfully.";
+              this.form.headers.notCreatedUser = "Couldn't create user.";
               this.form.headers.badLogin = "Wrong username or password.";
         default:
         break;
       }
     },
+
     onSubmit(evt) {
       evt.preventDefault();
-      var data = {
-          // TODO sk: load access token from web api when available
-          accessToken: "1",
-          username: this.form.username,
-      }
-      // TODO sk: validate with data from database when available
-      if(this.form.inputs.username == this.$root.$data.username && this.form.inputs.password == this.$root.$data.password)
-      {
-        this.$store.commit('login', data);
-        this.$router.push({path: '/'});
-      }
-      else
-      {
-        this.alert.type = "danger";
-        this.alert.msg = this.form.headers.badLogin;
-        this.alert.dismissCountDown = this.alert.dismissSecs;
-      }
+      var body = {
+        "username": this.form.inputs.username,
+        "password": this.form.inputs.password
+      };
+      service.postWithoutToken("/api/token/generate", body).then(
+        response => {
+          var data = {
+            accessToken: response["data"]["token"],
+            username: this.form.username,
+          };
+          this.$store.commit('login', data);
+          this.$router.push({path: '/'});
+        })
+        .catch(error => {
+          this.alert.type = "danger";
+          this.alert.msg = this.form.headers.badLogin;
+          this.alert.dismissCountDown = this.alert.dismissSecs;
+        });
     },
 
-    onRegistered() {
+    onRegisterSuccess() {
       this.$refs.registerModalRef.hide();
       this.alert.type = "success";
       this.alert.msg = this.form.headers.createdUser;
+      this.alert.dismissCountDown = this.alert.dismissSecs;
+    },
+
+    onRegisterFail() {
+      this.$refs.registerModalRef.hide();
+      this.alert.type = "danger";
+      this.alert.msg = this.form.headers.notCreatedUser;
       this.alert.dismissCountDown = this.alert.dismissSecs;
     },
 
