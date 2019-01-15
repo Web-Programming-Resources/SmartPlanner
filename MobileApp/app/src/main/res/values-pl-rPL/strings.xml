@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SmartPlanner</string>
+    <string name="string_ok">OK</string>
+    <string name="string_server_error">błąd servera</string>
+    <string name="string_server_connection_error">nie udało się połączyć</string>
+    <string name="string_server_connection_error_message">nie udało się połączyć z serverem, sprawdź swój dostęp do internetu</string>
+    <string name="string_prompt_email">login</string>
+    <string name="string_prompt_password">hasło</string>
+    <string name="string_prompt_login">zaloguj</string>
+    <string name="string_wrong_login">błędny login lub hasło</string>
+    <string name="string_navigation_drawer_header">Plany</string>
+    <string name="string_plans_loading_error">błąd ładowania planów</string>
+    <string name="string_plan_loading_error">błąd ładowania planu</string>
+    <string name="string_signup">zarejestruj się</string>
+    <string name="string_prompt_signup">stwórz konto</string>
+    <string name="string_empty_email_or_password">pusty email lub haslo</string>
+    <string name="string_prompt_address">wprowadz address</string>
+
+    <string-array name="week_days">
+        <item>Poniedziałek</item>
+        <item>Wtorek</item>
+        <item>Środa</item>
+        <item>Czwartek</item>
+        <item>Piątek</item>
+        <item>Sobota</item>
+        <item>Niedziela</item>
+    </string-array>
+    <string name="string_wrong_email">błędny email</string>
+    <string name="string_account_created">konto utworzone</string>
+    <string name="string_account_creation_failed">błąd</string>
+</resources>

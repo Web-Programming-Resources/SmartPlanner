@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">SmartPlanner</string>
+    <string name="string_ok">OK</string>
+    <string name="string_server_error">server error</string>
+    <string name="string_server_connection_error">failed to connect</string>
+    <string name="string_server_connection_error_message">failed to connect to server check your internet connection</string>
+    <string name="string_plans_loading_error">plans loading error</string>
+    <string name="string_plan_loading_error">plan loading error</string>
+    <string name="string_signup">don\'t have account yet? sign up</string>
+    <string-array name="week_days">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+    <!-- strings connected to activity_login -->
+    <string name="string_prompt_email">username</string>
+    <string name="string_prompt_password">password</string>
+    <string name="string_prompt_login">login</string>
+    <string name="string_wrong_login">incorrect login or password</string>
+    <string name="string_prompt_signup">sign up</string>
+    <string name="string_wrong_email">wrong email</string>
+    <string name="string_account_created">account created</string>
+    <string name="string_account_creation_failed">error</string>
+    <string name="string_empty_email_or_password">empty email or password</string>
+    <string name="string_prompt_address">enter address</string>
+
+    <string name="string_navigation_drawer_header">Plans</string>
+
+</resources>
