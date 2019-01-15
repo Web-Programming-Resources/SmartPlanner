@@ -158,13 +158,13 @@ export default {
     getPlans() {
       var data =[
         {
-          name: "plan1",
-          daysInCycle: 7,
-          maxCommutesPerDay: 1,
-          optimizedActivityStartsAt: "08:00",
-          optimizedActivityEndsAt: "20:00",
-          minTimeSpentAtOptimizedActivityAtOnceInMinutes: 180,
-          maxTimeSpentAtOptimizedActivityAtOnceInMinutes: 480,
+          name: "",
+          daysInCycle: 0,
+          maxCommutesPerDay: 0,
+          optimizedActivityStartsAt: "8:00",
+          optimizedActivityEndsAt: "16:00",
+          minTimeSpentAtOptimizedActivityAtOnceInMinutes: 0,
+          maxTimeSpentAtOptimizedActivityAtOnceInMinutes: 0,
           isOpenedInDay: [1,1,1,1,1,0,0,1,1,1,1,1,0,0],
           lessons: [
             {

@@ -43,7 +43,7 @@
                     <th class="text-left font-weight-normal">{{headers.activityEnd}}</th>
                     <td class="text-right">
                       <b-form-input id="activityEnd" v-model="inputs.activityEnd" size="sm" class="text-right"  type='time' :state="notNullAndBeforeState(this.inputs.activityStart, this.inputs.activityEnd)"></b-form-input>
-                      <b-form-invalid-feedback id="activityEndFeedback">"{{headers.validators.notNull}}"</b-form-invalid-feedback>
+                      <b-form-invalid-feedback id="activityEndFeedback">"{{headers.validators.badValue}}"</b-form-invalid-feedback>
                     </td>
                   </tr>  
                     <tr>
@@ -56,8 +56,8 @@
                     <tr>
                     <th class="text-left font-weight-normal">{{headers.maxTimeAtActivity}}</th>
                     <td class="text-right">
-                      <b-form-input id="maxTimeAtActivity" v-model="inputs.maxTimeAtActivity" size="sm" class="text-right" type='time' :state="notNullState(this.inputs.maxTimeAtActivity)"></b-form-input>
-                      <b-form-invalid-feedback id="maxTimeAtActivityFeedback">"{{headers.validators.notNull}}"</b-form-invalid-feedback>
+                      <b-form-input id="maxTimeAtActivity" v-model="inputs.maxTimeAtActivity" size="sm" class="text-right" type='time' :state="notNullAndBeforeState(this.inputs.minTimeAtActivity, this.inputs.maxTimeAtActivity)"></b-form-input>
+                      <b-form-invalid-feedback id="maxTimeAtActivityFeedback">"{{headers.validators.badValue}}"</b-form-invalid-feedback>
                     </td>
                   </tr>                      
                 </tbody>
@@ -104,13 +104,18 @@
                   <tr>
                     <th class="text-left font-weight-normal">{{headers.lessonEndsAt}}</th>
                     <td class="text-right">
-                      <b-form-input id="lessonEdnsAt" v-model="inputs.lessonEndsAt" size="sm" class="text-right"  type='time' :state="notNullState(this.inputs.lessonEndsAt)"></b-form-input>
-                      <b-form-invalid-feedback id="lessonEndsAtFeedback">"{{headers.validators.notNull}}"</b-form-invalid-feedback>
+                      <b-form-input id="lessonEdnsAt" v-model="inputs.lessonEndsAt" size="sm" class="text-right"  type='time' :state="notNullAndBeforeState(this.inputs.lessonStartAt, this.inputs.lessonEndsAt)"></b-form-input>
+                      <b-form-invalid-feedback id="lessonEndsAtFeedback">"{{headers.validators.badValue}}"</b-form-invalid-feedback>
                     </td>
                   </tr>                  
                 </tbody>
               </table>
+              <b-row class="float-right mr-2">
                 <b-button type="submit" variant="primary" class="float-right" @click="addActivity()">{{headers.addButton}}</b-button>
+              </b-row>
+              <b-row>
+                <b-alert dismissible fade :show="alert.dismissCountDown" :variant="alert.type" @dismissed="alert.dismissCountDown=0" @dismiss-count-down="countDownChanged" >{{ (alert.type === "danger" ? alert.msgBad : alert.msgGood) }}</b-alert>
+              </b-row>
             </b-col>
             <b-col cols="3">
               <table class="table table-sm color mt-0 p-0">
@@ -138,8 +143,8 @@
                   <tr>
                     <th class="text-left font-weight-normal">{{headers.lessonEndsAt}}</th>
                     <td class="text-right">
-                      <b-form-input id="lessonEdnsAt" v-model="inputs.addLessonEndsAt" size="sm" class="text-right"  type='time' :state="notNullState(this.inputs.addLessonEndsAt)"></b-form-input>
-                      <b-form-invalid-feedback id="lessonEndsAtFeedback">"{{headers.validators.notNull}}"</b-form-invalid-feedback>
+                      <b-form-input id="lessonEdnsAt" v-model="inputs.addLessonEndsAt" size="sm" class="text-right"  type='time' :state="notNullAndBeforeState(this.inputs.addLessonStartAt, this.inputs.addLessonEndsAt)"></b-form-input>
+                      <b-form-invalid-feedback id="lessonEndsAtFeedback">"{{headers.validators.badValue}}"</b-form-invalid-feedback>
                     </td>
                   </tr>                
                 </tbody>
@@ -266,6 +271,13 @@ export default {
           repeatEvery: '',
         }
       },
+      alert: {
+        type: '',
+        msgGood: '',
+        msgBad: '',
+        dismissCountDown: 0,
+        dismissSecs: 3,
+      },
       lessons: [],
       idCount: 1,
       lessonsToParse: []
@@ -330,9 +342,12 @@ export default {
           this.headers.validators.notNull = "Pole nie może być puste";
           this.headers.validators.positiveVal = "Wartość musi być > 0";
           this.headers.validators.repeatEvery = "Wartość musi być <= liczby tygodni w cyklu oraz > 0";
+          this.headers.validators.badValue = "Nieprawidłowa wartość";
           this.headers.generateButton = "Generuj";
           this.headers.matrix = "Macierz dojazdów";
           this.headers.work = "Praca";
+          this.alert.msgBad = "Nie udało się utworzyć planu";
+          this.alert.msgGood = "Utworzono plan";
         break;
         case "en":
           this.headers.settings = "Settings";
@@ -362,9 +377,12 @@ export default {
           this.headers.validators.numOfWeeks = "Value must be > 0";
           this.headers.validators.notNull = "Field cannot be empty";
           this.headers.validators.repeatEvery = "Value must be <= weeks in cycle and > 0";
+          this.headers.validators.badValue = "Bad value";
           this.headers.generateButton = "Generate";
           this.headers.matrix = "Commute Matrix";
           this.headers.work = "Work";
+          this.alert.msgBad = "Couldn't create plan";
+          this.alert.msgGood = "Created plan";
         break;
       }
     },
@@ -487,13 +505,22 @@ export default {
   }
     var res = service.post("/api/plans", body).then(
       response => {
-
+      this.alert.show = true;
+      this.alert.type = "success";
+      this.alert.dismissCountDown = this.alert.dismissSecs;
       }
     )
     .catch(error => {
       console.log("error");
+      this.alert.show = true;
+      this.alert.type = "danger";
+      this.alert.dismissCountDown = this.alert.dismissSecs;
     });
-    }
+    },
+    countDownChanged (dismissCountDown) {
+      this.alert.dismissCountDown = dismissCountDown
+    },
+
   }
 }
 </script>
