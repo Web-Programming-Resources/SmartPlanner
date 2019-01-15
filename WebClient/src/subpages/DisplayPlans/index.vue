@@ -187,7 +187,6 @@ export default {
       service.get("/api/users/plans").then(response => {
         this.formatData(response.data);
         this.plans = response.data;
-        console.log(response.data);
         this.$forceUpdate();
       });
     },
@@ -200,7 +199,6 @@ export default {
             var curTime = moment(hour, 'HH:mm').add((quarter - 1) * 15 + (minute - 1) * 3, 'minutes');
             var startTime = moment(lesson.term.startTime, "HH:mm");
             var endTime = moment(startTime).add(lesson.term.durationInMinutes, 'minutes');
-            console.log(startTime.toString(), endTime.toString());
             if(curTime.isBetween(moment(startTime), moment(startTime).add(lesson.term.durationInMinutes, 'minutes'), 'minute', '[)'))
             {
               return true;

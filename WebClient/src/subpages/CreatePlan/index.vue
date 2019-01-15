@@ -182,7 +182,7 @@
           <b-row>
             <b-col class="bt br bl bb">{{headers.work}}</b-col>
             <b-col v-for="i in (0, lessonsToParse.length + 1)" :key="i" class="bl bt br">
-              <b-form-input :id="toString(10*i)" v-model="inputs.commuteMatrix[0][i-1]" type='number' size="sm" class="text-right"></b-form-input>
+              <b-form-input :id="toString(10*i)" v-model="inputs.commuteMatrix[0][i-1]" :disabled="i == 1" type='number' size="sm" class="text-right"></b-form-input>
             </b-col>
           </b-row>
           <b-row v-for="(lesson, i) in lessonsToParse" :key="lesson.Id">
@@ -191,7 +191,7 @@
               <b-form-input :id="toString(10*i)" v-model="inputs.commuteMatrix[i+1][0]" type='number' size="sm" class="text-right"></b-form-input>
             </b-col>
             <b-col v-for="(lesson, j) in lessonsToParse" :key="lesson.Id" class="bt br bl bb">
-              <b-form-input :id="toString(10*i+j)" v-model="inputs.commuteMatrix[i+1][j+1]" type='number' size="sm" class="text-right"></b-form-input>
+              <b-form-input :id="toString(10*i+j)" v-model="inputs.commuteMatrix[i+1][j+1]" :disabled="i==j" type='number' size="sm" class="text-right"></b-form-input>
             </b-col>
         </b-row>
         </b-container>
