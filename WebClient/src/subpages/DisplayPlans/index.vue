@@ -53,7 +53,7 @@
               <b-row v-for="hour in table.hours" :key="hour">
                 <b-col class="bl bt br table-header" >{{hour}}</b-col>
                 <b-col v-for="(day, index) in table.days" :key="hour+day" class="bt br hv table-header" >
-                  <b-row v-for="quarter in (0,4)" :key="quarter" class = "row-quarter bt-dot hv" v-on:click="test()">
+                  <b-row v-for="quarter in (0,4)" :key="quarter" class = "row-quarter bt-dot hv">
                     <div v-if="isLessonHeaderToDisplay(plan, index, hour, quarter, 1)" class="no-bg">{{currentLesson}}</div>
                     <b-col>
                       <b-row v-for="minute in (0,5)" :key="day+hour+quarter+minute" v-if="isLessonToDisplay(plan, index, hour, quarter, minute)" class="row-threemin lesson"></b-row>
@@ -72,6 +72,7 @@
 <script>
 import moment from "moment"
 import formatter from "../../utilities/formatter"
+import service from "../../services/HttpRequestService";
 
 export default {
   data() {
@@ -122,9 +123,6 @@ export default {
   },
 
   methods: {
-    test() {
-      console.log("test");
-    },
     chooseLanguage(lang) {
       switch(lang) {
         case "pl":
@@ -158,12 +156,11 @@ export default {
     },
 
     getPlans() {
-      //TODO sk: get plans from Web API
-      var data = [
+      var data =[
         {
           name: "plan1",
-          daysInCycle: 14,
-          maxCommutesPerDay: 2,
+          daysInCycle: 7,
+          maxCommutesPerDay: 1,
           optimizedActivityStartsAt: "08:00",
           optimizedActivityEndsAt: "20:00",
           minTimeSpentAtOptimizedActivityAtOnceInMinutes: 180,
@@ -181,144 +178,18 @@ export default {
                 cycleDayNumber: 0
               }
             },
-            {
-              id: 1,
-              name: "Systemy Wbudowane",
-              repeatingPeriod: 7,
-              term:
-              {
-                startTime: "11:00",
-                durationInMin: 90,
-                cycleDayNumber: 0
-              }
-            },
-            {
-              id: 2,
-              name: "Systemy Baz Danych",
-              repeatingPeriod: 14,
-              term:
-              {
-                startTime: "09:15",
-                durationInMin: 90,
-                cycleDayNumber: 1
-              }
-            },
-            {
-              id: 3,
-              name: "Symulacje Komputerowe",
-              repeatingPeriod: 14,
-              term:
-              {
-                startTime: "14:30",
-                durationInMin: 90,
-                cycleDayNumber: 8
-              }
-            },
-            {
-              id: 4,
-              name: "Programowanie w Jezyku Java",
-              repeatingPeriod: 14,
-              term:
-              {
-                startTime: "09:15",
-                durationInMin: 90,
-                cycleDayNumber: 2
-              }
-            },
-            {
-              id: 5,
-              name: "Komputerowe Wspomaganie Decyzji",
-              repeatingPeriod: 14,
-              term:
-              {
-                startTime: "14:30",
-                durationInMin: 90,
-                cycleDayNumber: 3
-              }
-            },
-          ]
-        },
-        {
-          name: "plan2",
-          daysInCycle: 14,
-          maxCommutesPerDay: 2,
-          optimizedActivityStartsAt: "10:00",
-          optimizedActivityEndsAt: "20:00",
-          minTimeSpentAtOptimizedActivityAtOnceInMinutes: 180,
-          maxTimeSpentAtOptimizedActivityAtOnceInMinutes: 480,
-          isOpenedInDay: [1,1,1,1,1,0,0,1,1,1,1,1,0,0],
-          lessons: [
-            {
-              id: 0,
-              name: "Inzynieria Programowania",
-              repeatingPeriod: 14,
-              term:
-              {
-                startTime: "09:15",
-                durationInMin: 90,
-                cycleDayNumber: 0
-              }
-            },
-            {
-              id: 1,
-              name: "Systemy Wbudowane",
-              repeatingPeriod: 7,
-              term:
-              {
-                startTime: "11:00",
-                durationInMin: 90,
-                cycleDayNumber: 0
-              }
-            },
-            {
-              id: 2,
-              name: "Systemy Baz Danych",
-              repeatingPeriod: 14,
-              term:
-              {
-                startTime: "09:15",
-                durationInMin: 90,
-                cycleDayNumber: 1
-              }
-            },
-            {
-              id: 3,
-              name: "Symulacje Komputerowe",
-              repeatingPeriod: 14,
-              term:
-              {
-                startTime: "14:30",
-                durationInMin: 90,
-                cycleDayNumber: 8
-              }
-            },
-            {
-              id: 4,
-              name: "Programowanie w Jezyku Java",
-              repeatingPeriod: 14,
-              term:
-              {
-                startTime: "09:15",
-                durationInMin: 90,
-                cycleDayNumber: 2
-              }
-            },
-            {
-              id: 5,
-              name: "Komputerowe Wspomaganie Decyzji",
-              repeatingPeriod: 14,
-              term:
-              {
-                startTime: "14:30",
-                durationInMin: 90,
-                cycleDayNumber: 3
-              }
-            },
           ]
         },
       ]
-      this.formatData(data);
-      this.plans = data;
+        this.formatData(data);
+        this.plans = data;
+
+      service.get("/api/users/plans").then(response => {
+        this.formatData(response.data);
+        this.plans = response.data;
+        console.log(response.data);
+        this.$forceUpdate();
+      });
     },
     changeCurrentPlan() {
       this.currentPlan = this.plans[this.tabIndex];
@@ -327,10 +198,10 @@ export default {
       for(let lesson of plan.lessons) {
         if(dayNumber % 7 == lesson.term.cycleDayNumber % 7) {
             var curTime = moment(hour, 'HH:mm').add((quarter - 1) * 15 + (minute - 1) * 3, 'minutes');
-            
             var startTime = moment(lesson.term.startTime, "HH:mm");
-            var endTime = moment(startTime).add(lesson.term.durationInMin, 'minutes');
-            if(curTime.isBetween(moment(startTime), moment(startTime).add(lesson.term.durationInMin, 'minutes'), 'minute', '[)'))
+            var endTime = moment(startTime).add(lesson.term.durationInMinutes, 'minutes');
+            console.log(startTime.toString(), endTime.toString());
+            if(curTime.isBetween(moment(startTime), moment(startTime).add(lesson.term.durationInMinutes, 'minutes'), 'minute', '[)'))
             {
               return true;
             }
