@@ -104,26 +104,38 @@ public class ShowPlanActivity extends AppCompatActivity implements OnJsonReceive
             try {
                 forwardButton.setEnabled(true);
                 backwardButton.setEnabled(true);
+
                 findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 dataReceived = true;
-                ArrayList<Task> tasks = jsonToTasks(stringToJson(jsonString));
+                ArrayList<Task> planEntries = jsonToTasks(stringToJson(jsonString));
                 cycleDays = new CycleDay[daysInCycle];
                 adapters = new ShowPlanAdapter[daysInCycle]; // im not sure about whether i should create all adapters and then access them or create them everytime dynamically or mb sotre them somewhere else?
+
                 for (int i = 0; i < daysInCycle; i++) {
                     int weekNumber = i / daysInWeek;
                     int weekDayNameIndex = i % weekDays.length;
                     cycleDays[i] = new CycleDay(Integer.toString(weekNumber + 1) + ". " + weekDays[weekDayNameIndex]);
-                    adapters[i] = new ShowPlanAdapter(this, cycleDays[i].getRows());
+                    adapters[i] = new ShowPlanAdapter(this, cycleDays[i].getPlanEntries());
                 }
-                for (int i = 0; i < tasks.size(); i++) {
-                    Term term = tasks.get(i).getTerm();
-                    int repeatingPeriod = tasks.get(i).getRepeatingPeriod();
-                    if (repeatingPeriod == 0)
-                        repeatingPeriod = daysInCycle;
-                    for (int j = 0; repeatingPeriod * j < daysInCycle; j++) {
-                        int index = term.getCycleDayNumber() + repeatingPeriod * j;
-                        cycleDays[index].addTask(tasks.get(i).getName(), term.getStartTime(), term.getDuration());
+
+                for (int i = 0; i < planEntries.size(); i++) {
+                    Term term = planEntries.get(i).getTerm();
+                    int repeatingPeriod = planEntries.get(i).getRepeatingPeriod();
+
+                    if (repeatingPeriod == 0) { //entry doesn't repeat
+                        cycleDays[0].addPlanEntry(planEntries.get(i).getName(), term.getStartTime(), term.getDuration());
+                        continue;
                     }
+                        repeatingPeriod = daysInCycle;
+
+                    int j = 0;
+                    int index = term.getCycleDayNumber() + repeatingPeriod * j;
+                    while(index < daysInCycle) {
+                        cycleDays[index].addPlanEntry(planEntries.get(i).getName(), term.getStartTime(), term.getDuration());
+                        ++j;
+                        index = term.getCycleDayNumber() + repeatingPeriod * j;
+                    }
+
                 }
                 // set first views
                 drawerLayout.closeDrawers();
@@ -147,7 +159,8 @@ public class ShowPlanActivity extends AppCompatActivity implements OnJsonReceive
             for(int i = 0; i < jsonArray.length(); ++i){
                 JSONObject tempObj = jsonArray.getJSONObject(i);
                 int id = tempObj.getInt("id");
-                plans.add(new Plan(id));
+                String planName = tempObj.getString("name");
+                plans.add(new Plan(planName, id));
             }
             NavDrawerAdapter navDrawerAdapter = new NavDrawerAdapter(this, plans, this, token);
             navDrawerListView.setAdapter(navDrawerAdapter);

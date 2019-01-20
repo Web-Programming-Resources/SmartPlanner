@@ -3,17 +3,17 @@ package com.smartplanner;
 import java.util.ArrayList;
 
 public class CycleDay {
-    ArrayList<Row> rows;
+    ArrayList<planEntry> planEntries;
     String name;
 
     public CycleDay(String name) {
         this.name = name;
-        rows = new ArrayList<>();
+        planEntries = new ArrayList<>();
     }
 
-    public void addTask(String name, String startingTime, int duration){
+    public void addPlanEntry(String name, String startingTime, int duration){
         String endingTime = createEndingTime(startingTime, duration);
-        rows.add(getIndexToAddAt(startingTime), new Row(startingTime, endingTime, name));
+        planEntries.add(getIndexToAddAt(startingTime), new planEntry(startingTime, endingTime, name));
     }
     //@param String startTime - string in HH:MM format representing beggining time of task
     private String createEndingTime(String startTime, int duration){
@@ -23,6 +23,7 @@ public class CycleDay {
         int endMinutes = startMinutes + duration;
         int endHour = startHour + endMinutes / 60;
         endMinutes -= (endMinutes / 60) * 60;
+
         StringBuilder builder = new StringBuilder();
         if(endHour < 10) // 09: cases etc
             builder.append("0");
@@ -37,11 +38,11 @@ public class CycleDay {
     //@param String startTime - string in HH:MM format representing beggining time of task
     private int getIndexToAddAt(String startTime){
         int index = 0;
-        if(rows.isEmpty())
+        if(planEntries.isEmpty())
             index = 0;
         else {
-            for (int i = 0; i < rows.size(); i++) {
-                if (timeToMinutes(startTime) < timeToMinutes(rows.get(i).getStartingTime())) {
+            for (int i = 0; i < planEntries.size(); i++) {
+                if (timeToMinutes(startTime) < timeToMinutes(planEntries.get(i).getStartingTime())) {
                     break;
                 }
                 index = i + 1;
@@ -60,8 +61,8 @@ public class CycleDay {
 
     }
 
-    public ArrayList<Row> getRows() {
-        return rows;
+    public ArrayList<planEntry> getPlanEntries() {
+        return planEntries;
     }
 
     public String getName() {
