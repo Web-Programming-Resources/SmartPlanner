@@ -1,9 +1,11 @@
 package com.smartplanner.model;
 
+import com.smartplanner.exception.InvalidDataProvidedException;
 import com.smartplanner.model.entity.OptimizedActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
 
 /**
  * Finder of optimal timetable that allows to spent maximum possible time doing
@@ -16,6 +18,7 @@ public class SmartPlanner {
     private int maxCommutesPerDay;
     private int minTimeSpentAtOptimizedAtOnceInMinutes;
     private OptimizedActivity optimizedActivity;
+    private ExecutorService executor;
 
     /**
      * Creates SmartPlanner that finds the most optimal plan based on passed arguments
@@ -34,6 +37,7 @@ public class SmartPlanner {
         this.maxCommutesPerDay = maxCommutesPerDay;
         this.minTimeSpentAtOptimizedAtOnceInMinutes = optimizedActivity.getMinTimeInMinutes(); //TODO:
         this.optimizedActivity = optimizedActivity;
+        this.executor = Executors.newSingleThreadExecutor();
     }
 
     /**
@@ -60,40 +64,96 @@ public class SmartPlanner {
         ArrayList<ArrayList<TimetableEntry>> firstHalfOfValidTimetables = new ArrayList<ArrayList<TimetableEntry>>();
         ArrayList<ArrayList<TimetableEntry>> secondHalfOfValidTimetables = new ArrayList<ArrayList<TimetableEntry>>();
 
-        Thread thread1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (ArrayList<TimetableEntry> timetable : firstHalfOfPotentialTimetables)
-                    if (validator.isValid(timetable))
-                        firstHalfOfValidTimetables.add(timetable);
-            }
-        });
+        class CallTask implements Callable<Boolean> {
 
-        Thread thread2 = new Thread(new Runnable() {
+            /**
+             * Perform computations for the first half of the potential timetables
+             *
+             * @return true if the computations have been successfully performed,
+             * false otherwise
+             *
+             * @throws Exception whenever computation is interrupted
+             */
             @Override
-            public void run() {
-                for (ArrayList<TimetableEntry> timetable : secondHalfOfPotentialTimetables)
-                    if (validator.isValid(timetable))
+            public Boolean call() throws Exception {
+                try {
+                    for (ArrayList<TimetableEntry> timetable : firstHalfOfPotentialTimetables) {
+                        if (validator.isValid(timetable)) {
+                            firstHalfOfValidTimetables.add(timetable);
+                        }
+                    }
+
+                    return true;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        }
+
+        Future<Boolean> isDataComputed = executor.submit(() -> {
+            /**
+             * Perform computations for the second half of the potential timetables
+             *
+             * return true if the computations have been successfully performed,
+             * false otherwise
+             */
+            try {
+                for (ArrayList<TimetableEntry> timetable : secondHalfOfPotentialTimetables) {
+                    if (validator.isValid(timetable)) {
                         secondHalfOfValidTimetables.add(timetable);
+                    }
+                }
+
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
             }
         });
 
-        thread1.start();
-        thread2.start();
+        List<Callable<Boolean>> listOfCallables = new ArrayList<>();
+        listOfCallables.add(new CallTask());
 
         try {
-            thread1.join();
-            thread2.join();
+            executor.invokeAll(listOfCallables);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+
+        try {
+            while (!isDataComputed.isDone()) {
+                System.out.println("Computing data...");
+                Thread.sleep(300);
+            }
+
+            if (!isDataComputed.get()) {
+                throw new InvalidDataProvidedException(
+                        "Cannot perform computations. An error occurred");
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(3, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException ex) {
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
+            throw new InvalidDataProvidedException(
+                    "An error occurred during computations");
         }
 
         ArrayList<ArrayList<TimetableEntry>> validTimetables = new ArrayList<ArrayList<TimetableEntry>>(firstHalfOfValidTimetables);
         validTimetables.addAll(secondHalfOfValidTimetables);
 
         TimetableWithDecisionPointsAndScore bestTimetable = new TimetableWithDecisionPointsAndScore(0, null, null);
-        if (validTimetables.size() != 0)
-        {
+        if (validTimetables.size() != 0) {
             OptimalityCalculator optimalityCalculator = new OptimalityCalculator(distanceManager, maxCommutesPerDay,
                     minTimeSpentAtOptimizedAtOnceInMinutes, daysInCycle, optimizedActivity);
 
