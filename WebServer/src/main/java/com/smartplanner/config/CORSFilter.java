@@ -1,17 +1,23 @@
 package com.smartplanner.config;
 
+import com.smartplanner.controller.LoggingController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class CORSFilter implements Filter {
 
+    private Logger logger = LoggerFactory.getLogger(LoggingController.class);
+
     public void doFilter(
             ServletRequest req,
             ServletResponse res,
             FilterChain chain
     ) throws IOException, ServletException {
-        System.out.println("Filtering...");
+        logger.info("Filtering...");
         HttpServletResponse response = (HttpServletResponse) res;
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Credentials", "true");
