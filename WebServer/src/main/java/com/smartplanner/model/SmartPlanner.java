@@ -1,7 +1,10 @@
 package com.smartplanner.model;
 
+import com.smartplanner.controller.LoggingController;
 import com.smartplanner.exception.InvalidDataProvidedException;
 import com.smartplanner.model.entity.OptimizedActivity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,7 @@ public class SmartPlanner {
     private int minTimeSpentAtOptimizedAtOnceInMinutes;
     private OptimizedActivity optimizedActivity;
     private ExecutorService executor;
+    private Logger logger;
 
     /**
      * Creates SmartPlanner that finds the most optimal plan based on passed arguments
@@ -38,6 +42,7 @@ public class SmartPlanner {
         this.minTimeSpentAtOptimizedAtOnceInMinutes = optimizedActivity.getMinTimeInMinutes(); //TODO:
         this.optimizedActivity = optimizedActivity;
         this.executor = Executors.newSingleThreadExecutor();
+        this.logger = LoggerFactory.getLogger(LoggingController.class);
     }
 
     /**
@@ -85,7 +90,7 @@ public class SmartPlanner {
 
                     return true;
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.error(e.getMessage());
                     return false;
                 }
             }
@@ -107,7 +112,7 @@ public class SmartPlanner {
 
                 return true;
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
                 return false;
             }
         });
@@ -117,12 +122,12 @@ public class SmartPlanner {
             listOfCallables.add(new CallTask());
             executor.invokeAll(listOfCallables);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
         try {
             while (!isDataComputed.isDone()) {
-                System.out.println("Computing data...");
+                logger.info("Computing data...");
                 Thread.sleep(300);
             }
 
@@ -131,9 +136,9 @@ public class SmartPlanner {
                         "Cannot perform computations. An error occurred");
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
         try {
