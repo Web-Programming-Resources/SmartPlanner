@@ -112,10 +112,9 @@ public class SmartPlanner {
             }
         });
 
-        List<Callable<Boolean>> listOfCallables = new ArrayList<>();
-        listOfCallables.add(new CallTask());
-
         try {
+            List<Callable<Boolean>> listOfCallables = new ArrayList<>();
+            listOfCallables.add(new CallTask());
             executor.invokeAll(listOfCallables);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -137,8 +136,8 @@ public class SmartPlanner {
             e.printStackTrace();
         }
 
-        executor.shutdown();
         try {
+            executor.shutdown();
             if (!executor.awaitTermination(3, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
