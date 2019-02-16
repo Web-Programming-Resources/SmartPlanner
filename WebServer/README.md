@@ -20,7 +20,7 @@ The concurrency is applied in the *getOptimalPlan()* method. The first thread us
 
 **Make sure that [Maven](https://maven.apache.org) is installed on your machine**
 
-* First of all, import this project into your IDE (only IntelliJ was tested). You can follow [this tutorial](https://www.lagomframework.com/documentation/1.4.x/java/IntellijMaven.htm)
+* First of all, import this project into your IDE (only IntelliJ was tested). You can follow [this tutorial](https://www.lagomframework.com/documentation/1.4.x/java/IntellijMaven.html)
 * The next step is to build the application - any dependencies should be resolved automatically by maven (**network connection required**)
 * Run the application
 
