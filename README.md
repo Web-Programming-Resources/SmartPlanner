@@ -15,3 +15,4 @@ Please feel free to read the following documents explaining each component:
 * [Jakub Gros](https://github.com/jakubgros) - Smart Planner Algorithm
 * [Sebastian Kucharzyk](https://github.com/kucharzyk-sebastian) - Front-End
 * [Kamil Nowak](https://github.com/nowakkamil) - Back-End
+* [Jakub Ledwoń](https://github.com/Leedwon) - Android App
