@@ -1,6 +1,6 @@
 # SmartPlanner
 
-The **Client-Server Web Application** which helps to obtain an optimal timetable allowing a user to spend the maximum possible time at the optimized activity. The algorithm chooses only one out of many possible terms for the given activity so that the user acquires a timetable with as few unintended breaks between activities as possible.
+A **Client-Server Web Application** which helps to obtain an optimal timetable allowing a user to spend the maximum possible time at the optimized activity. The algorithm chooses only one out of many possible terms for the given activity so that the user acquires a timetable with as few unintended breaks between activities as possible.
 
 ## Getting Started
 
